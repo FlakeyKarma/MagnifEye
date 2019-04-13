@@ -10,7 +10,7 @@ It's just a simple command-line-based function at the moment. You just type the 
 
 *Windows*:
 
-`C:\foo\ ThNeedle test.txt>`
+`C:\foo\ ThNeedle test.txt`
 
 *Linux*
 
@@ -28,3 +28,5 @@ OUTPUT =| 1 | :
 OUTPUT =| 2 | :
          the
 ```
+# Final Thoughts
+Do send in any recommendations! This is meant for people who want their *manuscript* to *reflect* an *extensive* vocabulary.
