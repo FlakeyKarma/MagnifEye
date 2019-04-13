@@ -5,14 +5,13 @@ It's just a simple command-line-based function at the moment. You just type the 
 
 # Example
 ##### test.txt
-`The quick brown fox jumped the q`
+`The quick brown fox jumps over the lazy dog`
 *Windows*:
 `C:\foo\ ThNeedle test.txt>`
 *Linux*
 `root:~$ ThNeedle test.txt`
 ##### returns this
 `stuffReturn: The quick brown fox jumps over the lazy dog
-
 ---------
 OUTPUT =| 1 | :
          brown
