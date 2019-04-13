@@ -18,11 +18,13 @@ It's just a simple command-line-based function at the moment. You just type the 
 
 ##### returns this
 
-`stuffReturn: The quick brown fox jumps over the lazy dog
+```
+stuffReturn: The quick brown fox jumps over the lazy dog
 ---------
 OUTPUT =| 1 | :
          brown
          jumps
          lazy
 OUTPUT =| 2 | :
-         the`
+         the
+```
