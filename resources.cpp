@@ -142,3 +142,22 @@ void stuffReturn::outP(string file, int ac) {
 			break;
 	}
 }
+
+void stuffReturn::clr(){
+	#ifdef _WIN32
+	system("CLS");
+	#else
+	system("clear");
+	#endif
+}
+
+void stuffReturn::pauz(){
+	char a[0];
+	#ifdef _WIN32
+	system("pause");
+	#else
+	cout << "PressAnyKey\\" << endl;
+	cin.ignore();
+	cin.get();
+	#endif
+}

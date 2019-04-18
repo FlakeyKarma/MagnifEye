@@ -13,5 +13,7 @@ class stuffReturn {
 		vector<long> numzReturn();
 		vector<string> strReturn();
 		void outP(string file, int ac);
+		void clr();
+		void pauz();
 };
 
