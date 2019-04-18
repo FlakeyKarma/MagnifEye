@@ -156,7 +156,7 @@ void stuffReturn::pauz(){
 	#ifdef _WIN32
 	system("pause");
 	#else
-	cout << "PressAnyKey\\" << endl;
+	cout << "\n\n\n\nPressAnyKey\\" << endl;
 	cin.ignore();
 	cin.get();
 	#endif
