@@ -11,7 +11,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			BLACKLIST.push_back((char)i);
 		}
 	}
-	cout << endl;
+	std::cout << endl;
 	for (long i = 0; i < inpt.length(); i++) {
 		bool CHK = false;
 		progressBar(float(1.0/inpt.length())*15.0);
@@ -33,7 +33,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			sz++;
 		}
 	}
-	cout << endl;
+	std::cout << endl;
 	return sS;
 }
 
@@ -59,7 +59,7 @@ void stuffReturn::nuMake(vector<string> s) {
 
 		}
 	}
-	cout << endl;
+	std::cout << endl;
 	intSz = intList;
 	strSz = strList;
 }
@@ -80,7 +80,7 @@ void stuffReturn::outP(string file, int ac) {
 	fil.open(txtF);
 	bool isGud = true;
 	if(!fil.good()){
-			cout << "-+=FileNotFound=+-" << endl;
+			std::cout << "-+=FileNotFound=+-" << endl;
 			isGud = false;
 		}
 	if(isGud){
@@ -120,19 +120,19 @@ void stuffReturn::outP(string file, int ac) {
 			}
 			w0++;
 		}
-		cout << "---------" << endl;
+		std::cout << "---------" << endl;
 		long SET, numS;
 		long LENg = 0, i = 0;
 		string SP = "        ";
 		while (true) {
 			SET = a0.at(i);
-			cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
+			std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
 			while (SET == a0.at(i)) {
 				SP = "        ";
 				for (int i = 0; i < a0.size(); i++) {
 					SP += " ";
 				}
-				cout << SP << a.at(i) << endl;
+				std::cout << SP << a.at(i) << endl;
 				i++;
 				if (a0.size() <= i)
 					break;
@@ -157,7 +157,7 @@ void stuffReturn::pauz(){
 	#ifdef _WIN32
 	system("pause");
 	#else
-	cout << "PressAnyKey\\" << endl;
+	std::cout << "PressAnyKey\\" << endl;
 	cin.ignore();
 	cin.get();
 	#endif
@@ -183,7 +183,7 @@ void stuffReturn::progressBar(float x){
 	}
 	chk++;
 	
-	cout << loadBar << bar[numCheck] << int(progress) << "\%" << endl;
+	std::cout << loadBar << bar[numCheck] << int(progress) << "\%" << endl;
 	printf("%c[A", 27);
 	printf("%c[2K", 27);
 }
