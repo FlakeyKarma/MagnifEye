@@ -1,10 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <string.h>
-#include <algorithm>
 #include "resources.h"
-using namespace std;
 
 int main(int argc, char* argv[]) {
 	int sz = 0, sp = 0;
@@ -15,19 +9,18 @@ int main(int argc, char* argv[]) {
 
 	bool TF = false;
 	//INTAKE:BEGIN
-	for (int i = 0; i < (signed)argc; i++) {
+	for (int i = 1; i < (signed)argc; i++) {
 		if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
-				cout << "\t\n\nUsage:\t\n\nThNeedle <options> <file>\n\n" << endl;
-				cout << "\t[-h, --help][-g, --gui]\n\n" << endl;
-				cout << "\toptions:" << endl;
-				cout << "\t\t-h, --help\t\tDisplay this screen" << endl;
-				cout << "\t\t-c, --cli \t\tDisplay the CLI(Command-Line Interface)" << endl;
+			cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
+			cout << "[-h, --help][-g, --gui]\n\n" << endl;
+			cout << "options:" << endl;
+			cout << "\t-h, --help\tDisplay this screen" << endl;
+			cout << "\t-g, --gui \tDisplay the GUI(Generated User Interface)" << endl;
 			OPT = argv[i];
 			sr.pauz();
 		}
-		if ((signed)argc == 1 || strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0){
+		if (strcmp(argv[i], "-g") == 0 || strcmp(argv[i], "--gui") == 0)
 			TF = true;
-		}
 	}
 	for (int i = 4; i >= 0; i--)
 		inpt01[4-i] = argv[argc-1][strlen(argv[argc-1])-i];
@@ -65,24 +58,14 @@ int main(int argc, char* argv[]) {
 				sr.pauz();
 				break;
 			case '2':
-				cout << "\n\n\t-At the end of a ten-page assignment that I was given" << endl;
-				cout << "by one of my professors, I knew that I needed to change a few" << endl;
-				cout << "words but I wasn't quite sure about which ones to change." << endl;
-				cout << "\n\t-I knew that I wasn't about to take the effort of reading" << endl;
-				cout << "each page, so I wrote this program to do it for me. As of right" << endl;
-				cout << "it just reads the amount of time you use each word, but it has" << endl;
-				cout << "a lot of growth to undergo." << endl;
-				cout << "\n\t-This program is intended for all who want to have a variety" << endl;
-				cout << "without having to read every word themselves. Why struggle if you" << endl;
-				cout << "don't have to?" << endl;
-				sr.pauz();
+				cout << "\n\n\n\n\t" << endl;
 				break;
 			case '3':
-				cout << "\t\n\nUsage:\t\n\nThNeedle <options> <file>\n\n" << endl;
-				cout << "\t[-h, --help][-g, --gui]\n\n" << endl;
-				cout << "\toptions:" << endl;
-				cout << "\t\t-h, --help\t\tDisplay this screen" << endl;
-				cout << "\t\t-c, --cli \t\tDisplay the CLI(Command-Line Interface)" << endl;
+				cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
+				cout << "[-h, --help][-g, --gui]\n\n" << endl;
+				cout << "options:" << endl;
+				cout << "\t-h, --help\tDisplay this screen" << endl;
+				cout << "\t-g, --gui \tDisplay the GUI(Generated User Interface)" << endl;
 				sr.pauz();
 				break;
 			case 'x':

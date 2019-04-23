@@ -1,10 +1,4 @@
-#include <vector>
-#include <iostream>
-#include <string>
-#include <string.h>
-#include <fstream>
 #include "resources.h"
-using namespace std;
 
 vector<string> stuffReturn::wordReturn(string inpt) {
 	long sz = 0;
@@ -12,22 +6,21 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 	vector<string> sS;
 	vector<char> BLACKLIST = {};
 	for (int i = 0; i < 255; i++) {
-		if (i % 100 == 0)
-			cout << "BL.";
+		progressBar(1.0/255 * 5.0);
 		if (i < 32 || i > 123) {
 			BLACKLIST.push_back((char)i);
 		}
 	}
 	cout << endl;
 	for (long i = 0; i < inpt.length(); i++) {
-		if (i % 100 == 0)
-			cout << "wR.";
 		bool CHK = false;
-		for (int j = 0; j < BLACKLIST.size(); j++)
+		progressBar(float(1.0/inpt.length())*15.0);
+		for (int j = 0; j < BLACKLIST.size(); j++){
 			if ((char)inpt[i] == (char)BLACKLIST.at(j)) {
 				CHK = true;
 				break;
 			}
+		}
 		if (CHK == true)
 			continue;
 		if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-') {
@@ -51,8 +44,7 @@ void stuffReturn::nuMake(vector<string> s) {
 	intList.push_back(0);
 	long SZ = 0;
 	for (long i = 0; i < s.size(); i++){
-		if (i % 100 == 0)
-			cout << "nM.";
+		progressBar(1.0/s.size()*20.0);
 		for (long j = 0; j < strList.size(); j++) {
 			if (intList.size() < strList.size())
 				intList.push_back(0);
@@ -73,10 +65,12 @@ void stuffReturn::nuMake(vector<string> s) {
 }
 
 vector<long> stuffReturn::numzReturn() {
+	progressBar(20.0);
 	return intSz;
 }
 
 vector<string> stuffReturn::strReturn() {
+	progressBar(20.0);
 	return strSz;
 }
 
@@ -95,6 +89,7 @@ void stuffReturn::outP(string file, int ac) {
 	vector<long> a0 = sR.numzReturn();
 	long COUNT = 0;
 	while (COUNT < a.size()) {
+		sR.progressBar(float(1.0/a.size()*20.0));
 		for (long i = 0; i < a.size(); i++) {
 			if (i < a.size()) {
 				if ((i + 1) >= a0.size())
@@ -120,7 +115,7 @@ void stuffReturn::outP(string file, int ac) {
 		w0++;
 	}
 	cout << "---------" << endl;
-	int SET, numS;
+	long SET, numS;
 	long LENg = 0, i = 0;
 	string SP = "        ";
 	while (true) {
@@ -128,8 +123,7 @@ void stuffReturn::outP(string file, int ac) {
 		cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
 		while (SET == a0.at(i)) {
 			SP = "        ";
-			numS = a0.at(i) / 10;
-			for (int i = 0; i < a0.at(i); i++) {
+			for (int i = 0; i < a0.size(); i++) {
 				SP += " ";
 			}
 			cout << SP << a.at(i) << endl;
@@ -156,8 +150,33 @@ void stuffReturn::pauz(){
 	#ifdef _WIN32
 	system("pause");
 	#else
-	cout << "\n\n\n\nPressAnyKey\\" << endl;
+	cout << "PressAnyKey\\" << endl;
 	cin.ignore();
 	cin.get();
 	#endif
+}
+
+void stuffReturn::progressBar(float x){
+	progress += x;
+	char bar[] = {'\\', '|', '/', '-'};
+	loadBar = "[";
+	int frst = int(progress/10), second = 10-frst;
+	for(int i = 0; i < frst; i++){
+		loadBar += ":=:";
+	}
+	for(int i = 0; i < second; i++){
+		loadBar += "   ";
+	}
+	loadBar += "]";
+	if(chk % 2 == 0){
+		numCheck++;
+	}
+	if(numCheck == 4){
+		numCheck = 0;
+	}
+	chk++;
+	
+	cout << loadBar << bar[numCheck] << int(progress) << "\%" << endl;
+	printf("%c[A", 27);
+	printf("%c[2K", 27);
 }
