@@ -44,31 +44,42 @@ int main(int argc, char* argv[]) {
 			std::cout << "  TTTT   HHHH HHHH NNNN NNNN EEEEEEE  EEEEEEE    DDDDD  LLLL EEEEEEE" << endl;
 			std::cout << "\nBy FlakeyKarma\n\n" << endl;
 			std::cout << "[0] Regular Output" << endl;
-			std::cout << "[1] Redundancy Check" << endl;
+			std::cout << "[1] Redundancy Check(RedCheck)" << endl;
 			std::cout << "[2] About" << endl;
 			std::cout << "[3] Help" << endl;
 			std::cout << "[x] Exit" << endl;
 			std::cout << "\nFK> ";
 			cin >> inpt01[0];
 			switch (inpt01[0]) {
+			//Regular output
 			case '0':
 				std::cout << "FK> Enter directory to file: ";
 				cin >> fil;
 				sr.outP(fil, argc);
 				sr.pauz();
 				break;
+			//RedCheck
 			case '1':
 				sr.clr();
 				std::cout << "\\\\UNDER CONSTRUCTION\\\\" << endl;
 				std::cout << "\\\\SORRY TO SAY\\\\" << endl;
 				sr.pauz();
 				break;
+			//About
 			case '2':
 				sr.clr();
-				std::cout << "\\\\UNDER CONSTRUCTION\\\\" << endl;
-				std::cout << "\\\\SORRY TO SAY\\\\" << endl;
+				std::cout << "\n\n\\\\About" << endl;
+				std::cout << "\n\\\\I came to want to make this program when I found myself trying\
+								\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
+								\n  innate of itself, the main problem for me was trying to find out if\
+								\n  I needed to change up the wordage used. Different words used show\
+								\n  the variance in one\'s vocabulary and that's beneficial to prove a\
+								\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
+								\n  There you go\n\
+								\n  -FlakeyKarma\n\n" << endl;
 				sr.pauz();
 				break;
+			//Help
 			case '3':
 				sr.clr();
 				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
@@ -78,6 +89,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "\t-g, --gui \tDisplay the GUI(Generated User Interface)" << endl;
 				sr.pauz();
 				break;
+			//Exit
 			case 'x':
 				sr.clr();
 				std::cout << "-=goodbye=-" << endl;
