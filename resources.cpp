@@ -110,7 +110,7 @@ void stuffReturn::outP(string file, int ac) {
 		}
 		int w0 = 0, w1 = 0;
 		while (a.size() - 1 > w0) {
-			w1 = w0;
+			w1 = w0 + 1;
 			while (w1 < a.size()) {
 				if (a.at(w0) == a.at(w1)) {
 					a.erase(a.begin() + w1);
