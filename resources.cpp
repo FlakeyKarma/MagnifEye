@@ -1,5 +1,5 @@
 #include "resources.h"
-
+//Breaks down full string into vector of all words
 vector<string> stuffReturn::wordReturn(string inpt) {
 	long sz = 0;
 	string s = "";
@@ -37,41 +37,27 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 	return sS;
 }
 
+//Counts instances of each word
 void stuffReturn::nuMake(vector<string> s) {
-	vector<string> strList;
-	strList.push_back(s.at(0));
-	vector<long> intList;
-	intList.push_back(0);
+	strSz.push_back(s.at(0));
+	intSz.push_back(0);
 	long SZ = 0;
 	for (long i = 0; i < s.size(); i++){
 		progressBar(1.0/s.size()*20.0);
-		for (long j = 0; j < strList.size(); j++) {
-			if (intList.size() < strList.size())
-				intList.push_back(0);
-			if (s.at(i) == strList.at(j)) {
-				intList.at(j)++;
+		for (long j = 0; j < strSz.size(); j++) {
+			if (intSz.size() < strSz.size())
+				intSz.push_back(0);
+			if (s.at(i) == strSz.at(j)) {
+				intSz.at(j)++;
 				SZ++;
 				break;
 			}
-			if (s.at(i) != strList.at(j) && j == strList.size() - 1) {
-				strList.push_back(s.at(i));
+			if (s.at(i) != strSz.at(j) && j == strSz.size() - 1) {
+				strSz.push_back(s.at(i));
 			}
 
 		}
 	}
-	std::cout << endl;
-	intSz = intList;
-	strSz = strList;
-}
-
-vector<long> stuffReturn::numzReturn() {
-	progressBar(20.0);
-	return intSz;
-}
-
-vector<string> stuffReturn::strReturn() {
-	progressBar(20.0);
-	return strSz;
 }
 
 void stuffReturn::outP(string file, int ac) {
@@ -91,8 +77,10 @@ void stuffReturn::outP(string file, int ac) {
 		stuffReturn sR;
 		vector<string> a = sR.wordReturn(inpt);
 		sR.nuMake(a);
-		a = sR.strReturn();
-		vector<long> a0 = sR.numzReturn();
+		a = sR.strSz;
+		sR.progressBar(20.0);
+		vector<long> a0 = sR.intSz;
+		sR.progressBar(20.0);
 		long COUNT = 0;
 		while (COUNT < a.size()) {
 			sR.progressBar(float(1.0/a.size()*20.0));
