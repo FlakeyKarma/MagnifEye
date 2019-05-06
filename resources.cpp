@@ -11,7 +11,6 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			BLACKLIST.push_back((char)i);
 		}
 	}
-	std::cout << endl;
 	for (long i = 0; i < inpt.length(); i++) {
 		bool CHK = false;
 		progressBar(float(1.0/inpt.length())*15.0);
@@ -33,7 +32,6 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			sz++;
 		}
 	}
-	std::cout << endl;
 	return sS;
 }
 
@@ -60,6 +58,7 @@ void stuffReturn::nuMake(vector<string> s) {
 	}
 }
 
+//Information output
 void stuffReturn::outP(string file, int ac) {
 	string inpt, inpt0, txtF = file;
 	ifstream fil;
@@ -132,6 +131,7 @@ void stuffReturn::outP(string file, int ac) {
 	}
 }
 
+//Clears Screen
 void stuffReturn::clr(){
 	#ifdef _WIN32
 	system("CLS");
@@ -140,6 +140,7 @@ void stuffReturn::clr(){
 	#endif
 }
 
+//Pauses screen for user
 void stuffReturn::pauz(){
 	char a[0];
 	#ifdef _WIN32
@@ -151,6 +152,7 @@ void stuffReturn::pauz(){
 	#endif
 }
 
+//Progress bar for...Progress
 void stuffReturn::progressBar(float x){
 	progress += x;
 	char bar[] = {'\\', '|', '/', '-'};
