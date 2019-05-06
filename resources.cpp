@@ -23,7 +23,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 		}
 		if (CHK == true)
 			continue;
-		if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-') {
+		if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1])) {
 			s += tolower(inpt[i]);
 		}
 
