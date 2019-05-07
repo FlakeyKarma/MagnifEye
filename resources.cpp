@@ -36,32 +36,55 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void stuffReturn::nuMake(vector<string> s) {
-	strSz.push_back(s.at(0));
-	intSz.push_back(0);
-	long SZ = 0;
-	for (long i = 0; i < s.size(); i++){
-		progressBar(1.0/s.size()*20.0);
-		for (long j = 0; j < strSz.size(); j++) {
-			if (intSz.size() < strSz.size())
-				intSz.push_back(0);
-			if (s.at(i) == strSz.at(j)) {
-				intSz.at(j)++;
-				SZ++;
-				break;
+void stuffReturn::nuMake(bool t, vector<string> s) {
+	if(t){
+		strSz.push_back(s.at(0));
+		intSz.push_back(0);
+		long SZ = 0;
+		for (long i = 0; i < s.size(); i++){
+			progressBar(1.0/s.size()*20.0);
+			for (long j = 0; j < strSz.size(); j++) {
+				if (intSz.size() < strSz.size())
+					intSz.push_back(0);
+				if (s.at(i) == strSz.at(j)) {
+					intSz.at(j)++;
+					SZ++;
+					break;
+				}
+				if (s.at(i) != strSz.at(j) && j == strSz.size() - 1) {
+					strSz.push_back(s.at(i));
+				}
 			}
-			if (s.at(i) != strSz.at(j) && j == strSz.size() - 1) {
-				strSz.push_back(s.at(i));
+		}
+	}
+	if(!t){
+		intPh.push_back(0);
+		for (long i = 0; i < strPh.size(); i++){
+			//progressBar(1.0/str.size()*20.0);
+			for (long j = 0; j < strPh.size(); j++) {
+				if (intPh.size() < strPh.size()){
+					intPh.push_back(0);
+				}
+				if (strPh.at(i) == strPh.at(j)) {
+					intPh.at(j)++;
+				}
 			}
-
 		}
 	}
 }
 
 //Information output
-void stuffReturn::outP(string file, int ac) {
+void stuffReturn::outP(string file, int ac, vector<char> chr) {
 	string inpt, inpt0, txtF = file;
 	ifstream fil;
+	bool rC = false;
+	for(int i = 0; i < chr.size(); i++){
+		switch(chr.at(i)){
+			case 'r':
+				rC = true;
+				break;
+		}
+	}
 	fil.open(txtF);
 	bool isGud = true;
 	if(!fil.good()){
@@ -75,7 +98,9 @@ void stuffReturn::outP(string file, int ac) {
 		}
 		stuffReturn sR;
 		vector<string> a = sR.wordReturn(inpt);
-		sR.nuMake(a);
+		sR.nuMake(1, a);
+		if(rC)
+			sR.redCheck(a);
 		a = sR.strSz;
 		sR.progressBar(20.0);
 		vector<long> a0 = sR.intSz;
@@ -95,6 +120,24 @@ void stuffReturn::outP(string file, int ac) {
 			}
 			COUNT++;
 		}
+		if(rC){
+			sR.nuMake(0, a);
+			COUNT = 0;
+			while (COUNT < a.size()) {
+				sR.progressBar(float(1.0/a.size()*20.0));
+				for (long i = 0; i < a.size(); i++) {
+					if (i < a.size()) {
+						if ((i + 1) >= a0.size())
+							break;
+						if (a0.at(i) > a0.at(i + 1)) {
+							iter_swap(a.begin() + i, a.begin() + i + 1);
+							iter_swap(a0.begin() + i, a0.begin() + i + 1);
+						}
+					}
+				}
+				COUNT++;
+			}
+		}
 		int w0 = 0, w1 = 0;
 		while (a.size() - 1 > w0) {
 			w1 = w0 + 1;
@@ -107,6 +150,23 @@ void stuffReturn::outP(string file, int ac) {
 			}
 			w0++;
 		}
+		if(rC){
+			w0 = 0, w1 = 0;
+			while (sR.strPh.size() > w0) {
+				w1 = w0 + 1;
+				while (w1 < sR.strPh.size()) {
+					if (sR.strPh.at(w0) == sR.strPh.at(w1)) {
+						sR.strPh.erase(sR.strPh.begin() + w1);
+						sR.intPh.erase(sR.intPh.begin() + w1);
+					}
+					if (w1 == sR.strPh.size()-1){
+						break;
+					}
+					w1++;
+				}
+				w0++;
+			}
+		}
 		std::cout << "---------" << endl;
 		long SET, numS;
 		long LENg = 0, i = 0;
@@ -116,10 +176,21 @@ void stuffReturn::outP(string file, int ac) {
 			std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
 			while (SET == a0.at(i)) {
 				SP = "        ";
-				for (int i = 0; i < a0.size(); i++) {
-					SP += " ";
+				if(a0.at(i) <= 5){
+					std::printf("\e[92m");
+					std::cout << SP << a.at(i) << endl;
+					std::printf("\e[0m");
 				}
-				std::cout << SP << a.at(i) << endl;
+				if(a0.at(i) > 5 && a0.at(i) <= 10){
+					std::printf("\e[93m");
+					std::cout << SP << a.at(i) << endl;
+					std::printf("\e[0m");
+				}
+				if(a0.at(i) > 10){
+					std::printf("\e[31m");
+					std::cout << SP << a.at(i) << endl;
+					std::printf("\e[0m");
+				}
 				i++;
 				if (a0.size() <= i)
 					break;
@@ -127,6 +198,52 @@ void stuffReturn::outP(string file, int ac) {
 			LENg++;
 			if (LENg == a.size() || i >= a0.size())
 				break;
+		}
+
+		if(rC){
+			a = sR.strPh;
+			a0 = sR.intPh;
+			std::cout << "\n---------\n" << endl;
+			SET, numS;
+			LENg = 0, i = 0;
+			string SP = "        ";
+			reverse(a.begin(), a.end());
+			reverse(a0.begin(), a0.end());
+			std::printf("\e[91m");
+			std::cout << "(RedCheck)" << endl;
+			while (true) {
+				if(i >= a.size()){
+					break;
+				}
+				SET = a0.at(i);
+				bool rCT = 0;
+				if(a0.at(i) > 1){
+					rCT = 1;
+					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << endl;
+					while (SET == a0.at(i)) {
+						SP = "        ";
+						std::cout << SP << a.at(i) << "\n" << SP << "----" << endl;
+						i++;
+						if (a0.size() <= i)
+							break;
+					}
+					LENg++;
+					if (LENg == a.size() || i >= a0.size())
+						break;
+				}
+				i++;
+				if(!rCT && i >=a.size()){
+					std::printf("\e[4m");
+					std::cout << "\nTerminal>";
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+					std::printf("\e[5m");
+					std::cout << "\tNo phrases to return" << endl;
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+				}
+			}
+			std::printf("\e[0m");
 		}
 	}
 }
@@ -174,6 +291,73 @@ void stuffReturn::progressBar(float x){
 	chk++;
 	
 	std::cout << loadBar << bar[numCheck] << int(progress) << "\%" << endl;
-	printf("%c[A", 27);
-	printf("%c[2K", 27);
+	std::printf("%c[A", 27);
+	std::printf("%c[2K", 27);
+}
+
+//Check for redundant phrases used
+void stuffReturn::redCheck(vector<string> s){
+	vector<string> phrase;
+	string nxt = "";
+	long leng = 0, l = 0;
+	for(int i = 0; i < s.size(); i++){
+		while(leng < 5){
+			phrase.push_back(s.at(leng + i));
+			leng++;
+			if(leng + i == s.size() || leng + i == s.size()){
+				break;
+			}
+		}
+		leng = 0;
+		for(int j = i; j < s.size(); j++){
+			while(l < phrase.size()){
+				if(l > 0){
+					phrase.erase(phrase.begin());
+					l--;
+				}
+				if(s.at(j) == phrase.at(l)){
+					nxt += s.at(j) + " ";
+					if(l == 0){
+						if(nxt != "" && nxt != " " && GT1(nxt)){
+							strPh.push_back(nxt);
+						}
+					}
+					j++;
+					l++;
+					if(l >= phrase.size()){
+						nxt = "";
+						break;
+					}
+					continue;
+				}
+				if(s.at(j) != phrase.at(l)){
+					nxt = "";
+					break;
+				}
+				l++;
+				j--;
+			}
+			l = 0;
+		}
+		if(!phrase.empty())
+			phrase.clear();
+	}
+}
+
+bool stuffReturn::GT1(string s){
+	for(int i = 0; i < s.length(); i++){
+		if(s[i] == ' '){
+			if(i != s.length() - 1){
+				if(s[i + 1] != ' '){
+					return 1;
+				}
+			}
+			if(i == s.length() - 1){
+				return 0;
+			}
+		}
+		if(i == s.length() - 1){
+			return 0;
+		}
+	}
 }
