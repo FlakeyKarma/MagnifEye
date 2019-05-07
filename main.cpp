@@ -63,7 +63,8 @@ int main(int argc, char* argv[]) {
 			std::cout << "  T::T   H::HHH::H N::NN:::N E:E      E:::E    D::DD:D  L::L E:::E" << endl;
 			std::cout << "  T::T   H::H H::H N::N N::N E::::::E E::::::E  D::::D  L::L E::::::E" << endl;
 			std::cout << "  TTTT   HHHH HHHH NNNN NNNN EEEEEEE  EEEEEEE    DDDDD  LLLL EEEEEEE" << endl;
-			std::cout << "\nBy FlakeyKarma\n\n" << endl;
+			std::cout << "\nv1.0" << endl;
+			std::cout << "By FlakeyKarma\n\n" << endl;
 			std::cout << "[0] Regular Output" << endl;
 			std::cout << "[1] Redundancy Check(RedCheck)[BETA]" << endl;
 			std::cout << "[2] Legend" << endl;
@@ -158,7 +159,7 @@ int main(int argc, char* argv[]) {
 
 	if (strcmp(inpt01, ".txt") != 0 && !TF)
 		exit(0);
-	std::cout << "\nThNeedle" << endl;
+	std::cout << "\nThNeedle v1.0" << endl;
 	std::cout << "\nBy FlakeyKarma\n\n" << endl;
 	sr.outP(argv[argc-1], argc, opti);
 	std::cout << "\n\n--=goodbye=--\n\n" << endl;
