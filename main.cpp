@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 		for (int i = 1; i < (signed)argc; i++) {
 			if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
 				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
-				std::cout << "[-h, --help][-c, --cli]\n\n" << endl;
+				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << endl;
 				std::cout << "options:" << endl;
 				std::cout << "\t-h, --help       \tDisplay this screen" << endl;
 				std::cout << "\t-c, --cli        \tDisplay the CLI(Command Line Interface)" << endl;
