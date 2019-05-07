@@ -7,12 +7,16 @@ It's just a simple command-line-based function at the moment. You just type the 
 ThNeedle <options> <file>
 
 
-[-h, --help][-c, --cli]
+[-h, --help][-c, --cli][-red, --red-check][-l, --legend]
 
 
 options:
-	-h, --help	Display this screen
-	-c, --cli 	Display the CLI(Command Line Interface)
+	-h, --help       	Display this screen
+	-c, --cli        	Display the CLI(Command Line Interface)
+	-red, --red-check	Display redundancy of phrases used in document
+	-l, --legend     	Display legend to understand color coding for
+				output
+
 `
 
 # Example
