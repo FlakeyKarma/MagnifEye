@@ -3,30 +3,52 @@ Do you need to check the amount of times you use each word in an essay? Do you f
 
 It's just a simple command-line-based function at the moment. You just type the path to the text file you wish to have analyzed and it returns the documents text, the amount of times each word is used above the word used *n* times.
 
+`Usage:
+ThNeedle <options> <file>
+
+
+[-h, --help][-c, --cli]
+
+
+options:
+	-h, --help	Display this screen
+	-c, --cli 	Display the CLI(Command Line Interface)
+`
+
 # Example
 ##### test.txt
 
-`The quick brown fox jumps over the lazy dog`
+`The quick red fox jumps over the big brown log.`
 
 *Windows*:
 
-`C:\foo\ ThNeedle test.txt`
+`C:\foo\bar\ ThNeedle test.txt`
 
 *Linux*
 
-`root:~$ ThNeedle test.txt`
+`foo@bar:~$ ./ThNeedle test.txt`
 
 ##### returns this
 
 ```
-stuffReturn: The quick brown fox jumps over the lazy dog
+ThNeedle
+
+By FlakeyKarma
+
+
 ---------
 OUTPUT =| 1 | :
-         brown
-         jumps
-         lazy
+                 quick
+                 red
+                 fox
+                 hopped
+                 big
+                 brown
+                 log
 OUTPUT =| 2 | :
-         the
+                 the
+
+
+--=goodbye=--
+
 ```
-# Final Thoughts
-Do send in any recommendations! This is meant for people who want their *manuscript* to *reflect* an *extensive* vocabulary.
