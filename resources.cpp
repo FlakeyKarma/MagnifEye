@@ -22,8 +22,12 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 		}
 		if (CHK == true)
 			continue;
-		if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1])) {
-			s += tolower(inpt[i]);
+		if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1]) || (char)inpt[i] == '\'') {
+			if(isalpha((char)inpt[i])){
+				s += tolower(inpt[i]);
+			}else{
+				s += inpt[i];
+			}
 		}
 
 		if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !s.empty()) {
@@ -123,15 +127,15 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		if(rC){
 			sR.nuMake(0, a);
 			COUNT = 0;
-			while (COUNT < a.size()) {
-				sR.progressBar(float(1.0/a.size()*20.0));
-				for (long i = 0; i < a.size(); i++) {
-					if (i < a.size()) {
-						if ((i + 1) >= a0.size())
+			while (COUNT < sR.strPh.size()) {
+				sR.progressBar(float(1.0/sR.strPh.size()*20.0));
+				for (long i = 0; i < sR.strPh.size(); i++) {
+					if (i < sR.strPh.size()) {
+						if ((i + 1) >= sR.intPh.size())
 							break;
-						if (a0.at(i) > a0.at(i + 1)) {
-							iter_swap(a.begin() + i, a.begin() + i + 1);
-							iter_swap(a0.begin() + i, a0.begin() + i + 1);
+						if (sR.intPh.at(i) > sR.intPh.at(i + 1)) {
+							iter_swap(sR.strPh.begin() + i, sR.strPh.begin() + i + 1);
+							iter_swap(sR.intPh.begin() + i, sR.intPh.begin() + i + 1);
 						}
 					}
 				}
@@ -170,25 +174,24 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		std::cout << "---------" << endl;
 		long SET, numS;
 		long LENg = 0, i = 0;
-		string SP = "        ";
+		string SP = " |--->  ";
 		while (true) {
 			SET = a0.at(i);
 			std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
 			while (SET == a0.at(i)) {
-				SP = "        ";
 				if(a0.at(i) <= 5){
 					std::printf("\e[92m");
-					std::cout << SP << a.at(i) << endl;
+					std::cout << SP << a.at(i) << "\n" << " " << endl;
 					std::printf("\e[0m");
 				}
 				if(a0.at(i) > 5 && a0.at(i) <= 10){
 					std::printf("\e[93m");
-					std::cout << SP << a.at(i) << endl;
+					std::cout << SP << a.at(i) << "\n" << " " << endl;
 					std::printf("\e[0m");
 				}
 				if(a0.at(i) > 10){
 					std::printf("\e[31m");
-					std::cout << SP << a.at(i) << endl;
+					std::cout << SP << a.at(i) << "\n" << " " << endl;
 					std::printf("\e[0m");
 				}
 				i++;
@@ -201,16 +204,17 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		}
 
 		if(rC){
+			sR.pauz();
 			a = sR.strPh;
 			a0 = sR.intPh;
 			std::cout << "\n---------\n" << endl;
 			SET, numS;
 			LENg = 0, i = 0;
-			string SP = "        ";
-			reverse(a.begin(), a.end());
-			reverse(a0.begin(), a0.end());
 			std::printf("\e[91m");
-			std::cout << "(RedCheck)" << endl;
+			std::printf("\e[4m");
+			std::cout << "BEGIN::(RedCheck)" << endl;
+			std::printf("\e[0m");
+			std::printf("\e[91m");
 			while (true) {
 				if(i >= a.size()){
 					break;
@@ -221,8 +225,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					rCT = 1;
 					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << endl;
 					while (SET == a0.at(i)) {
-						SP = "        ";
-						std::cout << SP << a.at(i) << "\n" << SP << "----" << endl;
+						std::cout << SP << a.at(i) << "\n" << " " << endl;
 						i++;
 						if (a0.size() <= i)
 							break;
@@ -243,6 +246,8 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					std::printf("\e[91m");
 				}
 			}
+			std::printf("\e[4m");
+			std::cout << "\nEND::(RedCheck)" << endl;
 			std::printf("\e[0m");
 		}
 	}

@@ -63,10 +63,14 @@ int main(int argc, char* argv[]) {
 			std::cout << "  T::T   H::HHH::H N::NN:::N E:E      E:::E    D::DD:D  L::L E:::E" << endl;
 			std::cout << "  T::T   H::H H::H N::N N::N E::::::E E::::::E  D::::D  L::L E::::::E" << endl;
 			std::cout << "  TTTT   HHHH HHHH NNNN NNNN EEEEEEE  EEEEEEE    DDDDD  LLLL EEEEEEE" << endl;
-			std::cout << "\nv1.0" << endl;
+			std::cout << "\nv1.0.1" << endl;
 			std::cout << "By FlakeyKarma\n\n" << endl;
 			std::cout << "[0] Regular Output" << endl;
-			std::cout << "[1] Redundancy Check(RedCheck)[BETA]" << endl;
+			std::cout << "[1] Redundancy Check";
+			std::printf("\e[91m");
+			std::cout << "(RedCheck)";
+			std::printf("\e[0m");
+			std::cout << "[BETA]" << endl;
 			std::cout << "[2] Legend" << endl;
 			std::cout << "[3] About" << endl;
 			std::cout << "[4] Help" << endl;
