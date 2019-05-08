@@ -26,4 +26,3 @@ class stuffReturn {
 		void pauz();
 		void progressBar(float x);
 };
-
