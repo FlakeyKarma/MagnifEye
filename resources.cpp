@@ -347,6 +347,9 @@ void stuffReturn::redCheck(vector<string> s){
 		if(!phrase.empty())
 			phrase.clear();
 	}
+	for(int i = 0; i < strPh.size(); i++){
+		cout << strPh.at(i) << endl;
+	}
 }
 
 bool stuffReturn::GT1(string s){

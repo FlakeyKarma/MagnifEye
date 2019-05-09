@@ -53,8 +53,6 @@ int main(int argc, char* argv[]) {
 		sr.clr();
 		opti.clear();
 		while (true) {
-			if(!opti.empty())
-				opti.clear();
 			sr.clr();
 			std::cout << "TTTTTTTT HHHH      NNNN NNNN                      DDDD  LLLL" << endl;
 			std::cout << "T::::::T H::H      N:::NN::N EEEEEEEE EEEEEEEE    D::D  L::L EEEEEEEE" << endl;
@@ -92,6 +90,8 @@ int main(int argc, char* argv[]) {
 				}
 				sr.outP(fil, argc, opti);
 				sr.pauz();
+			if(!opti.empty())
+				opti.clear();
 				break;
 			//RedCheck
 			case '1':
