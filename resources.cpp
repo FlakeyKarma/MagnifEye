@@ -31,7 +31,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			sR.SeNDe(file, chr, 0);
 		vector<string> a = sR.strSz;
 		vector<long> a0 = sR.intSz;
-		std::cout << "---------" << endl;
+		std::cout << "---------" << std::endl;
 		if(rC){
 			strPh.clear();
 			intPh.clear();
@@ -44,21 +44,21 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		if(def){
 			while (true) {
 				SET = a0.at(i);
-				std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
+				std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << std::endl;
 				while (SET == a0.at(i)) {
 					if(a0.at(i) <= 5){
 						std::printf("\e[92m");
-						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 5 && a0.at(i) <= 10){
 						std::printf("\e[93m");
-						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 10){
 						std::printf("\e[31m");
-						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					i++;
@@ -76,11 +76,11 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				sR.pauz();
 			a = sR.strPh;
 			a0 = sR.intPh;
-			std::cout << "\n---------\n" << endl;
+			std::cout << "\n---------\n" << std::endl;
 			LENg = 0, i = 0;
 			std::printf("\e[91m");
 			std::printf("\e[4m");
-			std::cout << "BEGIN::(RedCheck)" << endl;
+			std::cout << "BEGIN::(RedCheck)" << std::endl;
 			std::printf("\e[0m");
 			std::printf("\e[91m");
 			while (true) {
@@ -90,9 +90,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				SET = a0.at(i);
 				if(a0.at(i) > 1){
 					rCT = 1;
-					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << endl;
+					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << std::endl;
 					while (SET == a0.at(i)) {
-						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						i++;
 						if (a0.size() <= i)
 							break;
@@ -108,13 +108,13 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					std::printf("\e[0m");
 					std::printf("\e[91m");
 					std::printf("\e[5m");
-					std::cout << "\tNo phrases to return" << endl;
+					std::cout << "\tNo phrases to return" << std::endl;
 					std::printf("\e[0m");
 					std::printf("\e[91m");
 				}
 			}
 			std::printf("\e[4m");
-			std::cout << "\nEND::(RedCheck)" << endl;
+			std::cout << "\nEND::(RedCheck)" << std::endl;
 			std::printf("\e[0m");
 		}
 		if(co){
@@ -176,11 +176,11 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			}
 			lne += "}-";
 			a0 = sR.intDoc;
-			std::cout << "\n---------\n" << endl;
+			std::cout << "\n---------\n" << std::endl;
 			LENg = 0, i = 0;
 			std::printf("\e[96m");
 			std::printf("\e[4m");
-			std::cout << "BEGIN::(DoCo)" << endl;
+			std::cout << "BEGIN::(DoCo)" << std::endl;
 			std::printf("\e[0m");
 			std::printf("\e[96m");
 			while (true) {
@@ -190,8 +190,8 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				SET = a0.at(i);
 				bool rCT = 0;
 				rCT = 1;
-				std::cout << outpt << sR.file0 << "  " << sR.file1 << endl;
-				std::cout << lne << endl;
+				std::cout << outpt << sR.file0 << "  " << sR.file1 << std::endl;
+				std::cout << lne << std::endl;
 				while (SET == a0.at(i)) {
 					for(int j = 0; j < sR.strSz.size(); j++){
 						if(sR.strSz.at(j) == sR.strDoc.at(i)){
@@ -205,7 +205,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 							break;
 						}
 					}
-					std::cout << SP << a.at(i) << nLW.at(chk0) << nL0.at(chk1) <<'\n'<< endl;
+					std::cout << SP << a.at(i) << nLW.at(chk0) << nL0.at(chk1) <<'\n'<< std::endl;
 					i++;
 					if (a0.size() <= i)
 						break;
@@ -220,13 +220,13 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					std::printf("\e[0m");
 					std::printf("\e[91m");
 					std::printf("\e[5m");
-					std::cout << "\tNo phrases to return" << endl;
+					std::cout << "\tNo phrases to return" << std::endl;
 					std::printf("\e[0m");
 					std::printf("\e[96m");
 				}
 			}
 			std::printf("\e[4m");
-			std::cout << "\nEND::(DoCo)" << endl;
+			std::cout << "\nEND::(DoCo)" << std::endl;
 			std::printf("\e[0m");
 		}
 	}
@@ -469,7 +469,7 @@ void stuffReturn::pauz(){
 	#ifdef _WIN32
 	system("pause");
 	#else
-	std::cout << "PressAnyKey\\" << endl;
+	std::cout << "PressAnyKey\\" << std::endl;
 	cin.ignore();
 	cin.get();
 	#endif
@@ -501,7 +501,7 @@ void stuffReturn::progressBar(float x){
 	}
 	chk++;
 	
-	std::cout << loadBar << bar[numCheck] << int(progress) << "\%" << endl;
+	std::cout << loadBar << bar[numCheck] << int(progress) << "\%" << std::endl;
 	std::printf("%c[A", 27);
 	std::printf("%c[2K", 27);
 }
@@ -609,7 +609,7 @@ bool stuffReturn::GUD(string fil){
 	ifstream f;
 	f.open(fil);
 	if(!f.good()){
-			std::cout << "-+=FileNotFound=+-" << endl;
+			std::cout << "-+=FileNotFound=+-" << std::endl;
 	} else {
 		tf = 1;
 	}

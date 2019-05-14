@@ -15,14 +15,14 @@ int main(int argc, char* argv[]) {
 	else{
 		for (int i = 1; i < (signed)argc; i++) {
 			if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
-				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
-				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << endl;
-				std::cout << "options:" << endl;
-				std::cout << "\t-h,   --help        \tDisplay this screen" << endl;
-				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << endl;
-				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << endl;
-				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << endl;
-				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << endl;
+				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
+				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
+				std::cout << "options:" << std::endl;
+				std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
+				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << std::endl;
+				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
+				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
+				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 				OPT = argv[i];
 				sr.pauz();
 			}
@@ -31,16 +31,16 @@ int main(int argc, char* argv[]) {
 			if (strcmp(argv[i], "-red") == 0 || strcmp(argv[i], "--red-check") == 0)
 				opti.push_back('r');
 			if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--legend") == 0){
-				std::cout << "\n\t\t\tLegend\n" << endl;
+				std::cout << "\n\t\t\tLegend\n" << std::endl;
 				std::printf("\e[92m");
-				std::cout << "\tGood\n" << endl;
-				std::cout << "\tMay need some adjustment, depending on preference\n\n" << endl;
+				std::cout << "\tGood\n" << std::endl;
+				std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
 				std::printf("\e[93m");
-				std::cout << "\tOkay\n" << endl;
-				std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << endl;
+				std::cout << "\tOkay\n" << std::endl;
+				std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
 				std::printf("\e[31m");
-				std::cout << "\tBad\n" << endl;
-				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << endl;
+				std::cout << "\tBad\n" << std::endl;
+				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << std::endl;
 				std::printf("\e[0m");
 			}
 			if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
@@ -57,29 +57,32 @@ int main(int argc, char* argv[]) {
 		opti.clear();
 		while (true) {
 			sr.clr();
-			std::cout << "TTTTTTTT HHHH      NNNN NNNN                      DDDD  LLLL" << endl;
-			std::cout << "T::::::T H::H      N:::NN::N EEEEEEEE EEEEEEEE    D::D  L::L EEEEEEEE" << endl;
-			std::cout << "TTT::TTT H::HHHHHH N::::N::N E::EE::E E::EE::E    D::D  L::L E::EE::E" << endl;
-			std::cout << "  T::T   H:::::::H N::N::::N E:::::E  E:::::E   D::::D  L::L E:::::E" << endl;
-			std::cout << "  T::T   H::HHH::H N::NN:::N E:E      E:::E    D::DD:D  L::L E:::E" << endl;
-			std::cout << "  T::T   H::H H::H N::N N::N E::::::E E::::::E  D::::D  L::L E::::::E" << endl;
-			std::cout << "  TTTT   HHHH HHHH NNNN NNNN EEEEEEE  EEEEEEE    DDDDD  LLLL EEEEEEE" << endl;
-			std::cout << "\n" << sr.ver() << endl;
-			std::cout << "By FlakeyKarma\n\n" << endl;
-			std::cout << "[0] Regular Output" << endl;
+
+			std::cout << "_________" << std::endl;
+			std::cout << " ===:===" << std::endl;
+			std::cout << "   _|_   __        __   __                        ,,   ====" << std::endl;
+			std::cout << "  |::_| |  |      |   \\|  |  ,====,   ,====,     |  |   ||   ,====," << std::endl;
+			std::cout << "  |::_| |  l___   |       | | {}   | | {}   |   _|  |  |: | | {}   |" << std::endl;
+			std::cout << "  |::_| |       | |       | |    _/  |    _/   /    |  |: | |    _/" << std::endl;
+			std::cout << "  |::_| |   _   | |  |\\   | |  \\__   |  \\__    |  ()|  |: | |  \\__" << std::endl;
+			std::cout << "   ===  |  | |  | |  | \\  | |      | |      |  \\    |  |: | |      |" << std::endl;
+			std::cout << "    |    **   **   **   **   *====*   *====*    *==*    `|   *====*" << std::endl;
+			std::cout << "\n" << sr.ver() << std::endl;
+			std::cout << "By FlakeyKarma\n\n" << std::endl;
+			std::cout << "[0] Regular Output" << std::endl;
 			std::cout << "[1] Redundancy Check ";
 			std::printf("\e[91m");
 			std::cout << "(RedCheck)";
 			std::printf("\e[0m");
-			std::cout << "[BETA]" << endl;
+			std::cout << "[BETA]" << std::endl;
 			std::cout << "[2] Document Comparison ";
 			std::printf("\e[96m");
-			std::cout << "(DoCo)" << endl;
+			std::cout << "(DoCo)" << std::endl;
 			std::printf("\e[0m");
-			std::cout << "[3] Legend" << endl;
-			std::cout << "[4] About" << endl;
-			std::cout << "[5] Help" << endl;
-			std::cout << "[x] Exit" << endl;
+			std::cout << "[3] Legend" << std::endl;
+			std::cout << "[4] About" << std::endl;
+			std::cout << "[5] Help" << std::endl;
+			std::cout << "[x] Exit" << std::endl;
 			std::cout << "\nFK> ";
 			cin >> inpt01[0];
 			switch (inpt01[0]) {
@@ -131,29 +134,29 @@ int main(int argc, char* argv[]) {
 				}
 				opti.push_back('d');
 				sr.outP(fil, argc, opti);
-				std::cout << "\\\\STILL UNDER CONSTRUCTION FOR: redCheck implementation" << endl;
+				std::cout << "\\\\STILL UNDER CONSTRUCTION FOR: redCheck implementation" << std::endl;
 				sr.pauz();
 				break;
 			//Legend
 			case '3':
 				sr.clr();
-				std::cout << "\n\t\t\tLegend\n" << endl;
+				std::cout << "\n\t\t\tLegend\n" << std::endl;
 				std::printf("\e[92m");
-				std::cout << "\tGood\n" << endl;
-				std::cout << "\tMay need some adjustment, depending on preference\n\n" << endl;
+				std::cout << "\tGood\n" << std::endl;
+				std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
 				std::printf("\e[93m");
-				std::cout << "\tOkay\n" << endl;
-				std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << endl;
+				std::cout << "\tOkay\n" << std::endl;
+				std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
 				std::printf("\e[31m");
-				std::cout << "\tBad\n" << endl;
-				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << endl;
+				std::cout << "\tBad\n" << std::endl;
+				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << std::endl;
 				std::printf("\e[0m");
 				sr.pauz();
 				break;
 			//About
 			case '4':
 				sr.clr();
-				std::cout << "\n\n\\\\About" << endl;
+				std::cout << "\n\n\\\\About" << std::endl;
 				std::cout << "\n\\\\I started needing to make this program when I found myself trying\
 								\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
 								\n  innate of itself, the main problem for me was trying to find out if\
@@ -161,26 +164,26 @@ int main(int argc, char* argv[]) {
 								\n  the variance in one\'s vocabulary and that's beneficial to prove a\
 								\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
 								\n  There you go\n\
-								\n  -FlakeyKarma\n\n" << endl;
+								\n  -FlakeyKarma\n\n" << std::endl;
 				sr.pauz();
 				break;
 			//Help
 			case '5':
 				sr.clr();
-				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
-				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << endl;
-				std::cout << "options:" << endl;
-				std::cout << "\t-h,   --help        \tDisplay this screen" << endl;
-				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << endl;
-				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << endl;
-				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << endl;
-				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << endl;
+				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
+				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
+				std::cout << "options:" << std::endl;
+				std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
+				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << std::endl;
+				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
+				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
+				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 				sr.pauz();
 				break;
 			//Exit
 			case 'x':
 				sr.clr();
-				std::cout << "-=goodbye=-" << endl;
+				std::cout << "-=goodbye=-" << std::endl;
 				exit(0);
 			}
 		}
@@ -188,10 +191,13 @@ int main(int argc, char* argv[]) {
 
 	if (strcmp(inpt01, ".txt") != 0 && !TF)
 		exit(0);
-	std::cout << "\nThNeedle " << sr.ver() << endl;
-	std::cout << "\nBy FlakeyKarma\n\n" << endl;
+	std::cout << "|  [========\\" << std::endl;
+	std::cout << "|={:|;;|;;|;;}==---o" << std::endl;
+	std::cout << "|  [========/       D" << std::endl;
+	std::cout << "\nThNeedle " << sr.ver() << std::endl;
+	std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 	opti.push_back('A');
 	sr.outP(argv[argc-1], argc, opti);
-	std::cout << "\n\n--=goodbye=--\n\n" << endl;
+	std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
 	return 0;
 }
