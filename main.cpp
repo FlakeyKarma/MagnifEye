@@ -45,7 +45,6 @@ int main(int argc, char* argv[]) {
 			}
 			if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
 				opti.push_back('d');
-				//opti.push_back('r');
 			}
 		}
 		for (int i = 4; i >= 0; i--)
@@ -121,7 +120,18 @@ int main(int argc, char* argv[]) {
 			//DoCo
 			case '2':
 				sr.clr();
-				std::cout << "\\\\STILL UNDER CONSTRUCTION" << endl;
+				while(1){
+					std::cout << "FK> Enter directory to file: ";
+					cin >> fil;
+					if(fil == "ls"){
+						system("ls");
+					}else{
+						break;
+					}
+				}
+				opti.push_back('d');
+				sr.outP(fil, argc, opti);
+				std::cout << "\\\\STILL UNDER CONSTRUCTION FOR: redCheck implementation" << endl;
 				sr.pauz();
 				break;
 			//Legend

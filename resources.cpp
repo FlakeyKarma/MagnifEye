@@ -296,10 +296,6 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 		a0 = intS2;
 	}
 	long COUNT = 0;
-	for(int i = 0; i < a.size(); i++){
-		cout << a.at(i) << endl;
-		cout << a0.at(i) << endl;
-	}
 	while (COUNT < a.size()) {
 		progressBar(float(1.0/a.size()*20.0));
 		for (long i = 0; i < a.size(); i++) {
@@ -313,11 +309,6 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 			}
 		}
 		COUNT++;
-	}
-
-	for(int i = 0; i < a.size(); i++){
-		cout << a.at(i) << endl;
-		cout << a0.at(i) << endl;
 	}
 	COUNT = 0;
 	int w0 = 0, w1 = 0;
