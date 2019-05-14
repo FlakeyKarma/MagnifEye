@@ -1,4 +1,343 @@
 #include "resources.h"
+
+//Information output
+void stuffReturn::outP(string file, int ac, vector<char> chr) {
+	ifstream fil;
+	bool def = false, rC = false, co = false;
+	for(int i = 0; i < chr.size(); i++){
+		switch(chr.at(i)){
+			case 'A':
+				def = true;
+				break;
+			case 'r':
+				rC = true;
+				break;
+			case 'd':
+				co = true;
+				break;
+		}
+	}
+	fil.open(file);
+	bool isGud = true;
+	isGud = GUD(file);
+	fil.close();
+	if(isGud){
+		stuffReturn sR;
+		sR.setF(file, 1);
+		if(rC){
+			sR.SeNDe(file, chr, 1);
+		}
+		else
+			sR.SeNDe(file, chr, 0);
+		vector<string> a = sR.strSz;
+		vector<long> a0 = sR.intSz;
+		std::cout << "---------" << endl;
+		if(rC){
+			strPh.clear();
+			intPh.clear();
+		}
+		if(co)
+			sR.doCo(chr);
+		long SET, numS;
+		long LENg = 0, i = 0;
+		string SP = " |--->  ";
+		if(def){
+			while (true) {
+				SET = a0.at(i);
+				std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
+				while (SET == a0.at(i)) {
+					if(a0.at(i) <= 5){
+						std::printf("\e[92m");
+						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::printf("\e[0m");
+					}
+					if(a0.at(i) > 5 && a0.at(i) <= 10){
+						std::printf("\e[93m");
+						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::printf("\e[0m");
+					}
+					if(a0.at(i) > 10){
+						std::printf("\e[31m");
+						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						std::printf("\e[0m");
+					}
+					i++;
+					if (a0.size() <= i)
+						break;
+				}
+				LENg++;
+				if (LENg == a.size() || i >= a0.size())
+					break;
+			}
+		}
+		if(rC && !co){
+			bool rCT = 0;
+			if(def)
+				sR.pauz();
+			a = sR.strPh;
+			a0 = sR.intPh;
+			std::cout << "\n---------\n" << endl;
+			LENg = 0, i = 0;
+			std::printf("\e[91m");
+			std::printf("\e[4m");
+			std::cout << "BEGIN::(RedCheck)" << endl;
+			std::printf("\e[0m");
+			std::printf("\e[91m");
+			while (true) {
+				if(i >= a.size()){
+					break;
+				}
+				SET = a0.at(i);
+				if(a0.at(i) > 1){
+					rCT = 1;
+					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << endl;
+					while (SET == a0.at(i)) {
+						std::cout << SP << a.at(i) << "\n" << " " << endl;
+						i++;
+						if (a0.size() <= i)
+							break;
+					}
+					LENg++;
+					if (LENg == a.size() || i >= a0.size())
+						break;
+				}
+				i++;
+				if(!rCT && i >= a.size()){
+					std::printf("\e[4m");
+					std::cout << "\nTerminal>";
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+					std::printf("\e[5m");
+					std::cout << "\tNo phrases to return" << endl;
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+				}
+			}
+			std::printf("\e[4m");
+			std::cout << "\nEND::(RedCheck)" << endl;
+			std::printf("\e[0m");
+		}
+		if(co){
+			vector<string> nLW, nL0, nL1;
+			if(def || rC)
+				sR.pauz();
+			int ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1;
+			string spWrd = "", sp0 = "", sp1 = "", outpt = " +===> OUTPUT", lne = "-{";
+			long chk0, chk1;
+			for(long i = 0; i < sR.strSz.size(); i++){
+				if(i > 0){
+					if(to_string(sR.intSz.at(i)).length() > to_string(sR.intSz.at(i-1)).length()){
+						sWrd = sR.strSz.at(i).length();
+					}
+				}
+			}
+			for(long i = 0; i < sR.intSz.size(); i++){
+				spWrd = to_string(sR.intSz.at(i) + 1);
+				while(spWrd.length() < sWrd + 2){
+					spWrd += " ";
+				}
+				nLW.push_back(spWrd);
+			}
+			for(long i = 0; i < sR.intS2.size(); i++){
+				if(i > 0){
+					if(sR.strS2.at(i).length() > sR.strS2.at(i-1).length()){
+						s0 = sR.strS2.at(i).length();
+					}
+				}
+			}
+			if(s0 + 2 > sR.file0.length() + 2) lng0 = s0+2; else lng0 = sR.file0.length() + 2;
+			for(long i = 0; i < sR.strS2.size(); i++){
+				sp0 = to_string(sR.intS2.at(i) + 1);
+				while(sp0.length() < lng0){
+					sp0 += " ";
+				}
+				nL0.push_back(sp0);
+			}
+			for(long i = 0; i < sR.strDoc.size(); i++){
+				if(i > 0){
+					if(sR.strDoc.at(i).length() > sR.strDoc.at(i-1).length()){
+						s1 = sR.strDoc.at(i).length();
+					}
+				}
+			}
+			a = sR.strDoc;
+			if(s1 + 2 > sR.file1.length() + 2) lng1 = s1+2; else lng1 = sR.file0.length() + 2;
+			for(long i = 0; i < a.size(); i++){
+				while(a.at(i).length() < lng1){
+					a.at(i) += " ";
+				}
+				nL1.push_back(sp1);
+			}
+			while(outpt.length() < lng1 + 8){
+				outpt += " ";
+			}
+			while(lne.length() < lng1 + lng0 + sWrd + 3){
+				lne += "=";
+			}
+			lne += "}-";
+			a0 = sR.intDoc;
+			std::cout << "\n---------\n" << endl;
+			LENg = 0, i = 0;
+			std::printf("\e[96m");
+			std::printf("\e[4m");
+			std::cout << "BEGIN::(DoCo)" << endl;
+			std::printf("\e[0m");
+			std::printf("\e[96m");
+			while (true) {
+				if(i >= a.size()){
+					break;
+				}
+				SET = a0.at(i);
+				bool rCT = 0;
+				rCT = 1;
+				std::cout << outpt << sR.file0 << "  " << sR.file1 << endl;
+				std::cout << lne << endl;
+				while (SET == a0.at(i)) {
+					for(int j = 0; j < sR.strSz.size(); j++){
+						if(sR.strSz.at(j) == sR.strDoc.at(i)){
+							chk0 = i;
+							break;
+						}
+					}
+					for(int j = 0; j < sR.strS2.size(); j++){
+						if(sR.strS2.at(j) == sR.strDoc.at(i)){
+							chk1 = i;
+							break;
+						}
+					}
+					std::cout << SP << a.at(i) << nLW.at(chk0) << nL0.at(chk1) <<'\n'<< endl;
+					i++;
+					if (a0.size() <= i)
+						break;
+				}
+				LENg++;
+				if (LENg == a.size() || i >= a0.size())
+					break;
+				i++;
+				if(!rCT && i >= a.size()){
+					std::printf("\e[4m");
+					std::cout << "\nTerminal>";
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+					std::printf("\e[5m");
+					std::cout << "\tNo phrases to return" << endl;
+					std::printf("\e[0m");
+					std::printf("\e[96m");
+				}
+			}
+			std::printf("\e[4m");
+			std::cout << "\nEND::(DoCo)" << endl;
+			std::printf("\e[0m");
+		}
+	}
+}
+
+/*
+FUNCTIONS FOR outP
+*/
+
+//SearchNDestroy
+void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
+	cout << "SeNDe" << endl;
+	bool c = false, t = false;
+	for(int i = 0; i < chr.size(); i++){
+		switch(chr.at(i)){
+			case 'd':
+				c = true;
+				break;
+			case 't':
+				t = true;
+				break;
+		}
+	}
+	ifstream fil;
+	string inpt, inpt0;
+	fil.open(file);
+	while (!fil.eof()) {
+		getline(fil, inpt0);
+		inpt += inpt0 + " \n";
+	}
+	fil.close();
+	vector<string> a = wordReturn(inpt);
+	vector<long> a0;
+	inpt = "";
+	inpt0 = "";
+	nuMake(0, a);
+	if(rC)
+		redCheck(a);
+	a = strSz;
+	progressBar(20.0);
+	a0 = intSz;
+	progressBar(20.0);
+	if(rC){
+		a = strPh;
+		nuMake(1, a);
+		a0 = intPh;
+	}
+	if(c && t){
+		long jk = strS2.size();
+		for(long i = 0; i < strSz.size(); i++){
+			strS2.push_back(strSz.at(i));
+			intS2.push_back(intSz.at(i));
+		}
+		strSz.clear();
+		intSz.clear();
+		for(long i = 0; i < jk; i++){
+			strSz.push_back(strS2.at(i));
+			intSz.push_back(intS2.at(i));
+		}
+		for(long i = 0; i < jk; i++){
+			strS2.erase(strS2.begin());
+			intS2.erase(intS2.begin());
+		}
+		a = strS2;
+		a0 = intS2;
+	}
+	long COUNT = 0;
+	while (COUNT < a.size()) {
+		progressBar(float(1.0/a.size()*20.0));
+		for (long i = 0; i < a.size(); i++) {
+			if (i < a.size()) {
+				if ((i + 1) >= a0.size())
+					break;
+				if (a0.at(i) > a0.at(i + 1)) {
+					iter_swap(a.begin() + i, a.begin() + i + 1);
+					iter_swap(a0.begin() + i, a0.begin() + i + 1);
+				}
+			}
+		}
+		COUNT++;
+	}
+
+	COUNT = 0;
+	int w0 = 0, w1 = 0;
+	while (a.size() - 1 > w0) {
+		w1 = w0 + 1;
+		while (w1 < a.size()) {
+			if (a.at(w0) == a.at(w1)) {
+				a.erase(a.begin() + w1);
+				a0.erase(a0.begin() + w1);
+				if(c)
+					w1--;
+			}
+			w1++;
+		}
+		w0++;
+	}
+	if(c){
+		strS2 = a;
+		intS2 = a0;
+	}
+	else if (t){
+		strSz = a;
+		intSz = a0;
+	}
+	else if (rC){
+		strPh = a;
+		intPh = a0;
+	}
+}
+
 //Breaks down full string into vector of all words
 vector<string> stuffReturn::wordReturn(string inpt) {
 	long sz = 0;
@@ -40,8 +379,8 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void stuffReturn::nuMake(bool t, vector<string> s) {
-	if(t){
+void stuffReturn::nuMake(char t, vector<string> s) {
+	if(t == 0){
 		strSz.push_back(s.at(0));
 		intSz.push_back(0);
 		long SZ = 0;
@@ -61,194 +400,55 @@ void stuffReturn::nuMake(bool t, vector<string> s) {
 			}
 		}
 	}
-	if(!t){
-		intPh.push_back(0);
-		for (long i = 0; i < strPh.size(); i++){
+	else if(t >= 1){
+		vector<string> a, strV;
+		vector<long> a0;
+		switch(t){
+			case 1:
+				strV = strPh;
+				a = strPh;
+				break;
+			case 2:
+				strV = strS2;
+				a = strS2;
+				break;
+			case 3:
+				strV = strDoc;
+				a = strDoc;
+				break;
+		}
+		a0.push_back(0);
+		for (long i = 0; i < a.size(); i++){
 			//progressBar(1.0/str.size()*20.0);
-			for (long j = 0; j < strPh.size(); j++) {
-				if (intPh.size() < strPh.size()){
-					intPh.push_back(0);
+			for (long j = 0; j < strV.size(); j++) {
+				if (a0.size() < a.size()){
+					a0.push_back(0);
 				}
-				if (strPh.at(i) == strPh.at(j)) {
-					intPh.at(j)++;
+				if (a.at(i) == strV.at(j)) {
+					a0.at(j)++;
 				}
 			}
 		}
-	}
-}
-
-//Information output
-void stuffReturn::outP(string file, int ac, vector<char> chr) {
-	string inpt, inpt0, txtF = file;
-	ifstream fil;
-	bool rC = false;
-	for(int i = 0; i < chr.size(); i++){
-		switch(chr.at(i)){
-			case 'r':
-				rC = true;
+		if(!a.empty())
+			a.clear();
+		switch(t){
+			case 1:
+				intPh = a0;
+				if(!a0.empty())
+					a0.clear();
 				break;
-		}
-	}
-	fil.open(txtF);
-	bool isGud = true;
-	if(!fil.good()){
-			std::cout << "-+=FileNotFound=+-" << endl;
-			isGud = false;
-		}
-	if(isGud){
-		while (!fil.eof()) {
-			getline(fil, inpt0);
-			inpt += inpt0 + " \n";
-		}
-		stuffReturn sR;
-		vector<string> a = sR.wordReturn(inpt);
-		sR.nuMake(1, a);
-		if(rC)
-			sR.redCheck(a);
-		a = sR.strSz;
-		sR.progressBar(20.0);
-		vector<long> a0 = sR.intSz;
-		sR.progressBar(20.0);
-		long COUNT = 0;
-		while (COUNT < a.size()) {
-			sR.progressBar(float(1.0/a.size()*20.0));
-			for (long i = 0; i < a.size(); i++) {
-				if (i < a.size()) {
-					if ((i + 1) >= a0.size())
-						break;
-					if (a0.at(i) > a0.at(i + 1)) {
-						iter_swap(a.begin() + i, a.begin() + i + 1);
-						iter_swap(a0.begin() + i, a0.begin() + i + 1);
-					}
-				}
-			}
-			COUNT++;
-		}
-		if(rC){
-			sR.nuMake(0, a);
-			COUNT = 0;
-			while (COUNT < sR.strPh.size()) {
-				sR.progressBar(float(1.0/sR.strPh.size()*20.0));
-				for (long i = 0; i < sR.strPh.size(); i++) {
-					if (i < sR.strPh.size()) {
-						if ((i + 1) >= sR.intPh.size())
-							break;
-						if (sR.intPh.at(i) > sR.intPh.at(i + 1)) {
-							iter_swap(sR.strPh.begin() + i, sR.strPh.begin() + i + 1);
-							iter_swap(sR.intPh.begin() + i, sR.intPh.begin() + i + 1);
-						}
-					}
-				}
-				COUNT++;
-			}
-		}
-		int w0 = 0, w1 = 0;
-		while (a.size() - 1 > w0) {
-			w1 = w0 + 1;
-			while (w1 < a.size()) {
-				if (a.at(w0) == a.at(w1)) {
-					a.erase(a.begin() + w1);
-					a0.erase(a0.begin() + w1);
-				}
-				w1++;
-			}
-			w0++;
-		}
-		if(rC){
-			w0 = 0, w1 = 0;
-			while (sR.strPh.size() > w0) {
-				w1 = w0 + 1;
-				while (w1 < sR.strPh.size()) {
-					if (sR.strPh.at(w0) == sR.strPh.at(w1)) {
-						sR.strPh.erase(sR.strPh.begin() + w1);
-						sR.intPh.erase(sR.intPh.begin() + w1);
-					}
-					if (w1 == sR.strPh.size()-1){
-						break;
-					}
-					w1++;
-				}
-				w0++;
-			}
-		}
-		std::cout << "---------" << endl;
-		long SET, numS;
-		long LENg = 0, i = 0;
-		string SP = " |--->  ";
-		while (true) {
-			SET = a0.at(i);
-			std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << endl;
-			while (SET == a0.at(i)) {
-				if(a0.at(i) <= 5){
-					std::printf("\e[92m");
-					std::cout << SP << a.at(i) << "\n" << " " << endl;
-					std::printf("\e[0m");
-				}
-				if(a0.at(i) > 5 && a0.at(i) <= 10){
-					std::printf("\e[93m");
-					std::cout << SP << a.at(i) << "\n" << " " << endl;
-					std::printf("\e[0m");
-				}
-				if(a0.at(i) > 10){
-					std::printf("\e[31m");
-					std::cout << SP << a.at(i) << "\n" << " " << endl;
-					std::printf("\e[0m");
-				}
-				i++;
-				if (a0.size() <= i)
-					break;
-			}
-			LENg++;
-			if (LENg == a.size() || i >= a0.size())
+			case 2:
+				intS2 = a0;
+				if(!a0.empty())
+					a0.clear();
 				break;
-		}
-
-		if(rC){
-			sR.pauz();
-			a = sR.strPh;
-			a0 = sR.intPh;
-			std::cout << "\n---------\n" << endl;
-			SET, numS;
-			LENg = 0, i = 0;
-			std::printf("\e[91m");
-			std::printf("\e[4m");
-			std::cout << "BEGIN::(RedCheck)" << endl;
-			std::printf("\e[0m");
-			std::printf("\e[91m");
-			while (true) {
-				if(i >= a.size()){
-					break;
+			case 3:
+				intDoc = a0;
+				for(int i = 0; i < intDoc.size(); i++){
 				}
-				SET = a0.at(i);
-				bool rCT = 0;
-				if(a0.at(i) > 1){
-					rCT = 1;
-					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << endl;
-					while (SET == a0.at(i)) {
-						std::cout << SP << a.at(i) << "\n" << " " << endl;
-						i++;
-						if (a0.size() <= i)
-							break;
-					}
-					LENg++;
-					if (LENg == a.size() || i >= a0.size())
-						break;
-				}
-				i++;
-				if(!rCT && i >=a.size()){
-					std::printf("\e[4m");
-					std::cout << "\nTerminal>";
-					std::printf("\e[0m");
-					std::printf("\e[91m");
-					std::printf("\e[5m");
-					std::cout << "\tNo phrases to return" << endl;
-					std::printf("\e[0m");
-					std::printf("\e[91m");
-				}
-			}
-			std::printf("\e[4m");
-			std::cout << "\nEND::(RedCheck)" << endl;
-			std::printf("\e[0m");
+				if(!a0.empty())
+					a0.clear();
+				break;
 		}
 	}
 }
@@ -272,6 +472,11 @@ void stuffReturn::pauz(){
 	cin.ignore();
 	cin.get();
 	#endif
+}
+
+//Returns Version
+string stuffReturn::ver(){
+	return verz;
 }
 
 //Progress bar for...Progress
@@ -347,11 +552,38 @@ void stuffReturn::redCheck(vector<string> s){
 		if(!phrase.empty())
 			phrase.clear();
 	}
-	for(int i = 0; i < strPh.size(); i++){
-		cout << strPh.at(i) << endl;
-	}
 }
 
+//Compare documents for similarities in vocabulary and word patterns
+void stuffReturn::doCo(vector<char> c){
+	string file;
+	while(1){
+		std::cout << "FK> Enter second file: ";
+		cin >> file;
+		if(file == "ls"){
+			system("ls");
+			file = "";
+		}
+		else if (GUD(file)){
+			break;
+		}
+	}
+	setF(file, 0);
+	c.push_back('t');
+	SeNDe(file, c, 0);
+	for(int i = 0; i < strSz.size(); i++){
+		for(int j = 0; j < strS2.size(); j++){
+			if(strSz.at(i) == strS2.at(j)){
+				strDoc.push_back(strS2.at(j));
+				j++;
+			}
+		}
+	}
+	c.pop_back();
+	nuMake(3, strDoc);
+}
+
+//Check if the string has more than one word
 bool stuffReturn::GT1(string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
@@ -368,4 +600,31 @@ bool stuffReturn::GT1(string s){
 			return 0;
 		}
 	}
+}
+
+//Check if file is good
+bool stuffReturn::GUD(string fil){
+	bool tf = 0;
+	ifstream f;
+	f.open(fil);
+	if(!f.good()){
+			std::cout << "-+=FileNotFound=+-" << endl;
+	} else {
+		tf = 1;
+	}
+	f.close();
+	return tf;
+}
+
+//Setting file names
+void stuffReturn::setF(string fil, bool b){
+	string f = "";
+	for(int i = 0; i < f.length() - 4; i++){
+		f += fil[i];
+	}
+	if(b)
+		file0 = f;
+	else
+		file1 = f;
+		
 }

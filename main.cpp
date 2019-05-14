@@ -18,11 +18,11 @@ int main(int argc, char* argv[]) {
 				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
 				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << endl;
 				std::cout << "options:" << endl;
-				std::cout << "\t-h, --help       \tDisplay this screen" << endl;
-				std::cout << "\t-c, --cli        \tDisplay the CLI(Command Line Interface)" << endl;
-				std::cout << "\t-red, --red-check\tDisplay redundancy of phrases used in document" << endl;
-				std::cout << "\t-l, --legend     \tDisplay legend to understand color coding for\n\t\
-			output" << endl;
+				std::cout << "\t-h,   --help        \tDisplay this screen" << endl;
+				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << endl;
+				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << endl;
+				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << endl;
+				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << endl;
 				OPT = argv[i];
 				sr.pauz();
 			}
@@ -43,6 +43,10 @@ int main(int argc, char* argv[]) {
 				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << endl;
 				std::printf("\e[0m");
 			}
+			if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
+				opti.push_back('d');
+				//opti.push_back('r');
+			}
 		}
 		for (int i = 4; i >= 0; i--)
 			inpt01[4-i] = argv[argc-1][strlen(argv[argc-1])-i];
@@ -61,17 +65,21 @@ int main(int argc, char* argv[]) {
 			std::cout << "  T::T   H::HHH::H N::NN:::N E:E      E:::E    D::DD:D  L::L E:::E" << endl;
 			std::cout << "  T::T   H::H H::H N::N N::N E::::::E E::::::E  D::::D  L::L E::::::E" << endl;
 			std::cout << "  TTTT   HHHH HHHH NNNN NNNN EEEEEEE  EEEEEEE    DDDDD  LLLL EEEEEEE" << endl;
-			std::cout << "\nv1.0.1" << endl;
+			std::cout << "\n" << sr.ver() << endl;
 			std::cout << "By FlakeyKarma\n\n" << endl;
 			std::cout << "[0] Regular Output" << endl;
-			std::cout << "[1] Redundancy Check";
+			std::cout << "[1] Redundancy Check ";
 			std::printf("\e[91m");
 			std::cout << "(RedCheck)";
 			std::printf("\e[0m");
 			std::cout << "[BETA]" << endl;
-			std::cout << "[2] Legend" << endl;
-			std::cout << "[3] About" << endl;
-			std::cout << "[4] Help" << endl;
+			std::cout << "[2] Document Comparison ";
+			std::printf("\e[96m");
+			std::cout << "(DoCo)" << endl;
+			std::printf("\e[0m");
+			std::cout << "[3] Legend" << endl;
+			std::cout << "[4] About" << endl;
+			std::cout << "[5] Help" << endl;
 			std::cout << "[x] Exit" << endl;
 			std::cout << "\nFK> ";
 			cin >> inpt01[0];
@@ -109,8 +117,14 @@ int main(int argc, char* argv[]) {
 				sr.outP(fil, argc, opti);
 				sr.pauz();
 				break;
-			//Legend
+			//DoCo
 			case '2':
+				sr.clr();
+				std::cout << "\\\\STILL UNDER CONSTRUCTION" << endl;
+				sr.pauz();
+				break;
+			//Legend
+			case '3':
 				sr.clr();
 				std::cout << "\n\t\t\tLegend\n" << endl;
 				std::printf("\e[92m");
@@ -126,7 +140,7 @@ int main(int argc, char* argv[]) {
 				sr.pauz();
 				break;
 			//About
-			case '3':
+			case '4':
 				sr.clr();
 				std::cout << "\n\n\\\\About" << endl;
 				std::cout << "\n\\\\I started needing to make this program when I found myself trying\
@@ -140,16 +154,16 @@ int main(int argc, char* argv[]) {
 				sr.pauz();
 				break;
 			//Help
-			case '4':
+			case '5':
 				sr.clr();
 				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << endl;
-				std::cout << "[-h, --help][-c, --cli]\n\n" << endl;
+				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << endl;
 				std::cout << "options:" << endl;
-				std::cout << "\t-h, --help       \tDisplay this screen" << endl;
-				std::cout << "\t-c, --cli        \tDisplay the CLI(Command Line Interface)" << endl;
-				std::cout << "\t-red, --red-check\tDisplay redundancy of phrases used in document" << endl;
-				std::cout << "\t-l, --legend     \tDisplay legend to understand color coding for\n\t\
-			output" << endl;
+				std::cout << "\t-h,   --help        \tDisplay this screen" << endl;
+				std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << endl;
+				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << endl;
+				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << endl;
+				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << endl;
 				sr.pauz();
 				break;
 			//Exit
@@ -163,7 +177,7 @@ int main(int argc, char* argv[]) {
 
 	if (strcmp(inpt01, ".txt") != 0 && !TF)
 		exit(0);
-	std::cout << "\nThNeedle v1.0" << endl;
+	std::cout << "\nThNeedle " << sr.ver() << endl;
 	std::cout << "\nBy FlakeyKarma\n\n" << endl;
 	sr.outP(argv[argc-1], argc, opti);
 	std::cout << "\n\n--=goodbye=--\n\n" << endl;

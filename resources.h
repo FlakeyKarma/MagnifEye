@@ -8,21 +8,24 @@ using namespace std;
 
 class stuffReturn {
 	private:
-		vector<string> strSz;
-		vector<string> strPh;
-		vector<long> intSz;
-		vector<long> intPh;
+		vector<string>strSz, strPh, strS2, strDoc, spDoc;
+		vector<long> intSz, intPh, intS2, intDoc, ipDoc;
 		float progress = 0;
-		int chk = 0;
-		int numCheck = 0;
-		string loadBar;
+		int chk = 0, numCheck = 0;
+		string loadBar, file0, file1;
+		string verz = "v1.0.2";
 	public:
+		void setF(string s, bool b);
 		vector<string> wordReturn(string s);
-		void nuMake(bool tf, vector<string> s);
+		void SeNDe(string s, vector<char> c, bool t);
+		void nuMake(char c, vector<string> s);
 		void outP(string file, int ac, vector<char> c);
 		void redCheck(vector<string> s);
 		bool GT1(string s);
+		bool GUD(string f);
+		void doCo(vector<char> c);
 		void clr();
 		void pauz();
 		void progressBar(float x);
+		string ver();
 };
