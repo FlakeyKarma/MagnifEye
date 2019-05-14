@@ -96,6 +96,7 @@ int main(int argc, char* argv[]) {
 						break;
 					}
 				}
+				opti.push_back('A');
 				sr.outP(fil, argc, opti);
 				sr.pauz();
 			if(!opti.empty())
@@ -179,6 +180,7 @@ int main(int argc, char* argv[]) {
 		exit(0);
 	std::cout << "\nThNeedle " << sr.ver() << endl;
 	std::cout << "\nBy FlakeyKarma\n\n" << endl;
+	opti.push_back('A');
 	sr.outP(argv[argc-1], argc, opti);
 	std::cout << "\n\n--=goodbye=--\n\n" << endl;
 	return 0;

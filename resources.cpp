@@ -238,8 +238,7 @@ FUNCTIONS FOR outP
 
 //SearchNDestroy
 void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
-	cout << "SeNDe" << endl;
-	bool c = false, t = false;
+	bool c = false, t = false, def = false;
 	for(int i = 0; i < chr.size(); i++){
 		switch(chr.at(i)){
 			case 'd':
@@ -247,6 +246,9 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 				break;
 			case 't':
 				t = true;
+				break;
+			case 'A':
+				def = true;
 				break;
 		}
 	}
@@ -294,6 +296,10 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 		a0 = intS2;
 	}
 	long COUNT = 0;
+	for(int i = 0; i < a.size(); i++){
+		cout << a.at(i) << endl;
+		cout << a0.at(i) << endl;
+	}
 	while (COUNT < a.size()) {
 		progressBar(float(1.0/a.size()*20.0));
 		for (long i = 0; i < a.size(); i++) {
@@ -309,6 +315,10 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 		COUNT++;
 	}
 
+	for(int i = 0; i < a.size(); i++){
+		cout << a.at(i) << endl;
+		cout << a0.at(i) << endl;
+	}
 	COUNT = 0;
 	int w0 = 0, w1 = 0;
 	while (a.size() - 1 > w0) {
@@ -328,7 +338,7 @@ void stuffReturn::SeNDe(string file, vector<char> chr, bool rC){
 		strS2 = a;
 		intS2 = a0;
 	}
-	else if (t){
+	else if (def || t){
 		strSz = a;
 		intSz = a0;
 	}
