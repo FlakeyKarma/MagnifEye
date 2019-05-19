@@ -77,8 +77,9 @@ int main(int argc, char* argv[]) {
 			std::cout << "[BETA]" << std::endl;
 			std::cout << "[2] Document Comparison ";
 			std::printf("\e[96m");
-			std::cout << "(DoCo)" << std::endl;
+			std::cout << "(DoCo)";
 			std::printf("\e[0m");
+			std::cout << "[BETA]" << std::endl;
 			std::cout << "[3] Legend" << std::endl;
 			std::cout << "[4] About" << std::endl;
 			std::cout << "[5] Help" << std::endl;
