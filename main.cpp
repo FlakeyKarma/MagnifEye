@@ -77,9 +77,8 @@ int main(int argc, char* argv[]) {
 			std::cout << "[BETA]" << std::endl;
 			std::cout << "[2] Document Comparison ";
 			std::printf("\e[96m");
-			std::cout << "(DoCo)";
+			std::cout << "(DoCo)" << std::endl;
 			std::printf("\e[0m");
-			std::cout << "[BETA]" << std::endl;
 			std::cout << "[3] Legend" << std::endl;
 			std::cout << "[4] About" << std::endl;
 			std::cout << "[5] Help" << std::endl;
@@ -133,6 +132,8 @@ int main(int argc, char* argv[]) {
 						break;
 					}
 				}
+				opti.push_back('M');
+				opti.push_back('A');
 				opti.push_back('d');
 				sr.outP(fil, argc, opti);
 				std::cout << "\\\\STILL UNDER CONSTRUCTION FOR: redCheck implementation" << std::endl;
