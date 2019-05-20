@@ -49,12 +49,8 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		long SET, numS;
 		long LENg = 0, i = 0;
 		string SP = " |--->  ";
-		cout << "Sz" << endl;
 		sR.rO();
 		if(def){
-			for(int i = 0; i < a.size(); i++){
-				cout << a.at(i) << " :: " << a0.at(i) << endl;
-			}
 			while (true) {
 				SET = a0.at(i);
 				std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << std::endl;
@@ -98,8 +94,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			std::cout << "BEGIN::(RedCheck)" << std::endl;
 			std::printf("\e[0m");
 			std::printf("\e[91m");
-			cout << a.size() << endl;
-			cout << a0.size() << endl;
 			while (true) {
 				if(i >= a.size()){
 					break;
@@ -119,7 +113,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					LENg++;
 					if (LENg == a.size() || i >= a0.size())
 						break;
-					cout << "rC" << endl;
 				}
 				i++;
 				if(!rCT && i >= a.size()){
@@ -138,18 +131,14 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			std::printf("\e[0m");
 		}
 		if(co){
-			for(int i = 0; i < sR.strSz.size(); i++){
-				cout << sR.strSz.at(i) << " :: " << sR.intSz.at(i) << endl;
-			}
-			for(int i = 0; i < sR.strS2.size(); i++){
-				cout << sR.strS2.at(i) << " :: " << sR.intS2.at(i) << endl;
-			}
 			vector<string> nLW, nL0, nL1;
 			if(def || rC)
 				sR.pauz();
+			sR.rO();
 			int ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1;
 			string spWrd = "", sp0 = "", sp1 = "", outpt = " +===> OUTPUT", lne = "-{";
 			long chk0, chk1;
+			//
 			for(long i = 0; i < sR.strSz.size(); i++){
 				if(i > 0){
 					if(to_string(sR.intSz.at(i)).length() > to_string(sR.intSz.at(i-1)).length()){
@@ -157,6 +146,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
+			//
 			for(long i = 0; i < sR.intSz.size(); i++){
 				spWrd = to_string(sR.intSz.at(i) + 1);
 				while(spWrd.length() < sWrd + 2){
@@ -164,6 +154,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				nLW.push_back(spWrd);
 			}
+			//
 			for(long i = 0; i < sR.intS2.size(); i++){
 				if(i > 0){
 					if(sR.strS2.at(i).length() > sR.strS2.at(i-1).length()){
@@ -171,6 +162,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
+			//
 			if(s0 + 2 > sR.file0.length() + 2) lng0 = s0+2; else lng0 = sR.file0.length() + 2;
 			for(long i = 0; i < sR.strS2.size(); i++){
 				sp0 = to_string(sR.intS2.at(i) + 1);
@@ -179,6 +171,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				nL0.push_back(sp0);
 			}
+			//
 			for(long i = 0; i < sR.strDoc.size(); i++){
 				if(i > 0){
 					if(sR.strDoc.at(i).length() > sR.strDoc.at(i-1).length()){
@@ -187,6 +180,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 			}
 			a = sR.strDoc;
+			//
 			if(s1 + 2 > sR.file1.length() + 2) lng1 = s1+2; else lng1 = sR.file0.length() + 2;
 			for(long i = 0; i < a.size(); i++){
 				while(a.at(i).length() < lng1){
@@ -194,6 +188,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				nL1.push_back(sp1);
 			}
+			//
 			while(outpt.length() < lng1 + 8){
 				outpt += " ";
 			}
@@ -314,6 +309,10 @@ void stuffReturn::SeNDe(string file, bool rC){
 	if(def){
 		a = strSz;
 		a0 = intSz;
+	}
+	if(c){
+		a = strS2;
+		a0 = intS2;
 	}
 	long COUNT = 0;
 	while (COUNT < a.size()) {
@@ -443,8 +442,8 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 				a = strPh;
 				break;
 			case 2:
-				strV = strS2;
-				a = strS2;
+				strV = s;
+				a = s;
 				break;
 			case 3:
 				strV = strDoc;
@@ -463,8 +462,6 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 				}
 			}
 		}
-		if(!a.empty())
-			a.clear();
 		switch(t){
 			case 1:
 				intPh = a0;
@@ -472,25 +469,19 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 					a0.clear();
 				break;
 			case 2:
+				strS2 = a;
 				intS2 = a0;
 				if(!a0.empty())
 					a0.clear();
 				break;
 			case 3:
 				intDoc = a0;
-				for(int i = 0; i < intDoc.size(); i++){
-				}
 				if(!a0.empty())
 					a0.clear();
 				break;
 		}
-	}
-	if(t == 2){
-		cout << strS2.size() << endl;
-		cout << intS2.size() << endl;
-		for(int i = 0; i < intS2.size(); i++){
-			cout << strS2.at(i) << " :: " << intS2.at(i) << endl;
-		}
+		if(!a.empty())
+			a.clear();
 	}
 	cout << "\n\n\t\\nuMake\n\n" << endl;
 }
@@ -614,19 +605,35 @@ void stuffReturn::doCo(vector<char> c){
 		}
 	}
 	setF(file, 0);
+	c.push_back('t');
+	pauz();
+	pauz();
+	SeNDe(file, 0);
+	c.pop_back();
 	for(int i = 0; i < strSz.size(); i++){
 		for(int j = 0; j < strS2.size(); j++){
+			cout << strSz.at(i) << " :: " << strS2.at(j) << endl;
 			if(strSz.at(i) == strS2.at(j)){
-				strDoc.push_back(strS2.at(j));
-				j++;
+				strDoc.push_back(strSz.at(j));
+				//i++;
 			}
 		}
 	}
+	for(int i = 0; i < strSz.size(); i++){
+		cout << strSz.at(i) << endl;
+	}
+	cout << "NXT" << endl;
+	for(int i = 0; i < strS2.size(); i++){
+		cout << strS2.at(i) << endl;
+	}
+	for(int i = 0; i < strDoc.size(); i++){
+		cout << strDoc.at(i) << endl;
+	}
 	nuMake(3, strDoc);
-	c.push_back('t');
-	SeNDe(file, 0);
-	c.pop_back();
+	pauz();
+	pauz();
 	chr = c;
+	cout << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if the string has more than one word
@@ -646,7 +653,6 @@ bool stuffReturn::GT1(string s){
 			return 0;
 		}
 	}
-	cout << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if file is good
@@ -677,7 +683,6 @@ void stuffReturn::setF(string fil, bool b){
 }
 
 void stuffReturn::rO(){
-	/*
 	cout << "--LISTS--" << endl;
 	cout << "::::::::::::::>SZ<< " << strSz.size() << " " << intSz.size() << endl;
 	for(int i = 0; i < strSz.size(); i++){
@@ -703,5 +708,4 @@ void stuffReturn::rO(){
 	}
 	cout << "::::::::::::::>\\Doc<< " << strDoc.size() << " " << intDoc.size() << endl;
 	pauz();
-	*/
 }
