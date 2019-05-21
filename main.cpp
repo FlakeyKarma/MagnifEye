@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[]) {
 	int sz = 0, sp = 0;
-	stuffReturn sr;
+	stuffReturn* sr = new stuffReturn;
 	char inpt01[5];
 	sz = 0;
 	string OPT, fil;
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 				OPT = argv[i];
-				sr.pauz();
+				sr->pauz();
 			}
 			if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0)
 				TF = true;
@@ -53,10 +53,10 @@ int main(int argc, char* argv[]) {
 	}
 	//INTAKE:END
 	if (TF) {
-		sr.clr();
+		sr->clr();
 		opti.clear();
 		while (true) {
-			sr.clr();
+			sr->clr();
 
 			std::cout << "_________" << std::endl;
 			std::cout << " ===:===" << std::endl;
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 			std::cout << "  |::_| |   _   | |  |\\   | |  \\__   |  \\__    |  ()|  |: | |  \\__" << std::endl;
 			std::cout << "   ===  |  | |  | |  | \\  | |      | |      |  \\    |  |: | |      |" << std::endl;
 			std::cout << "    |    **   **   **   **   *====*   *====*    *==*    `|   *====*" << std::endl;
-			std::cout << "\n" << sr.ver() << std::endl;
+			std::cout << "\n" << sr->ver() << std::endl;
 			std::cout << "By FlakeyKarma\n\n" << std::endl;
 			std::cout << "[0] Regular Output" << std::endl;
 			std::cout << "[1] Redundancy Check ";
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 			switch (inpt01[0]) {
 			//Regular output
 			case '0':
-				sr.clr();
+				sr->clr();
 				while(1){
 					std::cout << "FK> Enter directory to file: ";
 					cin >> fil;
@@ -97,16 +97,17 @@ int main(int argc, char* argv[]) {
 					}else{
 						break;
 					}
+				delete sr;
 				}
 				opti.push_back('A');
-				sr.outP(fil, argc, opti);
-				sr.pauz();
+				sr->outP(fil, argc, opti);
+				sr->pauz();
 			if(!opti.empty())
 				opti.clear();
 				break;
 			//RedCheck
 			case '1':
-				sr.clr();
+				sr->clr();
 				while(1){
 					std::cout << "FK> Enter directory to file: ";
 					cin >> fil;
@@ -117,12 +118,12 @@ int main(int argc, char* argv[]) {
 					}
 				}
 				opti.push_back('r');
-				sr.outP(fil, argc, opti);
-				sr.pauz();
+				sr->outP(fil, argc, opti);
+				sr->pauz();
 				break;
 			//DoCo
 			case '2':
-				sr.clr();
+				sr->clr();
 				while(1){
 					std::cout << "FK> Enter directory to file: ";
 					cin >> fil;
@@ -135,13 +136,13 @@ int main(int argc, char* argv[]) {
 				opti.push_back('M');
 				opti.push_back('A');
 				opti.push_back('d');
-				sr.outP(fil, argc, opti);
+				sr->outP(fil, argc, opti);
 				std::cout << "\\\\STILL UNDER CONSTRUCTION FOR: redCheck implementation" << std::endl;
-				sr.pauz();
+				sr->pauz();
 				break;
 			//Legend
 			case '3':
-				sr.clr();
+				sr->clr();
 				std::cout << "\n\t\t\tLegend\n" << std::endl;
 				std::printf("\e[92m");
 				std::cout << "\tGood\n" << std::endl;
@@ -153,11 +154,11 @@ int main(int argc, char* argv[]) {
 				std::cout << "\tBad\n" << std::endl;
 				std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << std::endl;
 				std::printf("\e[0m");
-				sr.pauz();
+				sr->pauz();
 				break;
 			//About
 			case '4':
-				sr.clr();
+				sr->clr();
 				std::cout << "\n\n\\\\About" << std::endl;
 				std::cout << "\n\\\\I started needing to make this program when I found myself trying\
 								\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
@@ -167,11 +168,11 @@ int main(int argc, char* argv[]) {
 								\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
 								\n  There you go\n\
 								\n  -FlakeyKarma\n\n" << std::endl;
-				sr.pauz();
+				sr->pauz();
 				break;
 			//Help
 			case '5':
-				sr.clr();
+				sr->clr();
 				std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
 				std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
 				std::cout << "options:" << std::endl;
@@ -180,11 +181,11 @@ int main(int argc, char* argv[]) {
 				std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
 				std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 				std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
-				sr.pauz();
+				sr->pauz();
 				break;
 			//Exit
 			case 'x':
-				sr.clr();
+				sr->clr();
 				std::cout << "-=goodbye=-" << std::endl;
 				exit(0);
 			}
@@ -196,10 +197,10 @@ int main(int argc, char* argv[]) {
 	std::cout << "|  [========\\" << std::endl;
 	std::cout << "|={:|;;|;;|;;}==---o" << std::endl;
 	std::cout << "|  [========/       D" << std::endl;
-	std::cout << "\nThNeedle " << sr.ver() << std::endl;
+	std::cout << "\nThNeedle " << sr->ver() << std::endl;
 	std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 	opti.push_back('A');
-	sr.outP(argv[argc-1], argc, opti);
+	sr->outP(argv[argc-1], argc, opti);
 	std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
 	return 0;
 }

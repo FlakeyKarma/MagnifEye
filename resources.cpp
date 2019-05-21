@@ -143,7 +143,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			int ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1, lng2 = 0;
 			string spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
 			long chk0, chk1;
-			//
+			//Set sWrd as length of longest word in strSz 
 			for(long i = 0; i < sR.strSz.size(); i++){
 				if(i > 0){
 					if(to_string(sR.intSz.at(i)).length() > to_string(sR.intSz.at(i-1)).length()){
@@ -151,7 +151,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
-			//
+			//Add presence of percentages from first document to list of prO
 			for(long i = 0; i < sR.intSz.size(); i++){
 				if(sR.intSz.at(i)/sR.intSz.size() > 0)
 					prcW = to_string(sR.intSz.at(i)/sR.intSz.size());
@@ -163,7 +163,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				pr0.push_back(prcW);
 			}
-			//
+			//Add presence of percentages from second document to list of pr1
 			for(long i = 0; i < sR.intS2.size(); i++){
 				if(sR.intS2.at(i)/sR.intS2.size() > 0)
 					prcW = to_string(sR.intS2.at(i)/sR.intS2.size());
@@ -174,7 +174,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				pr1.push_back(prcW);
 			}
-			//
+			//Make length of each number to equal that of the size of the longest number, plus two spaces
 			for(long i = 0; i < sR.intSz.size(); i++){
 				spWrd = to_string(sR.intSz.at(i));
 				while(spWrd.length() < sWrd + 2){
@@ -182,7 +182,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 				nLW.push_back(spWrd);
 			}
-			//
 			for(long i = 0; i < sR.strS2.size(); i++){
 				if(i > 0){
 					if(to_string(sR.intS2.at(i)).length() > to_string(sR.intS2.at(i-1)).length()){
@@ -190,7 +189,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
-			//
 			for(long i = 0; i < sR.intS2.size(); i++){
 				if(i > 0){
 					if(sR.strS2.at(i).length() > sR.strS2.at(i-1).length()){
@@ -198,7 +196,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
-			//
 			for(long i = 0; i < sR.strS2.size(); i++){
 				sp0 = to_string(sR.intS2.at(i));
 				while(sp0.length() < sWrd + 3){
@@ -207,9 +204,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				nL0.push_back(sp0);
 			}
 			if(s0 + 2 > sR.file0.length() + 1) lng0 = s0+2; else lng0 = sR.file0.length() + 1;
-			//
 			sR.file0 += " ";
-			//
 			for(long i = 0; i < sR.strDoc.size(); i++){
 				if(i > 0){
 					if(sR.strDoc.at(i).length() > sR.strDoc.at(i-1).length()){
@@ -217,10 +212,8 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					}
 				}
 			}
-			//
 			sR.file1 += ' ';
 			a = sR.strDoc;
-			//
 			for(int i = 0; i < a.size(); i++){
 				if(i > 0){
 					if(a.at(i).length() >= lng2){
@@ -233,7 +226,6 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					a.at(i) += " ";
 				}
 			}
-			//
 			while(outpt.length() < lng2 + 11){
 				outpt += " ";
 			}
