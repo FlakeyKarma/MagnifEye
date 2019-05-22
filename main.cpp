@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
 				std::printf("\e[0m");
 			}
 			if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
+				opti.push_back('r');
 				opti.push_back('d');
 			}
 		}

@@ -30,12 +30,12 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		stuffReturn sR;
 		sR.chr = chr;
 		sR.setF(file, 1);
-		sR.rO();
+		//sR.rO("AA::outP::A::");
 		sR.SeNDe(file, 0);
 		if(rC){
 			sR.SeNDe(file, 1);
 		}
-		sR.rO();
+		//sR.rO("BB::outP::B::");
 		vector<string> a = sR.strSz;
 		vector<long> a0 = sR.intSz;
 		std::cout << "---------" << std::endl;
@@ -52,7 +52,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		long SET, numS;
 		long LENg = 0, i = 0;
 		string SP = " |--->  ";
-		sR.rO();
+		//sR.rO("CC::outP::C::");
 		if(!M && def){
 			while (true) {
 				SET = a0.at(i);
@@ -139,7 +139,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			if(!M)
 				if(def || rC)
 					sR.pauz();
-			sR.rO();
+			//sR.rO("EE::outP::D::");
 			int ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1, lng2 = 0;
 			string spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
 			long chk0, chk1;
@@ -241,6 +241,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			std::cout << "BEGIN::(DoCo)" << std::endl;
 			std::printf("\e[0m");
 			std::printf("\e[96m");
+			//sR.rO("FIN::B:");
 			while (true) {
 				if(i >= a.size()){
 					break;
@@ -298,8 +299,8 @@ FUNCTIONS FOR outP
 
 //SearchNDestroy
 void stuffReturn::SeNDe(string file, bool rC){
-	//cout << "\n\n\tSeNDe\n\n" << endl;
-	bool c = false, t = false, def = false;
+	cout << "\n\n\tSeNDe\n\n" << endl;
+	bool c = false, t = false, def = false, dc = false;
 	for(int i = 0; i < chr.size(); i++){
 		switch(chr.at(i)){
 			case 'd':
@@ -311,11 +312,14 @@ void stuffReturn::SeNDe(string file, bool rC){
 			case 'A':
 				def = true;
 				break;
+			case 'O':
+				dc = true;
+				break;
 		}
 	}
 	if(rC)
 		def = false;
-	rO();
+	//rO("FF::SeNDe::A::");
 	ifstream fil;
 	string inpt, inpt0;
 	fil.open(file);
@@ -330,9 +334,12 @@ void stuffReturn::SeNDe(string file, bool rC){
 	inpt0 = "";
 	if(def && !c)
 		nuMake(0, a);
-	if(rC && !c)
-		redCheck(a);
-	if(c)
+	if(rC && !c && !dc){
+		redCheck(a, 0);
+	}
+	if(dc)
+		redCheck(a, 1);
+	if(c && !dc)
 		nuMake(2, a);
 	a = strSz;
 	progressBar(20.0);
@@ -340,14 +347,22 @@ void stuffReturn::SeNDe(string file, bool rC){
 	progressBar(20.0);
 	if(rC){
 		a = strPh;
-		nuMake(1, a);
+		if(dc)
+			a = spDoc;
+		if(!dc)
+			nuMake(1, a);
+		if(dc)
+			nuMake(4, a);
 		a0 = intPh;
+		if(dc){
+			a0 = ipDoc;
+		}
 	}
-	if(def){
+	if(def && !dc){
 		a = strSz;
 		a0 = intSz;
 	}
-	if(c){
+	if(c && !dc){
 		a = strS2;
 		a0 = intS2;
 	}
@@ -366,7 +381,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 		}
 		COUNT++;
 	}
-	rO();
+	//rO("GG::SeNDe::B::");
 	COUNT = 0;
 	int w0 = 0, w1 = 0;
 	while (a.size() - 1 > w0) {
@@ -381,8 +396,8 @@ void stuffReturn::SeNDe(string file, bool rC){
 		}
 		w0++;
 	}
-	rO();
-	if(c){
+	//rO("HH::SeNDe::C::");
+	if(c && !dc){
 		strS2 = a;
 		intS2 = a0;
 	}
@@ -390,7 +405,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 		strSz = a;
 		intSz = a0;
 	}
-	if (rC){
+	if (rC && !dc){
 		for(int i = 0; i < chr.size(); i++){
 			if(chr.at(i) == 'r'){
 				chr.erase(chr.begin() + i);
@@ -400,12 +415,16 @@ void stuffReturn::SeNDe(string file, bool rC){
 		strPh = a;
 		intPh = a0;
 	}
-	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
+	if(dc){
+		spDoc = a;
+		ipDoc = a0;
+	}
+	std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
 //Breaks down full string into vector of all words
 vector<string> stuffReturn::wordReturn(string inpt) {
-	//cout << "\n\n\twordReturn\n\n" << endl;
+	cout  << "\n\n\twordReturn\n\n" << endl;
 	long sz = 0;
 	string s = "";
 	vector<string> sS;
@@ -416,7 +435,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			BLACKLIST.push_back((char)i);
 		}
 	}
-	rO();
+	//rO("II::wordReturn::A::");
 	for (long i = 0; i < inpt.length(); i++) {
 		bool CHK = false;
 		progressBar(float(1.0/inpt.length())*15.0);
@@ -442,14 +461,14 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			sz++;
 		}
 	}
-	rO();
-	//cout << "\n\n\t\\wordReturn\n\n" << endl;
+	//rO("JJ::wordReturn::B::");
+	cout << "\n\n\t\\wordReturn\n\n" << endl;
 	return sS;
 }
 
 //Counts instances of each word
 void stuffReturn::nuMake(char t, vector<string> s) {
-	//cout << "\n\n\tnuMake\n\n" << endl;
+	cout << "\n\n\tnuMake\n\n" << endl;
 	if(t == 0){
 		strSz.push_back(s.at(0));
 		intSz.push_back(0);
@@ -478,13 +497,9 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 				strV = strPh;
 				a = strPh;
 				break;
-			case 2:
+			default:
 				strV = s;
 				a = s;
-				break;
-			case 3:
-				strV = strDoc;
-				a = strDoc;
 				break;
 		}
 		a0.push_back(0);
@@ -502,25 +517,27 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 		switch(t){
 			case 1:
 				intPh = a0;
-				if(!a0.empty())
-					a0.clear();
 				break;
 			case 2:
 				strS2 = a;
 				intS2 = a0;
-				if(!a0.empty())
-					a0.clear();
 				break;
 			case 3:
 				intDoc = a0;
-				if(!a0.empty())
-					a0.clear();
+				break;
+			case 4:
+				ipDoc = a0;
+				break;
+			case 5:
+				ipD2 = a0;
 				break;
 		}
+		if(!a0.empty())
+			a0.clear();
 		if(!a.empty())
 			a.clear();
 	}
-	//cout << "\n\n\t\\nuMake\n\n" << endl;
+	cout  << "\n\n\t\\nuMake\n\n" << endl;
 }
 
 //Clears Screen
@@ -576,8 +593,8 @@ void stuffReturn::progressBar(float x){
 }
 
 //Check for redundant phrases used
-void stuffReturn::redCheck(vector<string> s){
-	//cout << "\n\n\tredCheck\n\n" << endl;
+void stuffReturn::redCheck(vector<string> s, bool d){
+	cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
 	long leng = 0, l = 0;
@@ -600,7 +617,10 @@ void stuffReturn::redCheck(vector<string> s){
 					nxt += s.at(j) + " ";
 					if(l == 0){
 						if(nxt != "" && nxt != " " && GT1(nxt)){
-							strPh.push_back(nxt);
+							if(d)
+								spDoc.push_back(nxt);
+							else
+								strPh.push_back(nxt);
 						}
 					}
 					j++;
@@ -623,12 +643,12 @@ void stuffReturn::redCheck(vector<string> s){
 		if(!phrase.empty())
 			phrase.clear();
 	}
-	//cout << "\n\n\t\\redCheck\n\n" << endl;
+	cout  << "\n\n\t\\redCheck\n\n" << endl;
 }
 
 //Compare documents for similarities in vocabulary and word patterns
 void stuffReturn::doCo(vector<char> c){
-	//cout << "\n\n\tdoCo\n\n" << endl;
+	cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	while(1){
 		std::cout << "FK> Enter second file: ";
@@ -642,20 +662,29 @@ void stuffReturn::doCo(vector<char> c){
 		}
 	}
 	setF(file, 0);
-	c.push_back('t');
 	SeNDe(file, 0);
-	c.pop_back();
 	for(int i = 0; i < strSz.size(); i++){
 		for(int j = 0; j < strS2.size(); j++){
 			if(strSz.at(i) == strS2.at(j)){
 				strDoc.push_back(strSz.at(j));
-				//i++;
 			}
 		}
 	}
 	nuMake(3, strDoc);
-	chr = c;
-	//cout << "\n\n\t\\doCo\n\n" << endl;
+	chr.push_back('O');
+	SeNDe(file, 1);
+	chr.pop_back();
+	for(int i = 0; i < strPh.size(); i++){
+		for(int j = 0; j < spDoc.size(); j++){
+			if(strPh.at(i) == spDoc.at(j)){
+				spD2.push_back(strPh.at(i));
+			}
+		}
+	}
+	nuMake(5, spD2);
+	//rO("DoCo::C");
+	pauz();
+	cout  << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if the string has more than one word
@@ -704,32 +733,42 @@ void stuffReturn::setF(string fil, bool b){
 		
 }
 
-void stuffReturn::rO(){
-	/*
+void stuffReturn::rO(string s){
 	cout << "--LISTS--" << endl;
-	cout << "::::::::::::::>SZ<< " << strSz.size() << " " << intSz.size() << endl;
+	cout << s << "::::::::::::::>Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
 	for(int i = 0; i < strSz.size(); i++){
 		cout << strSz.at(i) << " :: " << intSz.at(i) << endl;
 	}
-	cout << "::::::::::::::>\\SZ<< " << strSz.size() << " " << intSz.size() << endl;
+	cout << s << "::::::::::::::>\\Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
 	pauz();
-	cout << "::::::::::::::>PH<< " << strPh.size() << " " << intPh.size() << endl;
+	cout << s << "::::::::::::::>Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
 	for(int i = 0; i < strPh.size(); i++){
 		cout << strPh.at(i) << " :: " << intPh.at(i) << endl;
 	}
-	cout << "::::::::::::::>\\PH<< " << strPh.size() << " " << intPh.size() << endl;
+	cout << s << "::::::::::::::>\\Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
 	pauz();
-	cout << "::::::::::::::>S2<< " << strS2.size() << " " << intS2.size() << endl;
+	cout << s << "::::::::::::::>Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
 	for(int i = 0; i < strS2.size(); i++){
 		cout << strS2.at(i) << " :: " << intS2.at(i) << endl;
 	}
-	cout << "::::::::::::::>\\S2<< " << strS2.size() << " " << intS2.size() << endl;
+	cout << s << "::::::::::::::>\\Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
 	pauz();
-	cout << "::::::::::::::>Doc<< " << strDoc.size() << " " << intDoc.size() << endl;
+	cout << s << "::::::::::::::>doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
 	for(int i = 0; i < strDoc.size(); i++){
 		cout << strDoc.at(i) << " :: " << intDoc.at(i) << endl;
 	}
-	cout << "::::::::::::::>\\Doc<< " << strDoc.size() << " " << intDoc.size() << endl;
+	cout << s << "::::::::::::::>\\doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
 	pauz();
-	*/
+	cout << s << "::::::::::::::>Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
+	for(int i = 0; i < spDoc.size(); i++){
+		cout << spDoc.at(i) << " :: " << ipDoc.at(i) << endl;
+	}
+	cout << s << "::::::::::::::>\\Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
+	pauz();
+	cout << s << "::::::::::::::>doCo:Red<< " << spD2.size() << " " << ipD2.size() << endl;
+	for(int i = 0; i < spD2.size(); i++){
+		cout << spD2.at(i) << " :: " << ipD2.at(i) << endl;
+	}
+	cout << s << "::::::::::::::>\\doCo:Red<< " << endl;
+	pauz();
 }

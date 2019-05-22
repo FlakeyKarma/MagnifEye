@@ -8,8 +8,8 @@ using namespace std;
 
 class stuffReturn {
 	private:
-		vector<string>strSz, strPh, strS2, strDoc, spDoc;
-		vector<long> intSz, intPh, intS2, intDoc, ipDoc;
+		vector<string>strSz, strPh, strS2, strDoc, spDoc, spD2;
+		vector<long> intSz, intPh, intS2, intDoc, ipDoc, ipD2;
 		vector<char> chr;
 		float progress = 0;
 		int chk = 0, numCheck = 0;
@@ -21,13 +21,13 @@ class stuffReturn {
 		void SeNDe(string s, bool t);
 		void nuMake(char c, vector<string> s);
 		void outP(string file, int ac, vector<char> c);
-		void redCheck(vector<string> s);
+		void redCheck(vector<string> s, bool t);
 		bool GT1(string s);
 		bool GUD(string f);
 		void doCo(vector<char> c);
 		void clr();
 		void pauz();
 		void progressBar(float x);
-		void rO();
+		void rO(string s);
 		string ver();
 };
