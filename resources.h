@@ -14,7 +14,8 @@ class stuffReturn {
 		float progress = 0;
 		int chk = 0, numCheck = 0;
 		string loadBar, file0, file1;
-		string verz = "v1.3.5";
+		string verz = "v1.3.7";
+		bool tw = false, th = false, prd = false;
 	public:
 		void setF(string s, bool b);
 		vector<string> wordReturn(string s);
