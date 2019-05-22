@@ -798,17 +798,14 @@ void stuffReturn::progressBar(float x){
 
 //Check for redundant phrases used
 void stuffReturn::redCheck(vector<string> s, bool d){
-	cout  << "\n\n\tredCheck\n\n" << endl;
+	//cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
 	long leng = 0, l = 0;
-	for(int i = 0; i < s.size(); i++)
-		cout << s.at(i) << endl;
 	for(int i = 0; i < s.size(); i++){
 		if(prd){
 			while(s.at(leng + i) != "\\\\+==PERIOD==+//"){
 				phrase.push_back(s.at(leng + i));
-				cout << s.at(leng + i);
 				leng++;
 				if(leng + i == s.size()){
 					break;
@@ -817,14 +814,12 @@ void stuffReturn::redCheck(vector<string> s, bool d){
 		} else {
 			while(leng < 10){
 				phrase.push_back(s.at(leng + i));
-				cout << s.at(leng + i);
 				leng++;
 				if(leng + i == s.size()){
 					break;
 				}
 			}
 		}
-		cout << endl;
 		leng = 0;
 		for(int j = i; j < s.size(); j++){
 			while(l < phrase.size()){
@@ -836,7 +831,6 @@ void stuffReturn::redCheck(vector<string> s, bool d){
 					nxt += s.at(j) + " ";
 					if(l == 0){
 						if(nxt != "" && nxt != " " && GT1(nxt)){
-							cout << nxt << endl;
 							if(d)
 								spDoc.push_back(nxt);
 							else
@@ -863,7 +857,7 @@ void stuffReturn::redCheck(vector<string> s, bool d){
 		if(!phrase.empty())
 			phrase.clear();
 	}
-	cout  << "\n\n\t\\redCheck\n\n" << endl;
+	//cout  << "\n\n\t\\redCheck\n\n" << endl;
 }
 
 //Compare documents for similarities in vocabulary and word patterns
@@ -954,6 +948,7 @@ void stuffReturn::setF(string fil, bool b){
 		
 }
 
+//Dev debug variable tool
 void stuffReturn::rO(string s){
 	std::cout << "--LISTS--" << endl;
 	std::cout << s << "::::::::::::::>Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
