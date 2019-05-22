@@ -286,6 +286,170 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					std::printf("\e[96m");
 				}
 			}
+
+
+
+			pauz();
+			
+			
+			vector<vector<string>> chekk = {nLW, nL0, pr0, pr1};
+			for(int i = 0; i < chekk.size(); i++){
+				if(!chekk.at(i).empty())
+					chekk.at(i).clear();
+			}
+			if(!M)
+				if(def || rC)
+					sR.pauz();
+			//sR.rO("EE::outP::D::");
+			ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng2 = 0;
+			spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
+			chk0, chk1;
+			//Set sWrd as length of longest word in strPh 
+			for(long i = 0; i < sR.strPh.size(); i++){
+				if(i > 0){
+					if(to_string(sR.intPh.at(i)).length() > to_string(sR.intPh.at(i-1)).length()){
+						sWrd = sR.strPh.at(i).length();
+					}
+				}
+			}
+			//Add presence of percentages from first document to list of prO
+			for(long i = 0; i < sR.intPh.size(); i++){
+				if(sR.intPh.at(i)/sR.intPh.size() > 0)
+					prcW = to_string(sR.intPh.at(i)/sR.intPh.size());
+				else
+					prcW = "<0";
+				
+				while(prcW.length() < prc.length()){
+					prcW += ' ';
+				}
+				pr0.push_back(prcW);
+			}
+			//Add presence of percentages from second document to list of pr1
+			for(long i = 0; i < sR.ipDoc.size(); i++){
+				if(sR.ipDoc.at(i)/sR.ipDoc.size() > 0)
+					prcW = to_string(sR.ipDoc.at(i)/sR.ipDoc.size());
+				else
+					prcW = "<0";
+				while(prcW.length() < prc.length()){
+					prcW += ' ';
+				}
+				pr1.push_back(prcW);
+			}
+			//Make length of each number to equal that of the size of the longest number, plus two spaces
+			for(long i = 0; i < sR.intPh.size(); i++){
+				spWrd = to_string(sR.intPh.at(i));
+				while(spWrd.length() < sWrd + 2){
+					spWrd += " ";
+				}
+				nLW.push_back(spWrd);
+			}
+			for(long i = 0; i < sR.spDoc.size(); i++){
+				if(i > 0){
+					if(to_string(sR.ipDoc.at(i)).length() > to_string(sR.ipDoc.at(i-1)).length()){
+						sWrd = sR.spDoc.at(i).length();
+					}
+				}
+			}
+			for(long i = 0; i < sR.ipDoc.size(); i++){
+				if(i > 0){
+					if(sR.spDoc.at(i).length() > sR.spDoc.at(i-1).length()){
+						s0 = sR.spDoc.at(i).length();
+					}
+				}
+			}
+			for(long i = 0; i < sR.spDoc.size(); i++){
+				sp0 = to_string(sR.ipDoc.at(i));
+				while(sp0.length() < sWrd + 3){
+					sp0 += " ";
+				}
+				nL0.push_back(sp0);
+			}
+			if(s0 + 2 > sR.file0.length() + 1) lng0 = s0+2; else lng0 = sR.file0.length() + 1;
+			sR.file0 += " ";
+			for(long i = 0; i < sR.spD2.size(); i++){
+				if(i > 0){
+					if(sR.spD2.at(i).length() > sR.spD2.at(i-1).length()){
+						s1 = sR.spD2.at(i).length();
+					}
+				}
+			}
+			sR.file1 += ' ';
+			a = sR.spD2;
+			for(int i = 0; i < a.size(); i++){
+				if(i > 0){
+					if(a.at(i).length() >= lng2){
+						lng2 = a.at(i).length();
+					}
+				}
+			}
+			for(long i = 0; i < a.size(); i++){
+				while(a.at(i).length() < lng2 + 3){
+					a.at(i) += " ";
+				}
+			}
+			while(outpt.length() < lng2 + 11){
+				outpt += " ";
+			}
+			while(lne.length() < lng2 + lng0 + lng0 + sWrd){
+				lne += "=";
+			}
+			lne += "}-";
+			a0 = sR.ipD2;
+			std::cout << "\n---------\n" << std::endl;
+			LENg = 0, i = 0;
+			std::printf("\e[96m");
+			std::printf("\e[4m");
+			std::cout << "BEGIN::(DoCo)" << std::endl;
+			std::printf("\e[0m");
+			std::printf("\e[96m");
+			//sR.rO("FIN::B:");
+			while (true) {
+				if(i >= a.size()){
+					break;
+				}
+				SET = a0.at(i);
+				bool rCT = 0;
+				rCT = 1;
+				std::cout << outpt << sR.file0 << prc << sR.file1 << prc << std::endl;
+				std::cout << lne << std::endl;
+				while (SET == a0.at(i)) {
+					if(i % 30 == 0 && i > 0)
+						sR.pauz();
+					for(int j = 0; j < sR.strPh.size(); j++){
+						if(sR.strPh.at(j) == sR.spD2.at(i)){
+							chk0 = j;
+							break;
+						}
+					}
+					for(int j = 0; j < sR.spDoc.size(); j++){
+						if(sR.spDoc.at(j) == sR.spD2.at(i)){
+							chk1 = j;
+							break;
+						}
+					}
+					std::cout << SP << a.at(i) << nLW.at(chk0) << pr0.at(chk0) << nL0.at(chk1) << pr1.at(chk1) << '\n'<< std::endl;
+					i++;
+					if (a0.size() <= i)
+						break;
+				}
+				LENg++;
+				if (LENg == a.size() || i >= a0.size())
+					break;
+				i++;
+				if(!rCT && i >= a.size()){
+					std::printf("\e[4m");
+					std::cout << "\nTerminal>";
+					std::printf("\e[0m");
+					std::printf("\e[91m");
+					std::printf("\e[5m");
+					std::cout << "\tNo phrases to return" << std::endl;
+					std::printf("\e[0m");
+					std::printf("\e[96m");
+				}
+			}
+
+
+			///
 			std::printf("\e[4m");
 			std::cout << "\nEND::(DoCo)" << std::endl;
 			std::printf("\e[0m");
@@ -299,7 +463,7 @@ FUNCTIONS FOR outP
 
 //SearchNDestroy
 void stuffReturn::SeNDe(string file, bool rC){
-	cout << "\n\n\tSeNDe\n\n" << endl;
+	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, t = false, def = false, dc = false;
 	for(int i = 0; i < chr.size(); i++){
 		switch(chr.at(i)){
@@ -419,12 +583,12 @@ void stuffReturn::SeNDe(string file, bool rC){
 		spDoc = a;
 		ipDoc = a0;
 	}
-	std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
+	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
 //Breaks down full string into vector of all words
 vector<string> stuffReturn::wordReturn(string inpt) {
-	cout  << "\n\n\twordReturn\n\n" << endl;
+	//cout  << "\n\n\twordReturn\n\n" << endl;
 	long sz = 0;
 	string s = "";
 	vector<string> sS;
@@ -462,13 +626,13 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 		}
 	}
 	//rO("JJ::wordReturn::B::");
-	cout << "\n\n\t\\wordReturn\n\n" << endl;
+	//cout << "\n\n\t\\wordReturn\n\n" << endl;
 	return sS;
 }
 
 //Counts instances of each word
 void stuffReturn::nuMake(char t, vector<string> s) {
-	cout << "\n\n\tnuMake\n\n" << endl;
+	//cout << "\n\n\tnuMake\n\n" << endl;
 	if(t == 0){
 		strSz.push_back(s.at(0));
 		intSz.push_back(0);
@@ -537,7 +701,7 @@ void stuffReturn::nuMake(char t, vector<string> s) {
 		if(!a.empty())
 			a.clear();
 	}
-	cout  << "\n\n\t\\nuMake\n\n" << endl;
+	//cout  << "\n\n\t\\nuMake\n\n" << endl;
 }
 
 //Clears Screen
@@ -594,7 +758,7 @@ void stuffReturn::progressBar(float x){
 
 //Check for redundant phrases used
 void stuffReturn::redCheck(vector<string> s, bool d){
-	cout  << "\n\n\tredCheck\n\n" << endl;
+	//cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
 	long leng = 0, l = 0;
@@ -643,12 +807,12 @@ void stuffReturn::redCheck(vector<string> s, bool d){
 		if(!phrase.empty())
 			phrase.clear();
 	}
-	cout  << "\n\n\t\\redCheck\n\n" << endl;
+	//cout  << "\n\n\t\\redCheck\n\n" << endl;
 }
 
 //Compare documents for similarities in vocabulary and word patterns
 void stuffReturn::doCo(vector<char> c){
-	cout  << "\n\n\tdoCo\n\n" << endl;
+	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	while(1){
 		std::cout << "FK> Enter second file: ";
@@ -683,8 +847,7 @@ void stuffReturn::doCo(vector<char> c){
 	}
 	nuMake(5, spD2);
 	//rO("DoCo::C");
-	pauz();
-	cout  << "\n\n\t\\doCo\n\n" << endl;
+	//cout  << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if the string has more than one word
