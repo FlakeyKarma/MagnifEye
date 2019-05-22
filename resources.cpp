@@ -105,7 +105,11 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				SET = a0.at(i);
 				if(a0.at(i) > 1){
 					rCT = 1;
-					std::cout << "OUTPUT " << "=| " << a0.at(i) - 1 << " | :" << std::endl;
+					std::cout << "OUTPUT " << "=| ";
+					std::printf("\e[97m");
+					std::cout << a0.at(i) - 1;
+					std::printf("\e[91m");
+					std::cout << " | :" << std::endl;
 					while (SET == a0.at(i)) {
 						if(i % 20 == 0 && i > 0)
 							sR.pauz();
@@ -308,7 +312,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			for(long i = 0; i < sR.strPh.size(); i++){
 				if(i > 0){
 					if(to_string(sR.intPh.at(i)).length() > to_string(sR.intPh.at(i-1)).length()){
-						sWrd = sR.strPh.at(i).length();
+						sWrd = to_string(sR.intPh.at(i)).length();
 					}
 				}
 			}
@@ -338,7 +342,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			//Make length of each number to equal that of the size of the longest number, plus two spaces
 			for(long i = 0; i < sR.intPh.size(); i++){
 				spWrd = to_string(sR.intPh.at(i));
-				while(spWrd.length() < sWrd + 2){
+				while(spWrd.length() < sWrd + 3){
 					spWrd += " ";
 				}
 				nLW.push_back(spWrd);
@@ -346,7 +350,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			for(long i = 0; i < sR.spDoc.size(); i++){
 				if(i > 0){
 					if(to_string(sR.ipDoc.at(i)).length() > to_string(sR.ipDoc.at(i-1)).length()){
-						sWrd = sR.spDoc.at(i).length();
+						sWrd = to_string(sR.ipDoc.at(i)).length();
 					}
 				}
 			}
@@ -384,7 +388,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 			}
 			for(long i = 0; i < a.size(); i++){
 				while(a.at(i).length() < lng2 + 3){
-					a.at(i) += " ";
+					a.at(i) += "-";
 				}
 			}
 			while(outpt.length() < lng2 + 11){
@@ -719,7 +723,7 @@ void stuffReturn::pauz(){
 	#ifdef _WIN32
 	system("pause");
 	#else
-	std::cout << "PressAnyKey\\" << std::endl;
+	std::cout << "PressEnter\\" << std::endl;
 	cin.ignore();
 	cin.get();
 	#endif
@@ -831,6 +835,7 @@ void stuffReturn::doCo(vector<char> c){
 		for(int j = 0; j < strS2.size(); j++){
 			if(strSz.at(i) == strS2.at(j)){
 				strDoc.push_back(strSz.at(j));
+				break;
 			}
 		}
 	}
@@ -842,6 +847,7 @@ void stuffReturn::doCo(vector<char> c){
 		for(int j = 0; j < spDoc.size(); j++){
 			if(strPh.at(i) == spDoc.at(j)){
 				spD2.push_back(strPh.at(i));
+				break;
 			}
 		}
 	}
@@ -897,41 +903,53 @@ void stuffReturn::setF(string fil, bool b){
 }
 
 void stuffReturn::rO(string s){
-	cout << "--LISTS--" << endl;
-	cout << s << "::::::::::::::>Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
+	std::cout << "--LISTS--" << endl;
+	std::cout << s << "::::::::::::::>Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
 	for(int i = 0; i < strSz.size(); i++){
-		cout << strSz.at(i) << " :: " << intSz.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();
+		std::cout << strSz.at(i) << " :: " << intSz.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
+	std::cout << s << "::::::::::::::>\\Doc 1 words<< " << strSz.size() << " " << intSz.size() << endl;
 	pauz();
-	cout << s << "::::::::::::::>Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
+	std::cout << s << "::::::::::::::>Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
 	for(int i = 0; i < strPh.size(); i++){
-		cout << strPh.at(i) << " :: " << intPh.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();
+		std::cout << strPh.at(i) << " :: " << intPh.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
+	std::cout << s << "::::::::::::::>\\Doc 1 red<< " << strPh.size() << " " << intPh.size() << endl;
 	pauz();
-	cout << s << "::::::::::::::>Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
+	std::cout << s << "::::::::::::::>Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
 	for(int i = 0; i < strS2.size(); i++){
-		cout << strS2.at(i) << " :: " << intS2.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();
+		std::cout << strS2.at(i) << " :: " << intS2.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
+	std::cout << s << "::::::::::::::>\\Doc 2 words<< " << strS2.size() << " " << intS2.size() << endl;
 	pauz();
-	cout << s << "::::::::::::::>doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
+	std::cout << s << "::::::::::::::>doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
 	for(int i = 0; i < strDoc.size(); i++){
-		cout << strDoc.at(i) << " :: " << intDoc.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();	
+		std::cout << strDoc.at(i) << " :: " << intDoc.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
+	std::cout << s << "::::::::::::::>\\doCo:Words<< " << strDoc.size() << " " << intDoc.size() << endl;
 	pauz();
-	cout << s << "::::::::::::::>Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
+	std::cout << s << "::::::::::::::>Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
 	for(int i = 0; i < spDoc.size(); i++){
-		cout << spDoc.at(i) << " :: " << ipDoc.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();
+		std::cout << spDoc.at(i) << " :: " << ipDoc.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
+	std::cout << s << "::::::::::::::>\\Doc 2 red<< " << spDoc.size() << " " << ipDoc.size() << endl;
 	pauz();
-	cout << s << "::::::::::::::>doCo:Red<< " << spD2.size() << " " << ipD2.size() << endl;
+	std::cout << s << "::::::::::::::>doCo:Red<< " << spD2.size() << " " << ipD2.size() << endl;
 	for(int i = 0; i < spD2.size(); i++){
-		cout << spD2.at(i) << " :: " << ipD2.at(i) << endl;
+		if(i % 30 == 0)
+			pauz();
+		std::cout << spD2.at(i) << " :: " << ipD2.at(i) << endl;
 	}
-	cout << s << "::::::::::::::>\\doCo:Red<< " << endl;
+	std::cout << s << "::::::::::::::>\\doCo:Red<< " << endl;
 	pauz();
 }
