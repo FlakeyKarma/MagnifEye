@@ -3,7 +3,7 @@
 //Information output
 void stuffReturn::outP(string file, int ac, vector<char> chr) {
 	ifstream fil;
-	bool def = false, rC = false, co = false, M = false, tw = false, th = false;
+	bool def = false, rC = false, co = false, M = false, tw = false, th = false, toFil = false;
 	for(int i = 0; i < chr.size(); i++){
 		switch(chr.at(i)){
 			case 'A':
@@ -21,6 +21,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				break;
 			case 'M':
 				M = true;
+				break;
+			case 'F':
+				toFil = true;
 				break;
 		}
 	}
@@ -62,8 +65,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				SET = a0.at(i);
 				std::cout << "OUTPUT " << "=| " << a0.at(i) << " | :" << std::endl;
 				while (SET == a0.at(i)) {
-					if(i % 20 == 0 && i > 0)
-						sR.pauz();
+					if(!toFil)
+						if(i % 20 == 0 && i > 0)
+							sR.pauz();
 					if(a0.at(i) <= 5){
 						std::printf("\e[92m");
 						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
@@ -91,8 +95,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		if(rC){
 			bool rCT = 0;
 			if(!M)
-				if(def)
-					sR.pauz();
+				if(!toFil)
+					if(def)
+						sR.pauz();
 			a = sR.strPh;
 			a0 = sR.intPh;
 			std::cout << "\n---------\n" << std::endl;
@@ -115,8 +120,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					std::printf("\e[91m");
 					std::cout << " | :" << std::endl;
 					while (SET == a0.at(i)) {
-						if(i % 20 == 0 && i > 0)
-							sR.pauz();
+						if(!toFil)
+							if(i % 20 == 0 && i > 0)
+								sR.pauz();
 						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						i++;
 						if (a0.size() <= i)
@@ -145,8 +151,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		if(co){
 			vector<string> nLW, nL0, pr0, pr1;
 			if(!M)
-				if(def || rC)
-					sR.pauz();
+				if(!toFil)
+					if(def || rC)
+						sR.pauz();
 			//sR.rO"EE::outP::D::");
 			int ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1, lng2 = 0;
 			string spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
@@ -260,8 +267,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				std::cout << outpt << sR.file0 << prc << sR.file1 << prc << std::endl;
 				std::cout << lne << std::endl;
 				while (SET == a0.at(i)) {
-					if(i % 30 == 0 && i > 0)
-						sR.pauz();
+					if(!toFil)
+						if(i % 30 == 0 && i > 0)
+							sR.pauz();
 					for(int j = 0; j < sR.strSz.size(); j++){
 						if(sR.strSz.at(j) == sR.strDoc.at(i)){
 							chk0 = j;
@@ -295,9 +303,8 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				}
 			}
 
-
-
-			pauz();
+			if(!toFil)
+				pauz();
 			
 			
 			vector<vector<string>> chekk = {nLW, nL0, pr0, pr1};
@@ -306,8 +313,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 					chekk.at(i).clear();
 			}
 			if(!M)
-				if(def || rC)
-					sR.pauz();
+				if(!toFil)
+					if(def || rC)
+						sR.pauz();
 			//sR.rO"EE::outP::D::");
 			ln0 = 0, ln1 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng2 = 0;
 			spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
@@ -421,8 +429,9 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 				std::cout << outpt << sR.file0 << prc << sR.file1 << prc << std::endl;
 				std::cout << lne << std::endl;
 				while (SET == a0.at(i)) {
-					if(i % 30 == 0 && i > 0)
-						sR.pauz();
+					if(!toFil)
+						if(i % 30 == 0 && i > 0)
+							sR.pauz();
 					for(int j = 0; j < sR.strPh.size(); j++){
 						if(sR.strPh.at(j) == sR.spD2.at(i)){
 							chk0 = j;

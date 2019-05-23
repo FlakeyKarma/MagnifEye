@@ -15,6 +15,9 @@ int main(int argc, char* argv[]) {
 		}
 		else{
 			for (int i = 1; i < (signed)argc; i++) {
+				if (strcmp(argv[i], ">") == 0){
+					opti.push_back('F');
+				}
 				if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
 					std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
 					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
