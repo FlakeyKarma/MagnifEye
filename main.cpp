@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 		}
 		else{
 			for (int i = 1; i < (signed)argc; i++) {
-				if (strcmp(argv[i], ">") == 0){
+				if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], ">>") == 0){
 					opti.push_back('F');
 				}
 				if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
