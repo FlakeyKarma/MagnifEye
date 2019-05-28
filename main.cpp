@@ -27,9 +27,13 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
 					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
+					std::cout << "\t-w,   --webInt        \tDisplay information on a web interface" << std::endl;
+					std::cout << "\t-p,   --path          \tSet path to HTML and JavaScript files" << std::endl;
 					OPT = argv[i];
 					sr->pauz();
 				}
+				if (strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path") == 0)
+					opti.push_back('P');
 				if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0)
 					TF = true;
 				if (strcmp(argv[i], "-red") == 0 || strcmp(argv[i], "--red-check") == 0)
@@ -50,6 +54,9 @@ int main(int argc, char* argv[]) {
 				if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
 					opti.push_back('r');
 					opti.push_back('d');
+				}
+				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--webInt") == 0){
+					opti.push_back('w');
 				}
 			}
 			for (int i = 4; i >= 0; i--)
@@ -186,6 +193,8 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
 					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
+					std::cout << "\t-w,   --webInt        \tDisplay information on a web interface" << std::endl;
+					std::cout << "\t-p,   --path          \tSet path to HTML and JavaScript files" << std::endl;
 					sr->pauz();
 					break;
 				//Exit

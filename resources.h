@@ -4,12 +4,16 @@
 #include <string.h>
 #include <algorithm>
 #include <vector>
+#include <bits/stdc++.h> 
+#include <boost/algorithm/string.hpp> 
 using namespace std;
 
 class stuffReturn {
 	private:
-		vector<string>strSz, strPh, strS2, strDoc, spDoc, spD2;
-		vector<long> intSz, intPh, intS2, intDoc, ipDoc, ipD2;
+		vector<string>strSz, strPh, strS2,
+					  strDoc, spDoc, spD2;
+		vector<long> intSz, intPh, intS2,
+					 intDoc, ipDoc, ipD2;
 		vector<char> chr;
 		float progress = 0;
 		int chk = 0, numCheck = 0;
@@ -31,4 +35,6 @@ class stuffReturn {
 		void progressBar(float x);
 		void rO(string s);
 		string ver();
+		void data();
+		void pathSet();
 };
