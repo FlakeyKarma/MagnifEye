@@ -34,4 +34,5 @@ class stuffReturn {
 		void rO(string s);
 		string ver();
 		void data();
+		void mkFil();
 };

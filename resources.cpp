@@ -43,6 +43,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		W.open("temp.txt");
 		string temp = "";
 		stuffReturn sR;
+		sR.mkFil();
 		sR.tw = tw;
 		sR.th = th;
 		sR.chr = chr;
@@ -1036,7 +1037,6 @@ void stuffReturn::setF(string fil, bool b){
 
 //Data to display on web-page
 void stuffReturn::data(){
-	ifstream f;
 	ofstream f0;
 	f0.open("graphicOut.js");
 	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse,
@@ -1200,19 +1200,114 @@ function outP() { \n\
 }";
 	f0 << jsFil;
 	f0.close();
-	f.open("path2Fil.txt");
-	while(!f.eof()){
-		getline(f, fil);
-		Wfl += fil;
-		Lfl += fil;
-	}
-	f.close();
 	Lfl += "index.html";
 	#if WIN_32
 		system(Wlf.c_str());
 	#else
 		system(Lfl.c_str());
 	#endif
+}
+
+//Constructs all files not present
+void stuffReturn::mkFil(){
+	ofstream f;
+	string fil;
+	f.open("index.html");
+	fil = "<!DOCTYPE html>\n\
+<html lang=\"en\">\n\
+    <head>\n\
+        <meta charset=\"UTF-8\">\n\
+        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-float.min.css\" integrity=\"sha256-sP0p6J7SbJGiJ2gkdY1nkVsLgdwiFN2kI370lU+zacQ= sha384-yZLxxcD8nfiSt1qfKJWwHwtkL58WZDTlkBnZN60qr3ZS35+LDsmUF2JHLxdyZ+KU sha512-Z3WbpfWFSsK2dBvoSYZnMvPmxSJUa5cxj3TYlmyj6cq8IXy7iB2nlUk+jjms8gnz4HmpQk/yhRSlRzW7keoSlg==\" crossorigin=\"anonymous\">\n\
+        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-prototype.min.css\" integrity=\"sha256-ksLmXa0k3ACbX6azB9g6l7XlmSKFBkuH0DXKNwULXtE= sha384-RGTvu65DAT+yLQsTj5tnITDrMfrS5mbajNAYILSg4hHr9vRr/3Y9q0WAdChqLKfx sha512-KMJ7XYrv5UcwEvJFaYnLSdN5O3fT7aQvjed//LQPB3AsN4VPA/wXG9j4x4vKZkjNmU/U8aZC9Ac3FYxs9lPXcw==\" crossorigin=\"anonymous\">\n\
+        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-rtl.min.css\" integrity=\"sha256-jvk46bzgetf2fy3FF19toDOoy9CG3aFqZfd229doSyo= sha384-w6E9ynA6OV6MFswc7C8nr8QoBiRtqqOKF/5M9ZVyVDDyrUPLI75xizNuXgRZxWK5 sha512-7MZk47L+5Mj6Y0dP3NuB2aqlNdDgzTlCf8m50nvgnCHUbxZ9KabCy8VUzQAl/DqDKwR7E6JsCf1MUjkfCiVzJw==\" crossorigin=\"anonymous\">\n\
+        <link rel=\"stylesheet\" href=\"style.css\">\n\
+        <script src=\"https://requirejs.org/docs/release/2.3.6/minified/require.js\"></script>\n\
+        <script type=\"text/javascript\" src=\"graphicOut.js\"></script>\n\
+    </head>\n\
+    <body>\n\
+        <div class=\"row\">\n\
+            <div class=\"columns large-12 large-pull-1 medium-10 medium-push-2\">\n\
+                <h1>ThNeedle</h1>\n\
+            </div>\n\
+        </div>\n\
+        <div class=\"row\">\n\
+            <div class=\"columns large-12 large-pull-1 medium-9 medium-push-2\">\n\
+                    <h4>v1.3.7</h4>\n\
+            </div>\n\
+            <div class=\"columns large-12 large-pull-1 medium-10\">\n\
+                <h5>By FlakeyKarma</h5>\n\
+            </div>\n\
+        </div>\n\
+        <div class=\"row\">\n\
+                <div class=\"columns large-3 large-pull-1 medium-2 medium-push-2\">\n\
+                    <p><strong>Words discovered</strong></p>\n\
+                </div>\n\
+                <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\">\n\
+                    <p><strong>Number of instances</strong></p>\n\
+                </div>\n\
+                <div class=\"columns large-2 large-pull-3 medium-1 medium-pull-5\">\n\
+                    <p><strong>Bar</strong></p>\n\
+                </div>\n\
+            </div>\n\
+        <div class=\"row\">\n\
+            <div class=\"columns large-12\">\n\
+                <ul id=\"barz\"></ul>\n\
+            </div>\n\
+        </div>\n\
+        <div class=\"row\">\n\
+            <div class=\"columns large-3 large-pull-1 medium-2 medium-push-2\" id=\"hW\"></div>\n\
+            <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\" id=\"hW0\"></div>\n\
+            <div class=\"columns large-2 large-pull-3 medium-1 medium-pull-5\" id=\"hW1\"></div>\n\
+        </div>\n\
+        <div id=\"div1\"></div>\n\
+        <script type=\"text/javascript\">\n\
+            outP();\n\
+        </script>\n\
+    </body>\n\
+</html>";
+	f << fil;
+	f.close();
+	f.open("style.css");
+	fil = "/*SOURCE OF ARROW*/\n\
+/*https://www.w3schools.com/howto/howto_css_arrows.asp*/\n\
+i {\n\
+    border: solid black;\n\
+    border-width: 0 3px 3px 0;\n\
+    display: inline-block;\n\
+    padding: 3px;\n\
+  }\n\
+  \n\
+  .right {\n\
+    transform: rotate(-45deg);\n\
+    -webkit-transform: rotate(-45deg);\n\
+  }\n\
+  \n\
+  .left {\n\
+    transform: rotate(135deg);\n\
+    -webkit-transform: rotate(135deg);\n\
+  }\n\
+  \n\
+  .up {\n\
+    transform: rotate(-135deg);\n\
+    -webkit-transform: rotate(-135deg);\n\
+  }\n\
+  \n\
+  .down {\n\
+    transform: rotate(45deg);\n\
+    -webkit-transform: rotate(45deg);\n\
+  }\n\
+li {\n\
+    font-size: 20px;\n\
+}\n\
+div#hW1 li {\n\
+    font-size: 10px;\n\
+}\n\
+p {\n\
+    margin: 0;\n\
+    padding: 0;\n\
+}";
+	f << fil;
+	f.close();
 }
 
 //Dev debug variable tool
