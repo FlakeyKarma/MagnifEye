@@ -48,21 +48,17 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		sR.chr = chr;
 		sR.setF(file, 1);
 		//sR.rO"AA::outP::A::");
+		cout << "A" << endl;
 		sR.SeNDe(file, 0);
 		if(rC){
 			sR.SeNDe(file, 1);
 		}
 		//sR.rO"BB::outP::B::");
+		cout << "B" << endl;
 		vector<string> a = sR.strSz;
 		vector<long> a0 = sR.intSz;
 		if(!w)
 			std::cout << "---------" << std::endl;
-		/*
-		if(rC){
-			sR.strPh.clear();
-			sR.intPh.clear();
-		}
-		*/
 		if(co){
 			sR.chr.push_back('d');
 			sR.doCo(sR.chr);
@@ -71,6 +67,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		long LENg = 0, i = 0;
 		string SP = " |--->  ";
 		//sR.rO"CC::outP::C::");
+		cout << "C" << endl;
 		if(!M && def){
 			if(w){
 				for(int i = 0; i < sR.strSz.size(); i++){
@@ -1048,7 +1045,29 @@ void stuffReturn::data(){
 	sS2 = " ", iS2 = " ",
 	sDc = " ", iDc = " ",
 	sD2 = " ", iD2 = " ",
-	jsFil = "function outP() { var ";
+	jsFil = "function mkRct(doc, xPos, yPos, w, h, id){\n\
+    var c = doc.getElementById(id);\n\
+    console.log(id);\n\
+    console.log(c);\n\
+    c.width = w;\n\
+    c.height = h;\n\
+    var ctx = c.getContext(\"2d\");\n\
+    ctx.rect(xPos, yPos, w, h);\n\
+    if(w <= 5){\n\
+        ctx.fillStyle = \"green\";\n\
+    }\n\
+    if(w > 5 && w <= 10){\
+        ctx.fillStyle = \"yellow\";\n\
+    }\n\
+    if(w > 10){\n\
+        ctx.fillStyle = \"red\";\n\
+    }\n\
+    ctx.fill();\n\
+    ctx.stroke();\n\
+}\n\
+\n\
+function outP() { \n\
+    var ";
 	vector<vector<string>> allS = {strSz, strPh, strS2, strDoc, spD2};
 	vector<vector<long>> allL = {intSz, intPh, intS2, intDoc, ipD2};
 	vector<string> stz = {sSz, sPh, sS2, sDc, sD2}, lnz = {iSz, iPh, iS2, iDc, iD2};
@@ -1066,7 +1085,7 @@ void stuffReturn::data(){
 	for(int i = 0; i < stz.size(); i++){
 		cout << i << " : " << stz.at(i) << " :: " << lnz.at(i) << endl;
 		if(i > 0)
-			jsFil += ",";
+			jsFil += ", ";
 		switch(i){
 			case 0:
 				jsFil += "sSz = [" + stz.at(i) + "], iSz = [" + lnz.at(i) + "] ";
@@ -1085,7 +1104,61 @@ void stuffReturn::data(){
 				break;
 		}
 	}
-	jsFil += "; lst = [sSz, iSz, sPh, iPh, sS2, iS2, sDc, iDc, sD2, iD2]; for(var i = 0; i < lst.length; i++){ console.log(lst[i]); } }";
+	jsFil += " ,\n\
+	Slst = [sSz, sPh, sS2, sDc, sD2],\n\
+    Ilst = [iSz, iPh, iS2, iDc, iD2],\n\
+    sP = [], sP0 = [],\n\
+    iP = [], iP0 = [],\n\
+    lt0 = [],\n\
+    lt1 = [],\n\
+    lt = [lt0, lt1],\n\
+    ul0 = [],\n\
+    canv = [];\n\
+\n\
+    for(var i = 0; i < Slst.length; i++){\n\
+        for(var j = 0; j < Slst[i].length; j++){\n\
+            canv[j + i * Slst.length] = \"\";\n\
+            canv[j + i * Slst.length] = document.createElement(\"canvas\");\n\
+            canv[j + i * Slst.length].id = \"canv\" + j + i;\n\
+            \n\
+            iP[j + i * Slst.length] = \"\";\n\
+            iP0[j + i * Slst.length] = \"\";\n\
+            sP[j + i * Slst.length] = \"\";\n\
+            sP0[j + i * Slst.length] = \"\";\n\
+            lt0[j + i * Slst.length] = \"\";\n\
+            lt1[j + i * Slst.length] = \"\";\n\
+            \n\
+            sP[j + i * Slst[i].length] = document.createElement(\"p\");\n\
+            sP0[j + i * Slst[i].length] = document.createTextNode(Slst[i][j]);\n\
+            sP[j + i * Slst[i].length].appendChild(sP0[j + i * Slst[i].length]);\n\
+            lt0[j + i * Slst[i].length] = document.createElement(\"li\");\n\
+            lt0[j + i * Slst[i].length].appendChild(sP[j + i * Slst[i].length]);\n\
+\n\
+            iP[j + i * Slst[i].length] = document.createElement(\"p\");\n\
+            iP0[j + i * Slst[i].length] = document.createTextNode(Ilst[i][j]);\n\
+            iP[j + i * Slst[i].length].appendChild(iP0[j + i * Slst[i].length]);\n\
+            lt1[j + i * Slst[i].length] = document.createElement(\"li\");\n\
+            lt1[j + i * Slst[i].length].appendChild(iP[j + i * Slst[i].length]);\n\
+            lt1[j + i * Slst[i].length].appendChild(canv[j + i * Slst[i].length]);\n\
+        }\n\
+    }\n\
+    \n\
+    for(var i = 0; i < lt.length; i++){\n\
+        for(var j = 0; j < lt[i].length; j++){\n\
+            ul0[j + i * lt.length] = \"\";\n\
+            ul0[j + i * lt.length] = document.createElement(\"ul\");\n\
+            ul0[j + i * lt.length].appendChild(lt[i][j]);\n\
+            document.getElementById(\"hW\").appendChild(ul0[j + i * lt.length]);\n\
+        }\n\
+    }\n\
+    \n\
+    for(var i = 0; i < Slst.length; i++){\n\
+        for(var j = 0; j < Slst[i].length; j++){\n\
+            /* doc, xPos, yPos, w, h, id*/\n\
+            mkRct(document, 100, 0, Ilst[i][j], 20, canv[j + i * Slst.length].id);\n\
+        }\n\
+    }\n\
+}";
 	f0 << jsFil;
 	f0.close();
 	f.open("path2Fil.txt");
