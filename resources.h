@@ -4,8 +4,6 @@
 #include <string.h>
 #include <algorithm>
 #include <vector>
-#include <bits/stdc++.h> 
-#include <boost/algorithm/string.hpp> 
 using namespace std;
 
 class stuffReturn {
@@ -36,5 +34,4 @@ class stuffReturn {
 		void rO(string s);
 		string ver();
 		void data();
-		void pathSet();
 };

@@ -48,13 +48,13 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		sR.chr = chr;
 		sR.setF(file, 1);
 		//sR.rO"AA::outP::A::");
-		cout << "A" << endl;
+		//cout << "A" << endl;
 		sR.SeNDe(file, 0);
 		if(rC){
 			sR.SeNDe(file, 1);
 		}
 		//sR.rO"BB::outP::B::");
-		cout << "B" << endl;
+		//cout << "B" << endl;
 		vector<string> a = sR.strSz;
 		vector<long> a0 = sR.intSz;
 		if(!w)
@@ -67,7 +67,7 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 		long LENg = 0, i = 0;
 		string SP = " |--->  ";
 		//sR.rO"CC::outP::C::");
-		cout << "C" << endl;
+		//cout << "C" << endl;
 		if(!M && def){
 			if(w){
 				for(int i = 0; i < sR.strSz.size(); i++){
@@ -1045,26 +1045,39 @@ void stuffReturn::data(){
 	sS2 = " ", iS2 = " ",
 	sDc = " ", iDc = " ",
 	sD2 = " ", iD2 = " ",
-	jsFil = "function mkRct(doc, xPos, yPos, w, h, id){\n\
+	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
     var c = doc.getElementById(id);\n\
-    console.log(id);\n\
-    console.log(c);\n\
     c.width = w;\n\
+    console.log(c.width);\n\
     c.height = h;\n\
     var ctx = c.getContext(\"2d\");\n\
     ctx.rect(xPos, yPos, w, h);\n\
-    if(w <= 5){\n\
+	ctx.fillStyle = \"white\";\n\
+    ctx.fill();\n\
+    ctx.stroke();\n\
+}\n\
+\n\
+function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
+    var c = doc.getElementById(id);\n\
+    c.width = w;\n\
+    console.log(c.width);\n\
+    c.height = h;\n\
+    var ctx = c.getContext(\"2d\");\n\
+    ctx.rect(xPos, yPos, w, h);\n\
+    if(w <= 50){\n\
         ctx.fillStyle = \"green\";\n\
     }\n\
-    if(w > 5 && w <= 10){\
+    if(w > 50 && w <= 100){\n\
         ctx.fillStyle = \"yellow\";\n\
     }\n\
-    if(w > 10){\n\
+    if(w > 100){\n\
         ctx.fillStyle = \"red\";\n\
     }\n\
     ctx.fill();\n\
     ctx.stroke();\n\
+    mkBar(doc, xPos, yPos, max, h, id0);\n\
 }\n\
+\n\
 \n\
 function outP() { \n\
     var ";
@@ -1075,7 +1088,6 @@ function outP() { \n\
 		for(int j = i; j < allS.at(i).size(); j++){
 			stz.at(i) += "\"" + allS.at(i).at(j) + "\"";
 			lnz.at(i) += to_string(allL.at(i).at(j));
-			cout << allL.at(i).at(j) << " :: " << i << " :: " << j << endl;
 			if(j < allS.at(i).size() - 1){
 				stz.at(i) += ", ";
 				lnz.at(i) += ", ";
@@ -1083,7 +1095,6 @@ function outP() { \n\
 		}
 	}
 	for(int i = 0; i < stz.size(); i++){
-		cout << i << " : " << stz.at(i) << " :: " << lnz.at(i) << endl;
 		if(i > 0)
 			jsFil += ", ";
 		switch(i){
@@ -1111,15 +1122,26 @@ function outP() { \n\
     iP = [], iP0 = [],\n\
     lt0 = [],\n\
     lt1 = [],\n\
-    lt = [lt0, lt1],\n\
+    lt2 = [],\n\
+    lt = [lt0, lt1, lt2],\n\
     ul0 = [],\n\
-    canv = [];\n\
+    canv = [],\n\
+    canv0 = [];\n\
 \n\
     for(var i = 0; i < Slst.length; i++){\n\
-        for(var j = 0; j < Slst[i].length; j++){\n\
+        Slst[i].reverse();\n\
+        Ilst[i].reverse();\n\
+    }\n\
+\n\
+    for(var i = Slst.length - 1; i >= 0; i--){\n\
+        for(var j = Slst[i].length - 1; j >= 0; j--){\n\
             canv[j + i * Slst.length] = \"\";\n\
             canv[j + i * Slst.length] = document.createElement(\"canvas\");\n\
             canv[j + i * Slst.length].id = \"canv\" + j + i;\n\
+\n\
+            canv0[j + i * Slst.length] = \"\";\n\
+            canv0[j + i * Slst.length] = document.createElement(\"canvas\");\n\
+            canv0[j + i * Slst.length].id = \"canv0\" + j + i;\n\
             \n\
             iP[j + i * Slst.length] = \"\";\n\
             iP0[j + i * Slst.length] = \"\";\n\
@@ -1139,25 +1161,42 @@ function outP() { \n\
             iP[j + i * Slst[i].length].appendChild(iP0[j + i * Slst[i].length]);\n\
             lt1[j + i * Slst[i].length] = document.createElement(\"li\");\n\
             lt1[j + i * Slst[i].length].appendChild(iP[j + i * Slst[i].length]);\n\
-            lt1[j + i * Slst[i].length].appendChild(canv[j + i * Slst[i].length]);\n\
+            lt2[j + i * Slst[i].length] = document.createElement(\"li\");\n\
+            lt2[j + i * Slst[i].length].appendChild(canv[j + i * Slst[i].length]);\n\
+            lt2[j + i * Slst[i].length].appendChild(canv0[j + i * Slst[i].length]);\n\
+            \n\
         }\n\
     }\n\
     \n\
     for(var i = 0; i < lt.length; i++){\n\
+        ul0[i] = \"\";\n\
+        ul0[i] = document.createElement(\"ul\");\n\
         for(var j = 0; j < lt[i].length; j++){\n\
-            ul0[j + i * lt.length] = \"\";\n\
-            ul0[j + i * lt.length] = document.createElement(\"ul\");\n\
-            ul0[j + i * lt.length].appendChild(lt[i][j]);\n\
-            document.getElementById(\"hW\").appendChild(ul0[j + i * lt.length]);\n\
+            ul0[i].appendChild(lt[i][j]);\n\
+            ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
+\n\
+            if(i == 0){\n\
+                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                document.getElementById(\"hW\").appendChild(ul0[i]);\n\
+            }\n\
+            if(i == 1){\n\
+                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                document.getElementById(\"hW0\").appendChild(ul0[i]);\n\
+            }\n\
+            if(i == 2){\n\
+                ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
+                document.getElementById(\"hW1\").appendChild(ul0[i]);\n\
+            }   \n\
         }\n\
     }\n\
     \n\
     for(var i = 0; i < Slst.length; i++){\n\
         for(var j = 0; j < Slst[i].length; j++){\n\
             /* doc, xPos, yPos, w, h, id*/\n\
-            mkRct(document, 100, 0, Ilst[i][j], 20, canv[j + i * Slst.length].id);\n\
+            console.log();\n\
+            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * 400, 10, canv[j + i * Slst.length].id, 400, canv0[j + i * Slst.length].id);\n\
         }\n\
-    }\n\
+    }    \n\
 }";
 	f0 << jsFil;
 	f0.close();
@@ -1168,24 +1207,12 @@ function outP() { \n\
 		Lfl += fil;
 	}
 	f.close();
-	Lfl += "/index.html";
-	char Lpath[]= {*Lfl.c_str()}, Wpath[] = {*Wfl.c_str()};
+	Lfl += "index.html";
 	#if WIN_32
-		system(Wpath);
+		system(Wlf.c_str());
 	#else
-		system(Lpath);
+		system(Lfl.c_str());
 	#endif
-}
-
-//Set path to directory
-void stuffReturn::pathSet(){
-	ofstream f;
-	string path;
-	f.open("path2Fil.txt");
-	cout << "Enter path to HTML and JavaScript file: ";
-	cin >> path;
-	f << path;
-	f.close();
 }
 
 //Dev debug variable tool
