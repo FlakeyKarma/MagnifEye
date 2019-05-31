@@ -32,7 +32,24 @@ li {
 div#hW1 li {
     font-size: 10px;
 }
+h4, h1 {
+    color: limegreen;
+}
+h1 {
+    padding-top: 1em;
+}
+h5 {
+    color: red;
+}
 p {
     margin: 0;
     padding: 0;
+    color: limegreen;
+}
+body {
+    background: black;
+}
+img {
+    width: 5em;
+    height: 10em;
 }

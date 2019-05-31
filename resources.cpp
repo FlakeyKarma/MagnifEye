@@ -1226,13 +1226,16 @@ void stuffReturn::mkFil(){
     </head>\n\
     <body>\n\
         <div class=\"row\">\n\
-            <div class=\"columns large-12 large-pull-1 medium-10 medium-push-2\">\n\
+            <div class=\"columns large-2 large-pull-1 medium-10 medium-push-2\">\n\
                 <h1>ThNeedle</h1>\n\
+            </div>\n\
+            <div class=\"columns large-10 large-pull-1 medium-10 medium-push-2\">\n\
+                <img src=\"imgs/ThNeedleLogo.png\">\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-12 large-pull-1 medium-9 medium-push-2\">\n\
-                    <h4>v1.3.7</h4>\n\
+                    <h4>\" + verz + \"</h4>\n\
             </div>\n\
             <div class=\"columns large-12 large-pull-1 medium-10\">\n\
                 <h5>By FlakeyKarma</h5>\n\
@@ -1302,9 +1305,26 @@ li {\n\
 div#hW1 li {\n\
     font-size: 10px;\n\
 }\n\
+h4, h1 {\n\
+    color: limegreen;\n\
+}\n\
+h1 {\n\
+    padding-top: 1em;\n\
+}\n\
+h5 {\n\
+    color: red;\n\
+}\n\
 p {\n\
     margin: 0;\n\
     padding: 0;\n\
+    color: limegreen;\n\
+}\n\
+body {\n\
+    background: black;\n\
+}\n\
+img {\n\
+    width: 5em;\n\
+    height: 10em;\n\
 }";
 	f << fil;
 	f.close();
