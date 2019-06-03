@@ -1227,15 +1227,15 @@ void stuffReturn::mkFil(){
     <body>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-2 large-pull-1 medium-10 medium-push-2\">\n\
-                <h1>ThNeedle</h1>\n\
+                <h1>MagnifEye</h1>\n\
             </div>\n\
             <div class=\"columns large-10 large-pull-1 medium-10 medium-push-2\">\n\
-                <img src=\"imgs/ThNeedleLogo.png\">\n\
+                <img src=\"imgs/MagnifEyeLogo.png\">\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-12 large-pull-1 medium-9 medium-push-2\">\n\
-                    <h4>\" + verz + \"</h4>\n\
+                    <h4>" + verz + "</h4>\n\
             </div>\n\
             <div class=\"columns large-12 large-pull-1 medium-10\">\n\
                 <h5>By FlakeyKarma</h5>\n\
@@ -1323,7 +1323,7 @@ body {\n\
     background: black;\n\
 }\n\
 img {\n\
-    width: 5em;\n\
+    width: 20em;\n\
     height: 10em;\n\
 }";
 	f << fil;

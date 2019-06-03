@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('F');
 				}
 				if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
-					std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
+					std::cout << "Usage:\nMagnifEye <options> <file>\n\n" << std::endl;
 					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
 					std::cout << "options:" << std::endl;
 					std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
@@ -70,15 +70,15 @@ int main(int argc, char* argv[]) {
 			while (true) {
 				sr->clr();
 
-				std::cout << "_________" << std::endl;
-				std::cout << " ===:===" << std::endl;
-				std::cout << "   _|_   __        __   __                        ,,   ====" << std::endl;
-				std::cout << "  |::_| |  |      |   \\|  |  ,====,   ,====,     |  |   ||   ,====," << std::endl;
-				std::cout << "  |::_| |  l___   |       | | {}   | | {}   |   _|  |  |: | | {}   |" << std::endl;
-				std::cout << "  |::_| |       | |       | |    _/  |    _/   /    |  |: | |    _/" << std::endl;
-				std::cout << "  |::_| |   _   | |  |\\   | |  \\__   |  \\__    |  ()|  |: | |  \\__" << std::endl;
-				std::cout << "   ===  |  | |  | |  | \\  | |      | |      |  \\    |  |: | |      |" << std::endl;
-				std::cout << "    |    **   **   **   **   *====*   *====*    *==*    `|   *====*" << std::endl;
+				std::cout << "  __   __                              ____" << std::endl;
+				std::cout << " |  \\ /  |                        ___ |  __|" << std::endl;
+				std::cout << " |   `   | _____  ____   ___     / __||  _|      _  ____" << std::endl;
+				std::cout << " |  |V|  ||     |/    ||V _ |o   ||   | |  \\\\   / /|  {}|" << std::endl;
+				std::cout << " |  | |  ||{} | ||  O || / |||\\ =:;=  | |__ \\\\ / / | \\__|" << std::endl;
+				std::cout << " |__| |__||___|\\| \\_  ||_| |||_| ||   |____| \\` /  |____/" << std::endl;
+				std::cout << "                   _| |                      / /" << std::endl;
+				std::cout << "                  [__/                      / /" << std::endl;
+				std::cout << "                                           /_/" << std::endl;
 				std::cout << "\n" << sr->ver() << std::endl;
 				std::cout << "By FlakeyKarma\n\n" << std::endl;
 				std::cout << "[0] Regular Output" << std::endl;
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
 				//Help
 				case '5':
 					sr->clr();
-					std::cout << "Usage:\nThNeedle <options> <file>\n\n" << std::endl;
+					std::cout << "Usage:\nMagnifEye <options> <file>\n\n" << std::endl;
 					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
 					std::cout << "options:" << std::endl;
 					std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "|  [========\\" << std::endl;
 		std::cout << "|={:|;;|;;|;;}==---o" << std::endl;
 		std::cout << "|  [========/       D" << std::endl;
-		std::cout << "\nThNeedle " << sr->ver() << std::endl;
+		std::cout << "\nMagnifEye " << sr->ver() << std::endl;
 		std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 		opti.push_back('A');
 		sr->outP(argv[argc-1], argc, opti);
