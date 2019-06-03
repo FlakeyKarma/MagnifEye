@@ -7,3 +7,4 @@ STRSZ= brown 1
 STRSZ= log 1
 STRSZ= alpha.txt 1
 STRSZ= the 2
+NONE

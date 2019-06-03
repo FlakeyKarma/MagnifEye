@@ -1048,7 +1048,6 @@ void stuffReturn::data(){
 	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
-    console.log(c.width);\n\
     c.height = h;\n\
     var ctx = c.getContext(\"2d\");\n\
     ctx.rect(xPos, yPos, w, h);\n\
@@ -1060,7 +1059,6 @@ void stuffReturn::data(){
 function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
-    console.log(c.width);\n\
     c.height = h;\n\
     var ctx = c.getContext(\"2d\");\n\
     ctx.rect(xPos, yPos, w, h);\n\
@@ -1084,9 +1082,13 @@ function outP() { \n\
 	vector<vector<string>> allS = {strSz, strPh, strS2, strDoc, spD2};
 	vector<vector<long>> allL = {intSz, intPh, intS2, intDoc, ipD2};
 	vector<string> stz = {sSz, sPh, sS2, sDc, sD2}, lnz = {iSz, iPh, iS2, iDc, iD2};
+	string strFil = "";
 	for(int i = 0; i < allS.size(); i++){
 		for(int j = i; j < allS.at(i).size(); j++){
-			stz.at(i) += "\"" + allS.at(i).at(j) + "\"";
+			//if(i > 0 && allL.at(i).at(j) <= 1)
+			//	continue;
+			strFil = allS.at(i).at(j);
+			stz.at(i) += "\"" + strFil + "\"";
 			lnz.at(i) += to_string(allL.at(i).at(j));
 			if(j < allS.at(i).size() - 1){
 				stz.at(i) += ", ";
@@ -1150,23 +1152,24 @@ function outP() { \n\
             lt0[j + i * Slst.length] = \"\";\n\
             lt1[j + i * Slst.length] = \"\";\n\
             \n\
-            sP[j + i * Slst[i].length] = document.createElement(\"p\");\n\
-            sP0[j + i * Slst[i].length] = document.createTextNode(Slst[i][j]);\n\
-            sP[j + i * Slst[i].length].appendChild(sP0[j + i * Slst[i].length]);\n\
-            lt0[j + i * Slst[i].length] = document.createElement(\"li\");\n\
-            lt0[j + i * Slst[i].length].appendChild(sP[j + i * Slst[i].length]);\n\
+            sP[j + i * Slst.length] = document.createElement(\"p\");\n\
+            sP0[j + i * Slst.length] = document.createTextNode(Slst[i][j]);\n\
+            sP[j + i * Slst.length].appendChild(sP0[j + i * Slst.length]);\n\
+            lt0[j + i * Slst.length] = document.createElement(\"li\");\n\
+            lt0[j + i * Slst.length].appendChild(sP[j + i * Slst.length]);\n\
 \n\
-            iP[j + i * Slst[i].length] = document.createElement(\"p\");\n\
-            iP0[j + i * Slst[i].length] = document.createTextNode(Ilst[i][j]);\n\
-            iP[j + i * Slst[i].length].appendChild(iP0[j + i * Slst[i].length]);\n\
-            lt1[j + i * Slst[i].length] = document.createElement(\"li\");\n\
-            lt1[j + i * Slst[i].length].appendChild(iP[j + i * Slst[i].length]);\n\
-            lt2[j + i * Slst[i].length] = document.createElement(\"li\");\n\
-            lt2[j + i * Slst[i].length].appendChild(canv[j + i * Slst[i].length]);\n\
-            lt2[j + i * Slst[i].length].appendChild(canv0[j + i * Slst[i].length]);\n\
+            iP[j + i * Slst.length] = document.createElement(\"p\");\n\
+            iP0[j + i * Slst.length] = document.createTextNode(Ilst[i][j]);\n\
+            iP[j + i * Slst.length].appendChild(iP0[j + i * Slst.length]);\n\
+            lt1[j + i * Slst.length] = document.createElement(\"li\");\n\
+            lt1[j + i * Slst.length].appendChild(iP[j + i * Slst.length]);\n\
+            lt2[j + i * Slst.length] = document.createElement(\"li\");\n\
+            lt2[j + i * Slst.length].appendChild(canv[j + i * Slst.length]);\n\
+            lt2[j + i * Slst.length].appendChild(canv0[j + i * Slst.length]);\n\
             \n\
         }\n\
     }\n\
+\n\
     \n\
     for(var i = 0; i < lt.length; i++){\n\
         ul0[i] = \"\";\n\
@@ -1193,10 +1196,9 @@ function outP() { \n\
     for(var i = 0; i < Slst.length; i++){\n\
         for(var j = 0; j < Slst[i].length; j++){\n\
             /* doc, xPos, yPos, w, h, id*/\n\
-            console.log();\n\
             mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * 400, 10, canv[j + i * Slst.length].id, 400, canv0[j + i * Slst.length].id);\n\
         }\n\
-    }    \n\
+    }\n\
 }";
 	f0 << jsFil;
 	f0.close();
@@ -1235,14 +1237,14 @@ void stuffReturn::mkFil(){
         </div>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-12 large-pull-1 medium-9 medium-push-2\">\n\
-                    <h4>" + verz + "</h4>\n\
+                    <h4>v1.3.7</h4>\n\
             </div>\n\
             <div class=\"columns large-12 large-pull-1 medium-10\">\n\
                 <h5>By FlakeyKarma</h5>\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
-                <div class=\"columns large-3 large-pull-1 medium-2 medium-push-2\">\n\
+                <div class=\"columns large-6 large-pull-1 medium-2 medium-push-2\">\n\
                     <p><strong>Words discovered</strong></p>\n\
                 </div>\n\
                 <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\">\n\
@@ -1258,7 +1260,7 @@ void stuffReturn::mkFil(){
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
-            <div class=\"columns large-3 large-pull-1 medium-2 medium-push-2\" id=\"hW\"></div>\n\
+            <div class=\"columns large-6 large-pull-1 medium-2 medium-push-2\" id=\"hW\"></div>\n\
             <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\" id=\"hW0\"></div>\n\
             <div class=\"columns large-2 large-pull-3 medium-1 medium-pull-5\" id=\"hW1\"></div>\n\
         </div>\n\
@@ -1318,6 +1320,7 @@ p {\n\
     margin: 0;\n\
     padding: 0;\n\
     color: limegreen;\n\
+    font-family: 'Courier New', Courier, monospace;\n\
 }\n\
 body {\n\
     background: black;\n\

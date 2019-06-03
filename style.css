@@ -45,6 +45,7 @@ p {
     margin: 0;
     padding: 0;
     color: limegreen;
+    font-family: 'Courier New', Courier, monospace;
 }
 body {
     background: black;

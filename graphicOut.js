@@ -1,7 +1,6 @@
 function mkBar(doc, xPos, yPos, w, h, id){
     var c = doc.getElementById(id);
     c.width = w;
-    console.log(c.width);
     c.height = h;
     var ctx = c.getContext("2d");
     ctx.rect(xPos, yPos, w, h);
@@ -13,7 +12,6 @@ function mkBar(doc, xPos, yPos, w, h, id){
 function mkRct(doc, xPos, yPos, w, h, id, max, id0){
     var c = doc.getElementById(id);
     c.width = w;
-    console.log(c.width);
     c.height = h;
     var ctx = c.getContext("2d");
     ctx.rect(xPos, yPos, w, h);
@@ -33,7 +31,7 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){
 
 
 function outP() { 
-    var sSz = [ "quick", "red", "fox", "hopped", "big", "brown", "log", "alpha.txt", "the"], iSz = [ 1, 1, 1, 1, 1, 1, 1, 1, 2] , sPh = [ ], iPh = [ ] , sS2 = [ ], iS2 = [ ] , sDc = [ ], iDc = [ ] , sD2 = [ ], iD2 = [ ]  ,
+    var sSz = [ "quick", "red", "fox", "hopped", "big", "brown", "log", "alpha.txt", "the"], iSz = [ 1, 1, 1, 1, 1, 1, 1, 1, 2] , sPh = [ "the quick red ", "the quick red fox ", "the quick red fox hopped ", "the quick red fox hopped the ", "the quick red fox hopped the big ", "the quick red fox hopped the big brown ", "the quick red fox hopped the big brown log ", "the quick red fox hopped the big brown log alpha.txt ", "quick red ", "quick red fox ", "quick red fox hopped ", "quick red fox hopped the ", "quick red fox hopped the big ", "quick red fox hopped the big brown ", "quick red fox hopped the big brown log ", "quick red fox hopped the big brown log alpha.txt ", "red fox ", "red fox hopped ", "red fox hopped the ", "red fox hopped the big ", "red fox hopped the big brown ", "red fox hopped the big brown log ", "red fox hopped the big brown log alpha.txt ", "fox hopped ", "fox hopped the ", "fox hopped the big ", "fox hopped the big brown ", "fox hopped the big brown log ", "fox hopped the big brown log alpha.txt ", "hopped the ", "hopped the big ", "hopped the big brown ", "hopped the big brown log ", "hopped the big brown log alpha.txt ", "the big ", "the big brown ", "the big brown log ", "the big brown log alpha.txt ", "big brown ", "big brown log ", "big brown log alpha.txt ", "brown log ", "brown log alpha.txt ", "log alpha.txt "], iPh = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] , sS2 = [ ], iS2 = [ ] , sDc = [ ], iDc = [ ] , sD2 = [ ], iD2 = [ ]  ,
 	Slst = [sSz, sPh, sS2, sDc, sD2],
     Ilst = [iSz, iPh, iS2, iDc, iD2],
     sP = [], sP0 = [],
@@ -68,23 +66,24 @@ function outP() {
             lt0[j + i * Slst.length] = "";
             lt1[j + i * Slst.length] = "";
             
-            sP[j + i * Slst[i].length] = document.createElement("p");
-            sP0[j + i * Slst[i].length] = document.createTextNode(Slst[i][j]);
-            sP[j + i * Slst[i].length].appendChild(sP0[j + i * Slst[i].length]);
-            lt0[j + i * Slst[i].length] = document.createElement("li");
-            lt0[j + i * Slst[i].length].appendChild(sP[j + i * Slst[i].length]);
+            sP[j + i * Slst.length] = document.createElement("p");
+            sP0[j + i * Slst.length] = document.createTextNode(Slst[i][j]);
+            sP[j + i * Slst.length].appendChild(sP0[j + i * Slst.length]);
+            lt0[j + i * Slst.length] = document.createElement("li");
+            lt0[j + i * Slst.length].appendChild(sP[j + i * Slst.length]);
 
-            iP[j + i * Slst[i].length] = document.createElement("p");
-            iP0[j + i * Slst[i].length] = document.createTextNode(Ilst[i][j]);
-            iP[j + i * Slst[i].length].appendChild(iP0[j + i * Slst[i].length]);
-            lt1[j + i * Slst[i].length] = document.createElement("li");
-            lt1[j + i * Slst[i].length].appendChild(iP[j + i * Slst[i].length]);
-            lt2[j + i * Slst[i].length] = document.createElement("li");
-            lt2[j + i * Slst[i].length].appendChild(canv[j + i * Slst[i].length]);
-            lt2[j + i * Slst[i].length].appendChild(canv0[j + i * Slst[i].length]);
+            iP[j + i * Slst.length] = document.createElement("p");
+            iP0[j + i * Slst.length] = document.createTextNode(Ilst[i][j]);
+            iP[j + i * Slst.length].appendChild(iP0[j + i * Slst.length]);
+            lt1[j + i * Slst.length] = document.createElement("li");
+            lt1[j + i * Slst.length].appendChild(iP[j + i * Slst.length]);
+            lt2[j + i * Slst.length] = document.createElement("li");
+            lt2[j + i * Slst.length].appendChild(canv[j + i * Slst.length]);
+            lt2[j + i * Slst.length].appendChild(canv0[j + i * Slst.length]);
             
         }
     }
+
     
     for(var i = 0; i < lt.length; i++){
         ul0[i] = "";
@@ -111,8 +110,7 @@ function outP() {
     for(var i = 0; i < Slst.length; i++){
         for(var j = 0; j < Slst[i].length; j++){
             /* doc, xPos, yPos, w, h, id*/
-            console.log();
             mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * 400, 10, canv[j + i * Slst.length].id, 400, canv0[j + i * Slst.length].id);
         }
-    }    
+    }
 }
