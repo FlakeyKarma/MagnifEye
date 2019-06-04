@@ -1242,7 +1242,7 @@ void stuffReturn::mkFil(){
         </div>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-12 large-pull-3 medium-9 medium-push-1\">\n\
-                    <h4>v1.3.7</h4>\n\
+                    <h4>" + verz + "</h4>\n\
             </div>\n\
             <div class=\"columns large-12 large-pull-3 medium-10 medium-pull-1\">\n\
                 <h5>By FlakeyKarma</h5>\n\

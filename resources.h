@@ -16,7 +16,7 @@ class stuffReturn {
 		float progress = 0;
 		int chk = 0, numCheck = 0;
 		string loadBar, file0, file1;
-		string verz = "v1.3.7";
+		string verz = "v1.6.7";
 		bool tw = false, th = false, prd = false;
 	public:
 		void setF(string s, bool b);
