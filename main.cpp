@@ -70,11 +70,11 @@ int main(int argc, char* argv[]) {
 			while (true) {
 				sr->clr();
 
-std::cout << " __   __                              ____" << std::endl;
-std::cout << "|  \\ /  |                        ___ |  __|" << std::endl;
-std::cout << "|   `   | _____  ____   ___     / __||  _|      _  ____" << std::endl;
-std::cout << "|  |V|  ||     |/    ||V _ |o  _||_  | |  \\\\   / /|  []|" << std::endl;
-std::cout << "|  | |  ||[] | ||  []|| / |||\\|_  _| | |__ \\\\ / / | \\__|" << std::endl;
+std::cout << " __   __                         ___  ____" << std::endl;
+std::cout << "|  \\ /  |                       / __||  __|" << std::endl;
+std::cout << "|   `   | _____  ____   ___    _||_  |  _|      _  ____" << std::endl;
+std::cout << "|  |V|  ||     |/    ||V _ |o |_  _| | |  \\\\   / /|  []|" << std::endl;
+std::cout << "|  | |  ||[] | ||  []|| / |||\\  ||   | |__ \\\\ / / | \\__|" << std::endl;
 std::cout << "|__| |__||___|\\| \\_  ||_| |||_| ||   |____| \\` /  |____/" << std::endl;
 std::cout << "                  _| |                      / /" << std::endl;
 std::cout << "                 [__/                      / /" << std::endl;
