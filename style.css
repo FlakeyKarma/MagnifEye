@@ -37,6 +37,7 @@ h4, h1 {
 }
 h1 {
     padding-top: 1em;
+	font-family: 'Kumar One Outline', cursive;
 }
 h5 {
     color: red;
@@ -48,9 +49,12 @@ p {
     font-family: 'Courier New', Courier, monospace;
 }
 body {
-    background: black;
+    background: #333;
 }
 img {
-    width: 20em;
-    height: 10em;
+    width: 50%;
+    height: 50%;
+}
+li {
+  color: red;
 }

@@ -208,10 +208,18 @@ int main(int argc, char* argv[]) {
 
 		if (strcmp(inpt01, ".txt") != 0 && !TF)
 			std::exit(0);
-		std::cout << "|  [========\\" << std::endl;
-		std::cout << "|={:|;;|;;|;;}==---o" << std::endl;
-		std::cout << "|  [========/       D" << std::endl;
-		std::cout << "\nMagnifEye " << sr->ver() << std::endl;
+		std::cout << "   \nMagnifEye " << sr->ver() << std::endl;
+		std::cout << "//          \\\\" << std::endl;
+		std::cout << "  //   _   \\\\" << std::endl;
+		std::cout << "     /` `\\" << std::endl;
+		std::cout << "   <' (O) `>" << std::endl;
+		std::cout << "     \\,_,/" << std::endl;
+		std::cout << "  \\\\       //" << std::endl;
+		std::cout << "\\\\           //" << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
+		std::cout << std::endl;
 		std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 		opti.push_back('A');
 		sr->outP(argv[argc-1], argc, opti);

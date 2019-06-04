@@ -1051,7 +1051,7 @@ void stuffReturn::data(){
     c.height = h;\n\
     var ctx = c.getContext(\"2d\");\n\
     ctx.rect(xPos, yPos, w, h);\n\
-	ctx.fillStyle = \"white\";\n\
+	ctx.fillStyle = \"lightgrey\";\n\
     ctx.fill();\n\
     ctx.stroke();\n\
 }\n\
@@ -1062,13 +1062,16 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
     c.height = h;\n\
     var ctx = c.getContext(\"2d\");\n\
     ctx.rect(xPos, yPos, w, h);\n\
-    if(w <= 50){\n\
+    if(w/max <= 0.25){\n\
         ctx.fillStyle = \"green\";\n\
     }\n\
-    if(w > 50 && w <= 100){\n\
+    if(w/max > 0.25 && w/max <= 0.50){\n\
         ctx.fillStyle = \"yellow\";\n\
     }\n\
-    if(w > 100){\n\
+    if(w/max > 0.50 && w/max <=0.75){\n\
+        ctx.fillStyle = \"orange\";\n\
+    }\n\
+    if(w/max > 0.75){\n\
         ctx.fillStyle = \"red\";\n\
     }\n\
     ctx.fill();\n\
@@ -1077,7 +1080,7 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
 }\n\
 \n\
 \n\
-function outP() { \n\
+function outP(x) { \n\
     var ";
 	vector<vector<string>> allS = {strSz, strPh, strS2, strDoc, spD2};
 	vector<vector<long>> allL = {intSz, intPh, intS2, intDoc, ipD2};
@@ -1085,8 +1088,8 @@ function outP() { \n\
 	string strFil = "";
 	for(int i = 0; i < allS.size(); i++){
 		for(int j = i; j < allS.at(i).size(); j++){
-			//if(i > 0 && allL.at(i).at(j) <= 1)
-			//	continue;
+			if(i > 0 && allL.at(i).at(j) <= 1)
+				continue;
 			strFil = allS.at(i).at(j);
 			stz.at(i) += "\"" + strFil + "\"";
 			lnz.at(i) += to_string(allL.at(i).at(j));
@@ -1118,7 +1121,7 @@ function outP() { \n\
 		}
 	}
 	jsFil += " ,\n\
-	Slst = [sSz, sPh, sS2, sDc, sD2],\n\
+    Slst = [sSz, sPh, sS2, sDc, sD2],\n\
     Ilst = [iSz, iPh, iS2, iDc, iD2],\n\
     sP = [], sP0 = [],\n\
     iP = [], iP0 = [],\n\
@@ -1145,58 +1148,59 @@ function outP() { \n\
             canv0[j + i * Slst.length] = document.createElement(\"canvas\");\n\
             canv0[j + i * Slst.length].id = \"canv0\" + j + i;\n\
             \n\
-            iP[j + i * Slst.length] = \"\";\n\
-            iP0[j + i * Slst.length] = \"\";\n\
-            sP[j + i * Slst.length] = \"\";\n\
-            sP0[j + i * Slst.length] = \"\";\n\
-            lt0[j + i * Slst.length] = \"\";\n\
-            lt1[j + i * Slst.length] = \"\";\n\
-            \n\
-            sP[j + i * Slst.length] = document.createElement(\"p\");\n\
-            sP0[j + i * Slst.length] = document.createTextNode(Slst[i][j]);\n\
-            sP[j + i * Slst.length].appendChild(sP0[j + i * Slst.length]);\n\
-            lt0[j + i * Slst.length] = document.createElement(\"li\");\n\
-            lt0[j + i * Slst.length].appendChild(sP[j + i * Slst.length]);\n\
+            if(x){                \n\
+                iP[j + i * Slst.length] = \"\";\n\
+                iP0[j + i * Slst.length] = \"\";\n\
+                sP[j + i * Slst.length] = \"\";\n\
+                sP0[j + i * Slst.length] = \"\";\n\
+                lt0[j + i * Slst.length] = \"\";\n\
+                lt1[j + i * Slst.length] = \"\";\n\
 \n\
-            iP[j + i * Slst.length] = document.createElement(\"p\");\n\
-            iP0[j + i * Slst.length] = document.createTextNode(Ilst[i][j]);\n\
-            iP[j + i * Slst.length].appendChild(iP0[j + i * Slst.length]);\n\
-            lt1[j + i * Slst.length] = document.createElement(\"li\");\n\
-            lt1[j + i * Slst.length].appendChild(iP[j + i * Slst.length]);\n\
+                sP[j + i * Slst.length] = document.createElement(\"p\");\n\
+                sP0[j + i * Slst.length] = document.createTextNode(Slst[i][j]);\n\
+                sP[j + i * Slst.length].appendChild(sP0[j + i * Slst.length]);\n\
+                lt0[j + i * Slst.length] = document.createElement(\"li\");\n\
+                lt0[j + i * Slst.length].appendChild(sP[j + i * Slst.length]);\n\
+\n\
+                iP[j + i * Slst.length] = document.createElement(\"p\");\n\
+                iP0[j + i * Slst.length] = document.createTextNode(Ilst[i][j]);\n\
+                iP[j + i * Slst.length].appendChild(iP0[j + i * Slst.length]);\n\
+                lt1[j + i * Slst.length] = document.createElement(\"li\");\n\
+                lt1[j + i * Slst.length].appendChild(iP[j + i * Slst.length]);\n\
+            }            \n\
             lt2[j + i * Slst.length] = document.createElement(\"li\");\n\
             lt2[j + i * Slst.length].appendChild(canv[j + i * Slst.length]);\n\
             lt2[j + i * Slst.length].appendChild(canv0[j + i * Slst.length]);\n\
-            \n\
         }\n\
     }\n\
 \n\
-    \n\
-    for(var i = 0; i < lt.length; i++){\n\
-        ul0[i] = \"\";\n\
-        ul0[i] = document.createElement(\"ul\");\n\
-        for(var j = 0; j < lt[i].length; j++){\n\
-            ul0[i].appendChild(lt[i][j]);\n\
-            ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
+    if(x){\n\
+        for(var i = 0; i < lt.length; i++){\n\
+            ul0[i] = \"\";\n\
+            ul0[i] = document.createElement(\"ol\");\n\
+            for(var j = 0; j < lt[i].length; j++){\n\
+                ul0[i].appendChild(lt[i][j]);\n\
 \n\
-            if(i == 0){\n\
-                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
-                document.getElementById(\"hW\").appendChild(ul0[i]);\n\
+                if(i == 0){\n\
+                    ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                    document.getElementById(\"hW\").appendChild(ul0[i]);\n\
+                }\n\
+                if(i == 1){\n\
+                    ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                    document.getElementById(\"hW0\").appendChild(ul0[i]);\n\
+                }\n\
+                if(i == 2){\n\
+                    ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
+                    document.getElementById(\"hW1\").appendChild(ul0[i]);\n\
+                }   \n\
             }\n\
-            if(i == 1){\n\
-                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
-                document.getElementById(\"hW0\").appendChild(ul0[i]);\n\
-            }\n\
-            if(i == 2){\n\
-                ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
-                document.getElementById(\"hW1\").appendChild(ul0[i]);\n\
-            }   \n\
         }\n\
     }\n\
     \n\
     for(var i = 0; i < Slst.length; i++){\n\
         for(var j = 0; j < Slst[i].length; j++){\n\
             /* doc, xPos, yPos, w, h, id*/\n\
-            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * 400, 10, canv[j + i * Slst.length].id, 400, canv0[j + i * Slst.length].id);\n\
+            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * (window.innerWidth * 0.20), 10, canv[j + i * Slst.length].id, (window.innerWidth * 0.20), canv0[j + i * Slst.length].id);\n\
         }\n\
     }\n\
 }";
@@ -1223,35 +1227,36 @@ void stuffReturn::mkFil(){
         <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-prototype.min.css\" integrity=\"sha256-ksLmXa0k3ACbX6azB9g6l7XlmSKFBkuH0DXKNwULXtE= sha384-RGTvu65DAT+yLQsTj5tnITDrMfrS5mbajNAYILSg4hHr9vRr/3Y9q0WAdChqLKfx sha512-KMJ7XYrv5UcwEvJFaYnLSdN5O3fT7aQvjed//LQPB3AsN4VPA/wXG9j4x4vKZkjNmU/U8aZC9Ac3FYxs9lPXcw==\" crossorigin=\"anonymous\">\n\
         <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-rtl.min.css\" integrity=\"sha256-jvk46bzgetf2fy3FF19toDOoy9CG3aFqZfd229doSyo= sha384-w6E9ynA6OV6MFswc7C8nr8QoBiRtqqOKF/5M9ZVyVDDyrUPLI75xizNuXgRZxWK5 sha512-7MZk47L+5Mj6Y0dP3NuB2aqlNdDgzTlCf8m50nvgnCHUbxZ9KabCy8VUzQAl/DqDKwR7E6JsCf1MUjkfCiVzJw==\" crossorigin=\"anonymous\">\n\
         <link rel=\"stylesheet\" href=\"style.css\">\n\
-        <script src=\"https://requirejs.org/docs/release/2.3.6/minified/require.js\"></script>\n\
+		<link href=\"https://fonts.googleapis.com/css?family=Kumar+One+Outline&display=swap\" rel=\"stylesheet\">\n\
+		<script src=\"https://requirejs.org/docs/release/2.3.6/minified/require.js\"></script>\n\
         <script type=\"text/javascript\" src=\"graphicOut.js\"></script>\n\
     </head>\n\
-    <body>\n\
+    <body onresize=\"outP(0)\">\n\
         <div class=\"row\">\n\
-            <div class=\"columns large-2 large-pull-1 medium-10 medium-push-2\">\n\
-                <h1>MagnifEye</h1>\n\
-            </div>\n\
-            <div class=\"columns large-10 large-pull-1 medium-10 medium-push-2\">\n\
+            <div class=\"columns large-3 large-pull-3 medium-4 medium-push-1\">\n\
                 <img src=\"imgs/MagnifEyeLogo.png\">\n\
+            </div>\n\
+            <div class=\"columns large-9 large-pull-4 medium-8\">\n\
+                <h1>MagnifEye</h1>\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
-            <div class=\"columns large-12 large-pull-1 medium-9 medium-push-2\">\n\
+            <div class=\"columns large-12 large-pull-3 medium-9 medium-push-1\">\n\
                     <h4>v1.3.7</h4>\n\
             </div>\n\
-            <div class=\"columns large-12 large-pull-1 medium-10\">\n\
+            <div class=\"columns large-12 large-pull-3 medium-10 medium-pull-1\">\n\
                 <h5>By FlakeyKarma</h5>\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
-                <div class=\"columns large-6 large-pull-1 medium-2 medium-push-2\">\n\
+                <div class=\"columns large-6 large-pull-3 medium-4 medium-push-1\">\n\
                     <p><strong>Words discovered</strong></p>\n\
                 </div>\n\
-                <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\">\n\
+                <div class=\"columns large-4 large-pull-3 medium-4\">\n\
                     <p><strong>Number of instances</strong></p>\n\
                 </div>\n\
-                <div class=\"columns large-2 large-pull-3 medium-1 medium-pull-5\">\n\
-                    <p><strong>Bar</strong></p>\n\
+                <div class=\"columns large-2 large-pull-2 medium-4 medium-pull-1\">\n\
+                    <p><strong>Proportion Level</strong></p>\n\
                 </div>\n\
             </div>\n\
         <div class=\"row\">\n\
@@ -1260,13 +1265,13 @@ void stuffReturn::mkFil(){
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
-            <div class=\"columns large-6 large-pull-1 medium-2 medium-push-2\" id=\"hW\"></div>\n\
-            <div class=\"columns large-2 large-pull-1 medium-2 medium-push-2\" id=\"hW0\"></div>\n\
-            <div class=\"columns large-2 large-pull-3 medium-1 medium-pull-5\" id=\"hW1\"></div>\n\
+            <div class=\"columns large-6 large-pull-2 medium-5 medium-push-2\" id=\"hW\"></div>\n\
+            <div class=\"columns large-4 large-pull-2 medium-5\" id=\"hW0\"></div>\n\
+            <div class=\"columns large-2 large-pull-3 medium-2 medium-pull-3\" id=\"hW1\"></div>\n\
         </div>\n\
         <div id=\"div1\"></div>\n\
         <script type=\"text/javascript\">\n\
-            outP();\n\
+            outP(1);\n\
         </script>\n\
     </body>\n\
 </html>";
@@ -1312,6 +1317,7 @@ h4, h1 {\n\
 }\n\
 h1 {\n\
     padding-top: 1em;\n\
+	font-family: 'Kumar One Outline', cursive;\n\
 }\n\
 h5 {\n\
     color: red;\n\
@@ -1323,11 +1329,14 @@ p {\n\
     font-family: 'Courier New', Courier, monospace;\n\
 }\n\
 body {\n\
-    background: black;\n\
+    background: #333;\n\
 }\n\
 img {\n\
-    width: 20em;\n\
-    height: 10em;\n\
+    width: 50%;\n\
+    height: 50%;\n\
+}\n\
+li {\n\
+  color: red;\n\
 }";
 	f << fil;
 	f.close();
