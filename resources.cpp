@@ -85,17 +85,17 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 							sR.pauz();
 					if(a0.at(i) <= 5 && !w){
 						std::printf("\e[92m");
-						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 5 && a0.at(i) <= 10 && !w){
 						std::printf("\e[93m");
-						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 10 && !w){
 						std::printf("\e[31m");
-						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					i++;
@@ -732,21 +732,18 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			sS.push_back("\\\\+==PERIOD==+//");
 			prd = true;
 		}
-		if(s == " " || s == ""){
-			continue;
-		}
-
-		if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !s.empty()|| (char)inpt[i] == '\t' || (char)inpt[i] == ' ') {
-			if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
-				sS.pop_back();
-				sS.push_back(s);
-				sS.push_back("\\\\+==PERIOD==+//");
-			} else {
-				sS.push_back(s);
+		if(s != "" && s != " ")
+			if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !s.empty()|| (char)inpt[i] == '\t') {
+				if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
+					sS.pop_back();
+					sS.push_back(s);
+					sS.push_back("\\\\+==PERIOD==+//");
+				} else {
+					sS.push_back(s);
+				}
+				s = "";
+				sz++;
 			}
-			s = "";
-			sz++;
-		}
 	}
 	//rO"JJ::wordReturn::B::");
 	//cout << "\n\n\t\\wordReturn\n\n" << endl;
