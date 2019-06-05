@@ -85,17 +85,17 @@ void stuffReturn::outP(string file, int ac, vector<char> chr) {
 							sR.pauz();
 					if(a0.at(i) <= 5 && !w){
 						std::printf("\e[92m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 5 && a0.at(i) <= 10 && !w){
 						std::printf("\e[93m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					if(a0.at(i) > 10 && !w){
 						std::printf("\e[31m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
+						std::cout << SP << a.at(i) << "|+=" << "\n" << " " << std::endl;
 						std::printf("\e[0m");
 					}
 					i++;
@@ -732,8 +732,11 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			sS.push_back("\\\\+==PERIOD==+//");
 			prd = true;
 		}
+		if(s == " " || s == ""){
+			continue;
+		}
 
-		if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !s.empty()) {
+		if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !s.empty()|| (char)inpt[i] == '\t' || (char)inpt[i] == ' ') {
 			if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
 				sS.pop_back();
 				sS.push_back(s);
@@ -836,7 +839,7 @@ void stuffReturn::clr(){
 	#ifdef _WIN32
 	system("CLS");
 	#else
-	system("clear");
+	std::system("clear");
 	#endif
 }
 
@@ -955,7 +958,7 @@ void stuffReturn::doCo(vector<char> c){
 		std::cout << "FK> Enter second file: ";
 		cin >> file;
 		if(file == "ls"){
-			system("ls");
+			std::system("ls");
 			file = "";
 		}
 		else if (GUD(file)){
@@ -1208,9 +1211,9 @@ function outP(x) { \n\
 	f0.close();
 	Lfl += "index.html";
 	#if WIN_32
-		system(Wlf.c_str());
+		std::system(Wlf.c_str());
 	#else
-		system(Lfl.c_str());
+		std::system(Lfl.c_str());
 	#endif
 }
 
