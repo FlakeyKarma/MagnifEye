@@ -4,6 +4,7 @@
 #include <string.h>
 #include <algorithm>
 #include <vector>
+#include <experimental/filesystem>
 using namespace std;
 
 class stuffReturn {
@@ -35,4 +36,6 @@ class stuffReturn {
 		string ver();
 		void data();
 		void mkFil();
+		vector<char> weBI();
+		string filIn();
 };

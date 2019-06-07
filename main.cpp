@@ -28,12 +28,9 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 					std::cout << "\t-w,   --webInt        \tDisplay information on a web interface" << std::endl;
-					std::cout << "\t-p,   --path          \tSet path to HTML and JavaScript files" << std::endl;
 					OPT = argv[i];
 					sr->pauz();
 				}
-				if (strcmp(argv[i], "-p") == 0 || strcmp(argv[i], "--path") == 0)
-					opti.push_back('P');
 				if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0)
 					TF = true;
 				if (strcmp(argv[i], "-red") == 0 || strcmp(argv[i], "--red-check") == 0)
@@ -55,7 +52,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('r');
 					opti.push_back('d');
 				}
-				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--webInt") == 0){
+				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--weBI") == 0){
 					opti.push_back('w');
 				}
 			}
@@ -90,9 +87,13 @@ std::cout << "                                          /_/" << std::endl;
 				std::printf("\e[96m");
 				std::cout << "(DoCo)" << std::endl;
 				std::printf("\e[0m");
-				std::cout << "[3] Legend" << std::endl;
-				std::cout << "[4] About" << std::endl;
-				std::cout << "[5] Help" << std::endl;
+				std::cout << "[3] Web-Based Interface ";
+				std::printf("\e[93m");
+				std::cout << "(WebInt)" << std::endl;
+				std::printf("\e[0m");
+				std::cout << "[4] Legend" << std::endl;
+				std::cout << "[5] About" << std::endl;
+				std::cout << "[6] Help" << std::endl;
 				std::cout << "[x] Exit" << std::endl;
 				std::cout << "\nFK> ";
 				std::cin >> inpt01[0];
@@ -100,16 +101,8 @@ std::cout << "                                          /_/" << std::endl;
 				//Regular output
 				case '0':
 					sr->clr();
-					while(1){
-						std::cout << "FK> Enter directory to file: ";
-						std::cin >> fil;
-						if(fil == "ls"){
-							system("ls");
-						}else{
-							break;
-						}
+					sr->filIn();
 					delete sr;
-					}
 					opti.push_back('A');
 					sr->outP(fil, argc, opti);
 					sr->pauz();
@@ -119,15 +112,8 @@ std::cout << "                                          /_/" << std::endl;
 				//RedCheck
 				case '1':
 					sr->clr();
-					while(1){
-						std::cout << "FK> Enter directory to file: ";
-						std::cin >> fil;
-						if(fil == "ls"){
-							system("ls");
-						}else{
-							break;
-						}
-					}
+					fil = sr->filIn();
+					delete sr;
 					opti.push_back('r');
 					opti.push_back('A');
 					sr->outP(fil, argc, opti);
@@ -136,15 +122,8 @@ std::cout << "                                          /_/" << std::endl;
 				//DoCo
 				case '2':
 					sr->clr();
-					while(1){
-						std::cout << "FK> Enter directory to file: ";
-						std::cin >> fil;
-						if(fil == "ls"){
-							system("ls");
-						}else{
-							break;
-						}
-					}
+					fil = sr->filIn();
+					delete sr;
 					opti.push_back('M');
 					opti.push_back('A');
 					opti.push_back('d');
@@ -152,8 +131,17 @@ std::cout << "                                          /_/" << std::endl;
 					sr->outP(fil, argc, opti);
 					sr->pauz();
 					break;
-				//Legend
+				//weBI
 				case '3':
+					sr->clr();
+					fil = sr->filIn();
+					opti = sr->weBI();
+					delete sr;
+					sr->outP(fil, argc, opti);
+					sr->pauz();
+					break;
+				//Legend
+				case '4':
 					sr->clr();
 					std::cout << "\n\t\t\tLegend\n" << std::endl;
 					std::printf("\e[92m");
@@ -169,7 +157,7 @@ std::cout << "                                          /_/" << std::endl;
 					sr->pauz();
 					break;
 				//About
-				case '4':
+				case '5':
 					sr->clr();
 					std::cout << "\n\n\\\\About" << std::endl;
 					std::cout << "\n\\\\I started needing to make this program when I found myself trying\
@@ -183,7 +171,7 @@ std::cout << "                                          /_/" << std::endl;
 					sr->pauz();
 					break;
 				//Help
-				case '5':
+				case '6':
 					sr->clr();
 					std::cout << "Usage:\nMagnifEye <options> <file>\n\n" << std::endl;
 					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;

@@ -1342,6 +1342,90 @@ li {\n\
 	f.close();
 }
 
+//Returns file requested to have read
+string stuffReturn::filIn(){
+	string fil;
+	while(1){
+		std::cout << "FK> Enter directory to file: ";
+		std::cin >> fil;
+		if(fil == "ls"){
+			system("ls");
+		}else{
+			return fil;
+		}
+	}
+}
+
+//Returns chars required to run full weBI
+vector<char> stuffReturn::weBI(){
+	char ch;
+	vector<char> opti;
+	bool rg = 0, rC = 0, dC = 0, brk = 0;
+	string rgS = "[ ", rCS = "[ ", dCS = "[ ";
+	vector<string> stAr = {rgS, rCS, dCS};
+	vector<bool> boAr = {rg, rC, dC};
+	while(1){
+		clr();
+		for(int i = 0; i < stAr.size(); i++){
+			stAr.at(i) += to_string(boAr.at(i)) + " ]";
+		}
+		std::cout << "Select the options to be displayed:" << std::endl;
+		std::cout << "[0] Regular Output " << std::endl;
+		std::cout << stAr.at(0) << std::endl;
+		std::cout << "[1] Redundancy Check ";
+		std::printf("\e[91m");
+		std::cout << "(RedCheck)" << std::endl;
+		std::printf("\e[0m");
+		std::cout << stAr.at(1) << std::endl;
+		std::cout << "[2] Document Comparison ";
+		std::printf("\e[96m");
+		std::cout << "(DoCo)" << std::endl;
+		std::printf("\e[0m");
+		std::cout << stAr.at(2) << std::endl;
+		std::cout << "[D] Done" << std::endl;
+		std::cout << "[R] Reset selections" << std::endl;
+		std::cout << "FK> ";
+		std::cin >> ch;
+		for(int i = 0; i < stAr.size(); i++){
+			stAr.at(i) = "[ ";
+		}
+		switch(ch){
+			case 'D':
+				brk = 1;
+				break;
+			case '0':
+				boAr.at(0) = 1;
+				cout << "a " << endl;
+				opti.push_back('A');
+				break;
+			case '1':
+				boAr.at(1) = 1;
+				cout << "b " << endl;
+				opti.push_back('r');
+				break;
+			case '2':
+				boAr.at(2) = 1;
+				cout << "c " << endl;
+				opti.push_back('d');
+				break;
+			case 'R':
+				for(int i = 0; i < opti.size(); i++){
+					opti.erase(opti.begin());
+				}
+				for(int i = 0; i < boAr.size(); i++)
+					boAr.at(i) = 0;
+				break;
+			default:
+				std::cout << "Enter a valid choice please" << std::endl;
+		}
+		ch = 0;
+		if(brk){
+			opti.push_back('w');
+			return opti;
+		}
+	}
+}
+
 //Dev debug variable tool
 void stuffReturn::rO(string s){
 	std::cout << "--LISTS--" << endl;
