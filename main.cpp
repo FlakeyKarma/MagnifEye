@@ -65,17 +65,18 @@ int main(int argc, char* argv[]) {
 			sr->clr();
 			opti.clear();
 			while (true) {
+				stuffReturn* stRt = new stuffReturn;
 				sr->clr();
 
-std::cout << " __   __                         ___  ____" << std::endl;
-std::cout << "|  \\ /  |                       / __||  __|" << std::endl;
-std::cout << "|   `   | _____  ____   ___    _||_  |  _|      _  ____" << std::endl;
-std::cout << "|  |V|  ||     |/    ||V _ |o |_  _| | |  \\\\   / /|  []|" << std::endl;
-std::cout << "|  | |  ||[] | ||  []|| / |||\\  ||   | |__ \\\\ / / | \\__|" << std::endl;
-std::cout << "|__| |__||___|\\| \\_  ||_| |||_| ||   |____| \\` /  |____/" << std::endl;
-std::cout << "                  _| |                      / /" << std::endl;
-std::cout << "                 [__/                      / /" << std::endl;
-std::cout << "                                          /_/" << std::endl;
+				std::cout << " __   __                         ___  ____" << std::endl;
+				std::cout << "|  \\ /  |                       / __||  __|" << std::endl;
+				std::cout << "|   `   | _____  ____   ___    _||_  |  _|      _  ____" << std::endl;
+				std::cout << "|  |V|  ||     |/    ||V _ |o |_  _| | |  \\\\   / /|  []|" << std::endl;
+				std::cout << "|  | |  ||[] | ||  []|| / |||\\  ||   | |__ \\\\ / / | \\__|" << std::endl;
+				std::cout << "|__| |__||___|\\| \\_  ||_| |||_| ||   |____| \\` /  |____/" << std::endl;
+				std::cout << "                  _| |                      / /" << std::endl;
+				std::cout << "                 [__/                      / /" << std::endl;
+				std::cout << "                                          /_/" << std::endl;
 				std::cout << "\n" << sr->ver() << std::endl;
 				std::cout << "By FlakeyKarma\n\n" << std::endl;
 				std::cout << "[0] Regular Output" << std::endl;
@@ -101,43 +102,44 @@ std::cout << "                                          /_/" << std::endl;
 				//Regular output
 				case '0':
 					sr->clr();
-					sr->filIn();
-					delete sr;
+					fil = stRt->filIn();
 					opti.push_back('A');
-					sr->outP(fil, argc, opti);
+					cout << "A" << endl;
+					stRt->outP(fil, argc, &opti);
+					delete stRt;
 					sr->pauz();
-				if(!opti.empty())
-					opti.clear();
+					if(!opti.empty())
+						opti.clear();
 					break;
 				//RedCheck
 				case '1':
 					sr->clr();
-					fil = sr->filIn();
-					delete sr;
+					fil = stRt->filIn();
 					opti.push_back('r');
 					opti.push_back('A');
-					sr->outP(fil, argc, opti);
+					stRt->outP(fil, argc, &opti);
+					delete stRt;
 					sr->pauz();
 					break;
 				//DoCo
 				case '2':
 					sr->clr();
-					fil = sr->filIn();
-					delete sr;
+					fil = stRt->filIn();
 					opti.push_back('M');
 					opti.push_back('A');
 					opti.push_back('d');
 					opti.push_back('r');
-					sr->outP(fil, argc, opti);
+					stRt->outP(fil, argc, &opti);
+					delete stRt;
 					sr->pauz();
 					break;
 				//weBI
 				case '3':
 					sr->clr();
-					fil = sr->filIn();
-					opti = sr->weBI();
-					delete sr;
-					sr->outP(fil, argc, opti);
+					fil = stRt->filIn();
+					opti = stRt->weBI();
+					stRt->outP(fil, argc, &opti);
+					delete stRt;
 					sr->pauz();
 					break;
 				//Legend
@@ -210,7 +212,7 @@ std::cout << "                                          /_/" << std::endl;
 		std::cout << std::endl;
 		std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 		opti.push_back('A');
-		sr->outP(argv[argc-1], argc, opti);
+		sr->outP(argv[argc-1], argc, &opti);
 		std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
 		return 0;
 	}catch(int e){
