@@ -36,19 +36,29 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 	}
 	//No RedCheck
 	if(!rC){
-		this->strPh = new vector<string>(0);
-		this->intPh = new vector<long>(0);
+		if(!this->strPh->empty())
+			delete this->strPh;	
+		if(!this->intPh->empty())
+			delete this->intPh;
 	}
 	//No second file
 	if(!co){
-		this->strS2 = new vector<string>(0);
-		this->strDoc = new vector<string>(0);
-		this->spDoc = new vector<string>(0);
-		this->spD2 = new vector<string>(0);
-		this->intS2 = new vector<long>(0);
-		this->intDoc = new vector<long>(0);
-		this->ipDoc = new vector<long>(0);
-		this->ipD2 = new vector<long>(0);
+			if(!this->strS2->empty())
+				delete this->strS2;
+			if(!this->strDoc->empty())
+				delete this->strDoc;
+			if(!this->spDoc->empty())
+				delete this->spDoc;
+			if(!this->spD2->empty())
+				delete this->spD2;
+			if(!this->intS2->empty())
+				delete this->intS2;
+			if(!this->intDoc->empty())
+				delete this->intDoc;
+			if(!this->ipDoc->empty())
+				delete this->ipDoc;
+			if(!this->ipD2->empty())
+				delete this->ipD2;
 	}
 	fil.open(file);
 	bool isGud = true;
@@ -58,7 +68,6 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		ofstream W;
 		W.open("temp.txt");
 		string temp = "";
-		cout << "D" << endl;
 		this->mkFil();
 		this->tw = tw;
 		this->th = th;
@@ -66,8 +75,6 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		this->setF(file, 1);
 		//cout << "A" << endl;
 		this->SeNDe(file, 0);
-		stack<int> asdf;
-		cout << asdf.size() << endl;
 		////this->rO("AA::outP::A::");
 		if(rC){
 			this->SeNDe(file, 1);
@@ -594,7 +601,7 @@ FUNCTIONS FOR outP
 
 //Search-N-Destroy
 void stuffReturn::SeNDe(string file, bool rC){
-	cout << "\n\n\tSeNDe\n\n" << endl;
+	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
 	for(int i = 0; i < chr.size(); i++){
@@ -721,12 +728,12 @@ void stuffReturn::SeNDe(string file, bool rC){
 		*spDoc = a;
 		*ipDoc = a0;
 	}
-	std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
+	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
 //Breaks down full string into vector of all words
 vector<string> stuffReturn::wordReturn(string inpt) {
-	cout  << "\n\n\twordReturn\n\n" << endl;
+	//cout  << "\n\n\twordReturn\n\n" << endl;
 	int prg;
 	if(!tw && !th)
 		prg = 5.0;
@@ -782,7 +789,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 			}
 	}
 	//rO"JJ::wordReturn::B::");
-	cout << "\n\n\t\\wordReturn\n\n" << endl;
+	//cout << "\n\n\t\\wordReturn\n\n" << endl;
 	return sS;
 }
 
@@ -797,10 +804,8 @@ void stuffReturn::nuMake(char t, vector<string> *s) {
 	if(th)
 		prg = 3.33;
 	if(t == 0){
-		cout << s->at(0) << endl;
 		strSz->push_back(s->at(0));
 		intSz->push_back(0);
-		cout << "B" << endl;
 		long SZ = 0;
 		for (long i = 0; i < s->size(); i++){
 			progressBar(1.0/s->size()*prg);
@@ -1256,7 +1261,6 @@ function outP(x) { \n\
 void stuffReturn::mkFil(){
 	ofstream f;
 	f.open("index.html");
-	cout << "D" << endl;
 	f << "<!DOCTYPE html>\n\
 <html lang=\"en\">\n\
     <head>\n\
@@ -1395,9 +1399,9 @@ string stuffReturn::filIn(){
 
 //Returns chars required to run full weBI
 vector<char> stuffReturn::weBI(){
-	char ch;
+	char ch, inpt;
 	vector<char> opti;
-	bool rg = 0, rC = 0, dC = 0, brk = 0;
+	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
 	string rgS = "[ ", rCS = "[ ", dCS = "[ ";
 	vector<string> stAr = {rgS, rCS, dCS};
 	vector<bool> boAr = {rg, rC, dC};
@@ -1407,20 +1411,24 @@ vector<char> stuffReturn::weBI(){
 			stAr.at(i) += to_string(boAr.at(i)) + " ]";
 		}
 		std::cout << "Select the options to be displayed:" << std::endl;
-		std::cout << "[0] Regular Output " << std::endl;
-		std::cout << stAr.at(0) << std::endl;
+		std::cout << "[0] Regular Output               ";
+		TFswitch(boAr.at(0));
+		std::cout << std::endl;
 		std::cout << "[1] Redundancy Check ";
 		std::printf("\e[91m");
-		std::cout << "(RedCheck)" << std::endl;
+		std::cout << "(RedCheck)  ";
+		TFswitch(boAr.at(1));
+		std::cout << std::endl;
 		std::printf("\e[0m");
-		std::cout << stAr.at(1) << std::endl;
 		std::cout << "[2] Document Comparison ";
 		std::printf("\e[96m");
-		std::cout << "(DoCo)" << std::endl;
+		std::cout << "(DoCo)   ";
+		TFswitch(boAr.at(2));
+		std::cout << std::endl;
 		std::printf("\e[0m");
-		std::cout << stAr.at(2) << std::endl;
 		std::cout << "[D] Done" << std::endl;
 		std::cout << "[R] Reset selections" << std::endl;
+		std::cout << "[C] Cancel" << std::endl;
 		std::cout << "FK> ";
 		std::cin >> ch;
 		for(int i = 0; i < stAr.size(); i++){
@@ -1463,16 +1471,53 @@ vector<char> stuffReturn::weBI(){
 				for(int i = 0; i < boAr.size(); i++)
 					boAr.at(i) = 0;
 				break;
+			case 'c':
+			case 'C':
+				std::cout << "Are you sure?" << std::endl;
+				std::cin >> inpt;
+				switch(inpt){
+					case 'y':
+					case 'Y':
+						x = 1;
+						break;
+					case 'n':
+					case 'N':
+						break;
+					default:
+						std::cout << "Please choose either:\n\'Y\' for yes\nor\n\'N\' for no" << std::endl;
+				}
 			default:
 				std::cout << "Enter a valid choice" << std::endl;
 				pauz();
 		}
+		if(x)
+			break;
 		ch = 0;
 		if(brk){
 			opti.push_back('w');
 			return opti;
 		}
 	}
+	if(x)
+		std::cout << "Returning..." << std::endl;
+}
+
+//Switch to display true or false
+void stuffReturn::TFswitch(bool t){
+	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
+	string fll = "";
+	if(t){
+		fll += iArr;
+		fll += iArr;
+		fll += btn;
+		std::printf("%s", fll.c_str());
+	}else{
+		fll += btn;
+		fll += oArr;
+		fll += oArr;
+		std::printf("%s", fll.c_str());
+	}
+	
 }
 
 //Dev debug variable tool

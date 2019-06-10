@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <vector>
 #include <experimental/filesystem>
-#include <stack>
 using namespace std;
 
 class stuffReturn {
@@ -22,6 +21,30 @@ class stuffReturn {
 		bool tw = false, th = false, prd = false;
 	public:
 		~stuffReturn(){
+			if(!strSz->empty())
+				delete strSz;
+			if(!strPh->empty())
+				delete strPh;
+			if(!strS2->empty())
+				delete strS2;
+			if(!strDoc->empty())
+				delete strDoc;
+			if(!spDoc->empty())
+				delete spDoc;
+			if(!spD2->empty())
+				delete spD2;
+			if(!intSz->empty())
+				delete intSz;
+			if(!intPh->empty())
+				delete intPh;
+			if(!intS2->empty())
+				delete intS2;
+			if(!intDoc->empty())
+				delete intDoc;
+			if(!ipDoc->empty())
+				delete ipDoc;
+			if(!ipD2->empty())
+				delete ipD2;
 
 		}
 		void setF(string s, bool b);
@@ -40,6 +63,7 @@ class stuffReturn {
 		string ver();
 		void data();
 		void mkFil();
+		void TFswitch(bool t);
 		vector<char> weBI();
 		string filIn();
 };

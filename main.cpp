@@ -3,12 +3,12 @@
 int main(int argc, char* argv[]) {
 	try{
 		int sz = 0, sp = 0;
-		stuffReturn* sr = new stuffReturn;
+		stuffReturn* sr = new stuffReturn, *stRt;
 		char inpt01[5];
 		sz = 0;
 		string OPT, fil;
 		vector<char> opti;
-		bool TF = false;
+		bool TF = false, dl = 1;
 		//INTAKE:BEGIN
 		if(argc == 1){
 			TF = true;
@@ -65,7 +65,10 @@ int main(int argc, char* argv[]) {
 			sr->clr();
 			opti.clear();
 			while (true) {
-				stuffReturn* stRt = new stuffReturn;
+				if(dl){
+					stRt = new stuffReturn;
+					dl = 0;
+				}
 				sr->clr();
 
 				std::cout << " __   __                         ___  ____" << std::endl;
@@ -106,6 +109,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('A');
 					cout << "A" << endl;
 					stRt->outP(fil, argc, &opti);
+					dl = 1;
 					delete stRt;
 					sr->pauz();
 					if(!opti.empty())
@@ -118,6 +122,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('r');
 					opti.push_back('A');
 					stRt->outP(fil, argc, &opti);
+					dl = 1;
 					delete stRt;
 					sr->pauz();
 					break;
@@ -130,6 +135,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('d');
 					opti.push_back('r');
 					stRt->outP(fil, argc, &opti);
+					dl = 1;
 					delete stRt;
 					sr->pauz();
 					break;
@@ -139,6 +145,7 @@ int main(int argc, char* argv[]) {
 					fil = stRt->filIn();
 					opti = stRt->weBI();
 					stRt->outP(fil, argc, &opti);
+					dl = 1;
 					delete stRt;
 					sr->pauz();
 					break;
