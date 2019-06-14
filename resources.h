@@ -66,4 +66,5 @@ class stuffReturn {
 		void TFswitch(bool t);
 		vector<char> weBI();
 		string filIn();
+		void help();
 };

@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
 					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
-					std::cout << "\t-w,   --webInt        \tDisplay information on a web interface" << std::endl;
+					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
 					OPT = argv[i];
 					sr->pauz();
 				}
@@ -37,16 +37,12 @@ int main(int argc, char* argv[]) {
 					opti.push_back('r');
 				if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--legend") == 0){
 					std::cout << "\n\t\t\tLegend\n" << std::endl;
-					std::printf("\e[92m");
-					std::cout << "\tGood\n" << std::endl;
+					std::cout << "\t\e[92mGood\n" << std::endl;
 					std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
-					std::printf("\e[93m");
-					std::cout << "\tOkay\n" << std::endl;
+					std::cout << "\t\e[93mOkay\n" << std::endl;
 					std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
-					std::printf("\e[31m");
-					std::cout << "\tBad\n" << std::endl;
-					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << std::endl;
-					std::printf("\e[0m");
+					std::cout << "\t\e[31mBad\n" << std::endl;
+					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
 				}
 				if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
 					opti.push_back('r');
@@ -83,18 +79,9 @@ int main(int argc, char* argv[]) {
 				std::cout << "\n" << sr->ver() << std::endl;
 				std::cout << "By FlakeyKarma\n\n" << std::endl;
 				std::cout << "[0] Regular Output" << std::endl;
-				std::cout << "[1] Redundancy Check ";
-				std::printf("\e[91m");
-				std::cout << "(RedCheck)" << std::endl;
-				std::printf("\e[0m");
-				std::cout << "[2] Document Comparison ";
-				std::printf("\e[96m");
-				std::cout << "(DoCo)" << std::endl;
-				std::printf("\e[0m");
-				std::cout << "[3] Web-Based Interface ";
-				std::printf("\e[93m");
-				std::cout << "(WebInt)" << std::endl;
-				std::printf("\e[0m");
+				std::cout << "[1] Redundancy Check \e[91m(RedCheck)\e[0m" << std::endl;
+				std::cout << "[2] Document Comparison \e[96m(DoCo)\e[0m" << std::endl;
+				std::cout << "[3] Web-Based Interface \e[93m(WeBI)\e[0m" << std::endl;
 				std::cout << "[4] Legend" << std::endl;
 				std::cout << "[5] About" << std::endl;
 				std::cout << "[6] Help" << std::endl;
@@ -107,10 +94,8 @@ int main(int argc, char* argv[]) {
 					sr->clr();
 					fil = stRt->filIn();
 					opti.push_back('A');
-					cout << "A" << endl;
 					stRt->outP(fil, argc, &opti);
 					dl = 1;
-					delete stRt;
 					sr->pauz();
 					if(!opti.empty())
 						opti.clear();
@@ -123,7 +108,6 @@ int main(int argc, char* argv[]) {
 					opti.push_back('A');
 					stRt->outP(fil, argc, &opti);
 					dl = 1;
-					delete stRt;
 					sr->pauz();
 					break;
 				//DoCo
@@ -136,7 +120,6 @@ int main(int argc, char* argv[]) {
 					opti.push_back('r');
 					stRt->outP(fil, argc, &opti);
 					dl = 1;
-					delete stRt;
 					sr->pauz();
 					break;
 				//weBI
@@ -144,25 +127,21 @@ int main(int argc, char* argv[]) {
 					sr->clr();
 					fil = stRt->filIn();
 					opti = stRt->weBI();
-					stRt->outP(fil, argc, &opti);
+					if(!opti.empty())
+						stRt->outP(fil, argc, &opti);
 					dl = 1;
-					delete stRt;
 					sr->pauz();
 					break;
 				//Legend
 				case '4':
 					sr->clr();
 					std::cout << "\n\t\t\tLegend\n" << std::endl;
-					std::printf("\e[92m");
-					std::cout << "\tGood\n" << std::endl;
+					std::cout << "\t\e[92mGood\n" << std::endl;
 					std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
-					std::printf("\e[93m");
-					std::cout << "\tOkay\n" << std::endl;
+					std::cout << "\t\e[93mOkay\n" << std::endl;
 					std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
-					std::printf("\e[31m");
-					std::cout << "\tBad\n" << std::endl;
-					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)" << std::endl;
-					std::printf("\e[0m");
+					std::cout << "\t\e[31mBad\n" << std::endl;
+					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
 					sr->pauz();
 					break;
 				//About
@@ -190,20 +169,20 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
 					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
-					std::cout << "\t-w,   --webInt        \tDisplay information on a web interface" << std::endl;
+					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
 					std::cout << "\t-p,   --path          \tSet path to HTML and JavaScript files" << std::endl;
 					sr->pauz();
 					break;
 				//Exit
 				case 'x':
 					sr->clr();
-					std::cout << "-=goodbye=-" << std::endl;
+					std::cout << "--=goodbye=--" << std::endl;
 					std::exit(0);
 				}
 			}
 		}
 
-		if (strcmp(inpt01, ".txt") != 0 && !TF)
+		if (strcmp(inpt01, ".txt") && !TF)
 			std::exit(0);
 		std::cout << "   \nMagnifEye " << sr->ver() << std::endl;
 		std::cout << "//          \\\\" << std::endl;
@@ -223,7 +202,6 @@ int main(int argc, char* argv[]) {
 		std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
 		return 0;
 	}catch(int e){
-		std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
-		std::printf("\e[0m");
+		std::cout << "\n\n--=goodbye=--\e[0m\n\n" << std::endl;
 	}
 }

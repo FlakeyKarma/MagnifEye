@@ -71,7 +71,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		this->mkFil();
 		this->tw = tw;
 		this->th = th;
-		this->chr = *chr0;
+		chr = *chr0;
 		this->setF(file, 1);
 		//cout << "A" << endl;
 		this->SeNDe(file, 0);
@@ -86,8 +86,8 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		if(!w)
 			std::cout << "---------" << std::endl;
 		if(co){
-			this->chr.push_back('d');
-			this->doCo(&this->chr);
+			chr.push_back('d');
+			this->doCo(&chr);
 		}
 
 		//No RedCheck
@@ -127,19 +127,13 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 						if(i % 20 == 0 && i > 0)
 							this->pauz();
 					if(a0.at(i) <= 5 && !w){
-						std::printf("\e[92m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
-						std::printf("\e[0m");
+						std::cout << "\e[92m" << SP << a.at(i) << "\n" << " \e[0m" << std::endl;
 					}
 					if(a0.at(i) > 5 && a0.at(i) <= 10 && !w){
-						std::printf("\e[93m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
-						std::printf("\e[0m");
+						std::cout << "\e[93m" << SP << a.at(i) << "\n" << " \e[0m" << std::endl;
 					}
 					if(a0.at(i) > 10 && !w){
-						std::printf("\e[31m");
-						std::cout << SP << a.at(i) << "\n" << " " << std::endl;
-						std::printf("\e[0m");
+						std::cout << "\e[31m" << SP << a.at(i) << "\n" << " \e[0m" << std::endl;
 					}
 					i++;
 					if (a0.size() <= i)
@@ -168,11 +162,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				std::cout << "\n---------\n" << std::endl;
 			LENg = 0, i = 0;
 			if(!w){
-				std::printf("\e[91m");
-				std::printf("\e[4m");
-				std::cout << "BEGIN::(RedCheck)" << std::endl;
-				std::printf("\e[0m");
-				std::printf("\e[91m");
+				std::cout << "\e[91m\e[4mBEGIN::(RedCheck)\e[0m\e[91m" << std::endl;
 			}
 			while (true) {
 				if(i >= a.size()){
@@ -182,11 +172,9 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				if(a0.at(i) > 1){
 					rCT = 1;
 					if(!w){						
-						std::cout << "OUTPUT " << "=| ";
-						std::printf("\e[97m");
+						std::cout << "OUTPUT " << "=| \e[97m";
 						std::cout << a0.at(i) - 1;
-						std::printf("\e[91m");
-						std::cout << " | :" << std::endl;
+						std::cout << "\e[91m | :" << std::endl;
 					}
 					while (SET == a0.at(i)) {
 						if(!toFil)
@@ -205,23 +193,15 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				i++;
 				if(!rCT && i >= a.size()){
 					if(!w){
-						std::printf("\e[4m");
-						std::cout << "\nTerminal>";
-						std::printf("\e[0m");
-						std::printf("\e[91m");
-						std::printf("\e[5m");
-						std::cout << "\tNo phrases to return" << std::endl;
-						std::printf("\e[0m");
-						std::printf("\e[91m");
+						std::cout << "\n\e[4mTerminal>\e[0m\e[91m\e[5m";
+						std::cout << "\tNo phrases to return\e[0m\e[91m" << std::endl;
 					} else {
 						W << "NONE" << std::endl;
 					}
 				}
 			}
 			if(!w){
-				std::printf("\e[4m");
-				std::cout << "\nEND::(RedCheck)" << std::endl;
-				std::printf("\e[0m");
+				std::cout << "\n\e[4mEND::(RedCheck)\e[0m" << std::endl;
 			}
 		}
 		if(co){
@@ -345,11 +325,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				std::cout << "\n---------\n" << std::endl;
 			LENg = 0, i = 0;
 			if(!w){
-				std::printf("\e[96m");
-				std::printf("\e[4m");
-				std::cout << "BEGIN::(DoCo)" << std::endl;
-				std::printf("\e[0m");
-				std::printf("\e[96m");
+				std::cout << "\e[96m\e[4mBEGIN::(DoCo)\e[0m\e[96m" << std::endl;
 			}			
 			//this->rO("FIN::B:");
 			while (true) {
@@ -391,14 +367,8 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				i++;
 				if(!rCT && i >= a.size()){
 					if(!w){
-						std::printf("\e[4m");
-						std::cout << "\nTerminal>";
-						std::printf("\e[0m");
-						std::printf("\e[91m");
-						std::printf("\e[5m");
-						std::cout << "\tNo phrases to return" << std::endl;
-						std::printf("\e[0m");
-						std::printf("\e[96m");
+						std::cout << "\n\e[4mTerminal>\e[0m\e[91m\e[5m";
+						std::cout << "\tNo phrases to return\e[0m\e[96m" << std::endl;
 					} else {
 						W << "NONE" << std::endl;
 					}
@@ -517,11 +487,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				std::cout << "\n---------\n" << std::endl;
 			LENg = 0, i = 0;
 			if(!w){
-				std::printf("\e[96m");
-				std::printf("\e[4m");
-				std::cout << "BEGIN::(DoCo)" << std::endl;
-				std::printf("\e[0m");
-				std::printf("\e[96m");
+				std::cout << "\e[96m\e[4mBEGIN::(DoCo)\e[0m\e[96m" << std::endl;
 			}
 			//this->rO("FIN::B:");
 			while (true) {
@@ -565,14 +531,8 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				i++;
 				if(!rCT && i >= a.size()){
 					if(!w){
-						std::printf("\e[4m");
-						std::cout << "\nTerminal>";
-						std::printf("\e[0m");
-						std::printf("\e[91m");
-						std::printf("\e[5m");
-						std::cout << "\tNo phrases to return" << std::endl;
-						std::printf("\e[0m");
-						std::printf("\e[96m");
+						std::cout << "\n\e[4mTerminal>\e[0m\e[91m\e[5m";
+						std::cout << "\tNo phrases to return\e[0m\e[96m" << std::endl;
 					} else {
 						W << "NONE" << std::endl;
 					}
@@ -582,9 +542,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 
 			///
 			if(!w){
-				std::printf("\e[4m");
-				std::cout << "\nEND::(DoCo)" << std::endl;
-				std::printf("\e[0m");
+				std::cout << "\n\e[4mEND::(DoCo)\e[0m" << std::endl;
 			}
 
 		}
@@ -1415,17 +1373,13 @@ vector<char> stuffReturn::weBI(){
 		TFswitch(boAr.at(0));
 		std::cout << std::endl;
 		std::cout << "[1] Redundancy Check ";
-		std::printf("\e[91m");
-		std::cout << "(RedCheck)  ";
+		std::cout << "\e[91m(RedCheck)\e[0m  ";
 		TFswitch(boAr.at(1));
 		std::cout << std::endl;
-		std::printf("\e[0m");
 		std::cout << "[2] Document Comparison ";
-		std::printf("\e[96m");
-		std::cout << "(DoCo)   ";
+		std::cout << "\e[96m(DoCo)\e[0m   ";
 		TFswitch(boAr.at(2));
 		std::cout << std::endl;
-		std::printf("\e[0m");
 		std::cout << "[D] Done" << std::endl;
 		std::cout << "[R] Reset selections" << std::endl;
 		std::cout << "[C] Cancel" << std::endl;
@@ -1486,6 +1440,7 @@ vector<char> stuffReturn::weBI(){
 					default:
 						std::cout << "Please choose either:\n\'Y\' for yes\nor\n\'N\' for no" << std::endl;
 				}
+				break;
 			default:
 				std::cout << "Enter a valid choice" << std::endl;
 				pauz();
@@ -1518,6 +1473,20 @@ void stuffReturn::TFswitch(bool t){
 		std::printf("%s", fll.c_str());
 	}
 	
+}
+
+//Output help for each function
+void stuffReturn::help(){
+	std::cout << "Help [-h, --help]\n\
+	\t\tDisplay" << std::endl;
+	std::cout << "Command Line Interface(CLI) [-c, --cli]\n\
+	\t\tDisplay" << std::endl;
+	std::cout << "Redundancy Check\e[91m(RedCheck)\e[0m\n\
+	\t\tDisplay" << std::endl;
+	std::cout << "Document Comparison\e[96m(DoCo)\e[0m\n\
+	\t\tDisplay" << std::endl;
+	std::cout << "Web-Based-Interface \e[93m(WeBI)\e[0m\n\
+	\t\tDisplay" << std::endl;
 }
 
 //Dev debug variable tool
