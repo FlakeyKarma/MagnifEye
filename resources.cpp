@@ -1477,16 +1477,24 @@ void stuffReturn::TFswitch(bool t){
 
 //Output help for each function
 void stuffReturn::help(){
-	std::cout << "Help [-h, --help]\n\
-	\t\tDisplay" << std::endl;
-	std::cout << "Command Line Interface(CLI) [-c, --cli]\n\
-	\t\tDisplay" << std::endl;
-	std::cout << "Redundancy Check\e[91m(RedCheck)\e[0m\n\
-	\t\tDisplay" << std::endl;
-	std::cout << "Document Comparison\e[96m(DoCo)\e[0m\n\
-	\t\tDisplay" << std::endl;
-	std::cout << "Web-Based-Interface \e[93m(WeBI)\e[0m\n\
-	\t\tDisplay" << std::endl;
+	std::cout << "- Help [-h, --help]\n\
+	\n-- Display this screen in console view, but otherwise shows\n\
+   the command and a shorter version of this screen." << std::endl;
+	std::cout << "\n\n- Regular Output\n\
+	\n-- Display each word used in the document with the amount\n\
+   next at the top of the group of words that share the same\n\
+   amount." << std::endl;
+	std::cout << "\n\n- Command Line Interface (CLI) [-c, --cli]\n\
+	\n-- Initialize the console version of MagnifEye." << std::endl;
+	std::cout << "\n\n- Redundancy Check\e[91m (RedCheck)\e[0m  [-red, --red-check]\n\
+	\n-- Similar to \'Regular Output\' but it displays both the\n\
+   words and phrases that have been repeated in the document." << std::endl;
+	std::cout << "\n\n- Document Comparison\e[96m (DoCo)\e[0m   [-dc, --doc-com]\n\
+	\n-- Display comparison between two documents both as \'Regular Output\'\n\
+   and \'Redundancy Check\' in a similar format, with percentage of\n\
+   similarity at the end." << std::endl;
+	std::cout << "\n\n- Web-Based-Interface \e[93m(WeBI)\e[0m \n\
+	\n-- Display the output in a FireFox browser window." << std::endl;
 }
 
 //Dev debug variable tool

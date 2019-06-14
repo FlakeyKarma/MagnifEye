@@ -161,16 +161,7 @@ int main(int argc, char* argv[]) {
 				//Help
 				case '6':
 					sr->clr();
-					std::cout << "Usage:\nMagnifEye <options> <file>\n\n" << std::endl;
-					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
-					std::cout << "options:" << std::endl;
-					std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
-					std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << std::endl;
-					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
-					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
-					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
-					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
-					std::cout << "\t-p,   --path          \tSet path to HTML and JavaScript files" << std::endl;
+					sr->help();
 					sr->pauz();
 					break;
 				//Exit
