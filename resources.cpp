@@ -71,7 +71,6 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		this->mkFil();
 		this->tw = tw;
 		this->th = th;
-		chr = *chr0;
 		this->setF(file, 1);
 		//cout << "A" << endl;
 		this->SeNDe(file, 0);
@@ -953,7 +952,7 @@ void stuffReturn::doCo(vector<char> *c){
 	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	while(1){
-		std::cout << "FK> Enter second file: ";
+		std::cout << "MEye> Enter second file: ";
 		cin >> file;
 		if(file == "ls"){
 			std::system("ls");
@@ -1344,7 +1343,7 @@ li {\n\
 string stuffReturn::filIn(){
 	string fil;
 	while(1){
-		std::cout << "FK> Enter directory to file: ";
+		std::cout << "MEye> Enter directory to file: ";
 		std::cin >> fil;
 		cout << fil << endl;
 		if(fil == "ls"){
@@ -1383,7 +1382,7 @@ vector<char> stuffReturn::weBI(){
 		std::cout << "[D] Done" << std::endl;
 		std::cout << "[R] Reset selections" << std::endl;
 		std::cout << "[C] Cancel" << std::endl;
-		std::cout << "FK> ";
+		std::cout << "MEye> ";
 		std::cin >> ch;
 		for(int i = 0; i < stAr.size(); i++){
 			stAr.at(i) = "[ ";

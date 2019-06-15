@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "[5] About" << std::endl;
 				std::cout << "[6] Help" << std::endl;
 				std::cout << "[x] Exit" << std::endl;
-				std::cout << "\nFK> ";
+				std::cout << "\nMEye> ";
 				std::cin >> inpt01[0];
 				switch (inpt01[0]) {
 				//Regular output
