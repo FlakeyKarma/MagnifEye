@@ -68,6 +68,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		ofstream W;
 		W.open("temp.txt");
 		string temp = "";
+		this->chr = *chr0;
 		this->mkFil();
 		this->tw = tw;
 		this->th = th;
@@ -85,8 +86,8 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 		if(!w)
 			std::cout << "---------" << std::endl;
 		if(co){
-			chr.push_back('d');
-			this->doCo(&chr);
+			this->chr.push_back('d');
+			this->doCo(&this->chr);
 		}
 
 		//No RedCheck
@@ -595,6 +596,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 	vector<long> a0;
 	inpt = "";
 	inpt0 = "";
+	cout << def << c << dc << endl;
 	if(def && !c)
 		nuMake(0, &a);
 	if(rC && !c && !dc){
@@ -604,6 +606,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 		redCheck(&a, 1);
 	if(c && !dc)
 		nuMake(2, &a);
+	strSz = this->strSz;
 	a = *strSz;
 	progressBar(prg);
 	a0 = *intSz;
@@ -751,7 +754,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void stuffReturn::nuMake(char t, vector<string> *s) {
+void stuffReturn::nuMake(int t, vector<string> *s) {
 	//cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -1345,7 +1348,7 @@ string stuffReturn::filIn(){
 	while(1){
 		std::cout << "MEye> Enter directory to file: ";
 		std::cin >> fil;
-		cout << fil << endl;
+		std::cout << fil << endl;
 		if(fil == "ls"){
 			system("ls");
 		}else{

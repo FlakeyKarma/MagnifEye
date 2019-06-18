@@ -50,7 +50,7 @@ class stuffReturn {
 		void setF(string s, bool b);
 		vector<string> wordReturn(string s);
 		void SeNDe(string s, bool t);
-		void nuMake(char c, vector<string> *s);
+		void nuMake(int c, vector<string> *s);
 		void outP(string file, int ac, vector<char> *c);
 		void redCheck(vector<string> *s, bool t);
 		bool GT1(string s);
