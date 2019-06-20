@@ -546,9 +546,10 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 			}
 
 		}
+		cout << "A" << endl;
 		W.close();
 		if(w){
-			this->data();
+			this->data(&def, &rC, &co);
 		}
 	}
 }
@@ -1040,15 +1041,10 @@ void stuffReturn::setF(string fil, bool b){
 }
 
 //Data to display on web-page
-void stuffReturn::data(){
+void stuffReturn::data(bool *def, bool *rC, bool *dC){
 	ofstream f0;
 	f0.open("graphicOut.js");
 	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse,
-	sSz = " ", iSz = " ",
-	sPh = " ", iPh = " ",
-	sS2 = " ", iS2 = " ",
-	sDc = " ", iDc = " ",
-	sD2 = " ", iD2 = " ",
 	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
@@ -1059,7 +1055,37 @@ void stuffReturn::data(){
     ctx.fill();\n\
     ctx.stroke();\n\
 }\n\
+function opn(document, ID){\n\
+    var elm = document.querySelectorAll(\'#\' + ID), X;\n\
 \n\
+    for (var i = 0; i < elm.length; i++) {\n\
+        X = elm[i];\n\
+        if(X.style.display == \"none\"){\n\
+            X.style.display = \"block\";\n\
+        } else {\n\
+            X.style.display = \"none\";\n\
+        }\n\
+    }\n\
+}\n\
+\n\
+function Clicke(x, document) {\n\
+    var LETAry, i;\n\
+    \n\
+    LETAry = ['Reg', 'Red', 'Doc'];\n\
+    for (i = 0; i < LETAry.length; i += 1) {\n\
+        try{\n\
+            if (x == LETAry[i]) {\n\
+                opn(document, x);\n\
+                continue;\n\
+            } else {\n\
+                opn(document, x);            \n\
+            }\n\
+        } catch (E) {\n\
+            alert(\"Nothing to check here!\");\n\
+            break;\n\
+        }\n\
+    }\n\
+}\n\
 function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
@@ -1086,41 +1112,62 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
 \n\
 function outP(x) { \n\
     var ";
-	vector<vector<string>> allS = {*strSz, *strPh, *strS2, *strDoc, *spD2};
-	vector<vector<long>> allL = {*intSz, *intPh, *intS2, *intDoc, *ipD2};
-	vector<string> stz = {sSz, sPh, sS2, sDc, sD2}, lnz = {iSz, iPh, iS2, iDc, iD2};
+	cout << "B" << endl;
+	vector<vector<string>> *allS = new vector<vector<string>>(5);
+	cout << "B0" << endl;
+	vector<vector<long>> *allL = new vector<vector<long>>(5);
+	if(*def){
+		allS->at(0) = *strSz;
+		allL->at(0) = *intSz;
+	}
+	if(*rC){
+		allS->at(1) = *strPh;
+		allL->at(1) = *intPh;
+	}
+	if(*dC){
+		allS->at(2) = *strS2;
+		allL->at(2) = *intS2;
+		allS->at(3) = *strDoc;
+		allL->at(3) = *intDoc;
+		allS->at(4) = *spD2;
+		allL->at(4) = *ipD2;
+	}
+	
+	cout << "B1" << endl;
+	vector<string> *stz = new vector<string>(5), *lnz = new vector<string>(5);
+	cout << "B2" << endl;
 	string strFil = "";
-	for(int i = 0; i < allS.size(); i++){
-		for(int j = i; j < allS.at(i).size(); j++){
-			if(i > 0 && allL.at(i).at(j) <= 1)
+	for(int i = 0; i < allS->size(); i++){
+		for(int j = i; j < allS->at(i).size(); j++){
+			if(i > 0 && allL->at(i).at(j) <= 1)
 				continue;
-			strFil = allS.at(i).at(j);
-			stz.at(i) += "\"" + strFil + "\"";
-			lnz.at(i) += to_string(allL.at(i).at(j));
-			if(j < allS.at(i).size() - 1){
-				stz.at(i) += ", ";
-				lnz.at(i) += ", ";
+			strFil = allS->at(i).at(j);
+			stz->at(i) += "\"" + strFil + "\"";
+			lnz->at(i) += to_string(allL->at(i).at(j));
+			if(j < allS->at(i).size() - 1){
+				stz->at(i) += ", ";
+				lnz->at(i) += ", ";
 			}
 		}
 	}
-	for(int i = 0; i < stz.size(); i++){
+	for(int i = 0; i < stz->size(); i++){
 		if(i > 0)
 			jsFil += ", ";
 		switch(i){
 			case 0:
-				jsFil += "sSz = [" + stz.at(i) + "], iSz = [" + lnz.at(i) + "] ";
+				jsFil += "sSz = [" + stz->at(i) + "], iSz = [" + lnz->at(i) + "] ";
 				break;
 			case 1:
-				jsFil += "sPh = [" + stz.at(i) + "], iPh = [" + lnz.at(i) + "] ";
+				jsFil += "sPh = [" + stz->at(i) + "], iPh = [" + lnz->at(i) + "] ";
 				break;
 			case 2:
-				jsFil += "sS2 = [" + stz.at(i) + "], iS2 = [" + lnz.at(i) + "] ";
+				jsFil += "sS2 = [" + stz->at(i) + "], iS2 = [" + lnz->at(i) + "] ";
 				break;				
 			case 3:
-				jsFil += "sDc = [" + stz.at(i) + "], iDc = [" + lnz.at(i) + "] ";
+				jsFil += "sDc = [" + stz->at(i) + "], iDc = [" + lnz->at(i) + "] ";
 				break;
 			case 4:
-				jsFil += "sD2 = [" + stz.at(i) + "], iD2 = [" + lnz.at(i) + "] ";
+				jsFil += "sD2 = [" + stz->at(i) + "], iD2 = [" + lnz->at(i) + "] ";
 				break;
 		}
 	}
@@ -1135,46 +1182,81 @@ function outP(x) { \n\
     lt = [lt0, lt1, lt2],\n\
     ul0 = [],\n\
     canv = [],\n\
-    canv0 = [];\n\
+    canv0 = [],\n\
+    lnl = 0;\n\
+\n\
+    var X = document.getElementById(\"dropdown\").style.display = \"none\";\n\
 \n\
     for(var i = 0; i < Slst.length; i++){\n\
         Slst[i].reverse();\n\
         Ilst[i].reverse();\n\
     }\n\
 \n\
-    for(var i = Slst.length - 1; i >= 0; i--){\n\
-        for(var j = Slst[i].length - 1; j >= 0; j--){\n\
-            canv[j + i * Slst.length] = \"\";\n\
-            canv[j + i * Slst.length] = document.createElement(\"canvas\");\n\
-            canv[j + i * Slst.length].id = \"canv\" + j + i;\n\
-\n\
-            canv0[j + i * Slst.length] = \"\";\n\
-            canv0[j + i * Slst.length] = document.createElement(\"canvas\");\n\
-            canv0[j + i * Slst.length].id = \"canv0\" + j + i;\n\
+    for(var i = 0; i < Slst.length; i++){\n\
+        for(var j = 0; j < Slst[i].length; j++){\n\
+            canv[lnl] = \"\";\n\
+            canv[lnl] = document.createElement(\"canvas\");\n\
+            canv[lnl].id = \"canv\" + j + i;\n\
+            \n\
+            canv0[lnl] = \"\";\n\
+            canv0[lnl] = document.createElement(\"canvas\");\n\
+            canv0[lnl].id = \"canv0\" + j + i;\n\
             \n\
             if(x){                \n\
-                iP[j + i * Slst.length] = \"\";\n\
-                iP0[j + i * Slst.length] = \"\";\n\
-                sP[j + i * Slst.length] = \"\";\n\
-                sP0[j + i * Slst.length] = \"\";\n\
-                lt0[j + i * Slst.length] = \"\";\n\
-                lt1[j + i * Slst.length] = \"\";\n\
-\n\
-                sP[j + i * Slst.length] = document.createElement(\"p\");\n\
-                sP0[j + i * Slst.length] = document.createTextNode(Slst[i][j]);\n\
-                sP[j + i * Slst.length].appendChild(sP0[j + i * Slst.length]);\n\
-                lt0[j + i * Slst.length] = document.createElement(\"li\");\n\
-                lt0[j + i * Slst.length].appendChild(sP[j + i * Slst.length]);\n\
-\n\
-                iP[j + i * Slst.length] = document.createElement(\"p\");\n\
-                iP0[j + i * Slst.length] = document.createTextNode(Ilst[i][j]);\n\
-                iP[j + i * Slst.length].appendChild(iP0[j + i * Slst.length]);\n\
-                lt1[j + i * Slst.length] = document.createElement(\"li\");\n\
-                lt1[j + i * Slst.length].appendChild(iP[j + i * Slst.length]);\n\
+                iP[lnl] = \"\";\n\
+                iP0[lnl] = \"\";\n\
+                sP[lnl] = \"\";\n\
+                sP0[lnl] = \"\";\n\
+                lt0[lnl] = \"\";\n\
+                lt1[lnl] = \"\";\n\
+                \n\
+                sP[lnl] = document.createElement(\"p\");\n\
+                sP0[lnl] = document.createTextNode(Slst[i][j]);\n\
+                sP[lnl].appendChild(sP0[lnl]);\n\
+                lt0[lnl] = document.createElement(\"li\");\n\
+                lt0[lnl].appendChild(sP[lnl]);\n\
+                \n\
+                iP[lnl] = document.createElement(\"p\");\n\
+                iP0[lnl] = document.createTextNode(Ilst[i][j]);\n\
+                iP[lnl].appendChild(iP0[lnl]);\n\
+                lt1[lnl] = document.createElement(\"li\");\n\
+                lt1[lnl].appendChild(iP[lnl]);\n\
             }            \n\
-            lt2[j + i * Slst.length] = document.createElement(\"li\");\n\
-            lt2[j + i * Slst.length].appendChild(canv[j + i * Slst.length]);\n\
-            lt2[j + i * Slst.length].appendChild(canv0[j + i * Slst.length]);\n\
+            lt2[lnl] = document.createElement(\"li\");\n\
+            lt2[lnl].appendChild(canv[lnl]);\n\
+            lt2[lnl].appendChild(canv0[lnl]);\n\
+            lnl++;\n\
+            if(lnl - 1 < sSz.length){\n\
+                lt0[lnl - 1].id = \"Reg\";\n\
+                lt1[lnl - 1].id = \"Reg\";\n\
+                lt2[lnl - 1].id = \"Reg\";\n\
+                lt0[lnl - 1].style.display = \"block\";\n\
+                lt1[lnl - 1].style.display = \"block\";\n\
+                lt2[lnl - 1].style.display = \"block\";\n\
+                continue;\n\
+            }\n\
+            if(lnl - 1 < sSz.length + sPh.length){\n\
+                lt0[lnl - 1].id = \"Red\";\n\
+                lt1[lnl - 1].id = \"Red\";\n\
+                lt2[lnl - 1].id = \"Red\";\n\
+                lt0[lnl - 1].style.display = \"none\";\n\
+                lt1[lnl - 1].style.display = \"none\";\n\
+                lt2[lnl - 1].style.display = \"none\";\n\
+                continue;\n\
+            } else {\n\
+                lt0[lnl - 1].id = \"Doc\";\n\
+                lt1[lnl - 1].id = \"Doc\";\n\
+                lt2[lnl - 1].id = \"Doc\";\n\
+                lt0[lnl - 1].style.display = \"none\";\n\
+                lt1[lnl - 1].style.display = \"none\";\n\
+                lt2[lnl - 1].style.display = \"none\";\n\
+            }\n\
+        }\n\
+    }\n\
+\n\
+    for(var i = 0; i < lt.length; i++){\n\
+        for(var j = 0; j < lt[i].length; j++){\n\
+            console.log(lt[i][j]);\n\
         }\n\
     }\n\
 \n\
@@ -1200,11 +1282,14 @@ function outP(x) { \n\
             }\n\
         }\n\
     }\n\
-    \n\
+\n\
+    lnl = 0;\n\
+\n\
     for(var i = 0; i < Slst.length; i++){\n\
         for(var j = 0; j < Slst[i].length; j++){\n\
             /* doc, xPos, yPos, w, h, id*/\n\
-            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * (window.innerWidth * 0.20), 10, canv[j + i * Slst.length].id, (window.innerWidth * 0.20), canv0[j + i * Slst.length].id);\n\
+            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * (window.innerWidth * 0.20), 10, canv[lnl].id, (window.innerWidth * 0.20), canv0[lnl].id);\n\
+            lnl++;\n\
         }\n\
     }\n\
 }";
@@ -1230,13 +1315,12 @@ void stuffReturn::mkFil(){
         <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation-rtl.min.css\" integrity=\"sha256-jvk46bzgetf2fy3FF19toDOoy9CG3aFqZfd229doSyo= sha384-w6E9ynA6OV6MFswc7C8nr8QoBiRtqqOKF/5M9ZVyVDDyrUPLI75xizNuXgRZxWK5 sha512-7MZk47L+5Mj6Y0dP3NuB2aqlNdDgzTlCf8m50nvgnCHUbxZ9KabCy8VUzQAl/DqDKwR7E6JsCf1MUjkfCiVzJw==\" crossorigin=\"anonymous\">\n\
         <link rel=\"stylesheet\" href=\"style.css\">\n\
 		<link href=\"https://fonts.googleapis.com/css?family=Kumar+One+Outline&display=swap\" rel=\"stylesheet\">\n\
-		<script thisc=\"https://requirejs.org/docs/release/2.3.6/minified/require.js\"></script>\n\
-        <script type=\"text/javascript\" thisc=\"graphicOut.js\"></script>\n\
+        <script type=\"text/javascript\" src=\"graphicOut.js\"></script>\n\
     </head>\n\
     <body onresize=\"outP(0)\">\n\
         <div class=\"row\">\n\
             <div class=\"columns large-3 large-pull-3 medium-4 medium-push-1\">\n\
-                <img thisc=\"imgs/MagnifEyeLogo.png\">\n\
+                <img src=\"imgs/MagnifEyeLogo.png\">\n\
             </div>\n\
             <div class=\"columns large-9 large-pull-4 medium-8\">\n\
                 <h1>MagnifEye</h1>\n\
@@ -1244,10 +1328,34 @@ void stuffReturn::mkFil(){
         </div>\n\
         <div class=\"row\">\n\
             <div class=\"columns large-12 large-pull-3 medium-9 medium-push-1\">\n\
-                    <h4>" + verz + "</h4>\n\
+                    <h4>v1.8.8</h4>\n\
             </div>\n\
-            <div class=\"columns large-12 large-pull-3 medium-10 medium-pull-1\">\n\
+            <div class=\"columns large-9 large-pull-3 medium-10 medium-pull-1\">\n\
                 <h5>By FlakeyKarma</h5>\n\
+            </div>\n\
+            <div class=\"columns large-3 medium-2 medium-pull-1\">\n\
+                <button onclick=\"opn(document, \'dropdown\', 'true')\" class=\"btn\"><p>Options</p></button>\n\
+                <div id=\"dropdown\">\n\
+                    <div class=\"rows\">\n\
+                        <ul>\n\
+                            <div class=\"columns large-12 large-push-1\">\n\
+                                <li>\n\
+                                    <button onclick=\"Clicke(\'Reg\', document)\"><p>Regular Output</p></button>\n\
+                                </li>\n\
+                            </div>\n\
+                            <div class=\"columns large-12 large-push-1\">\n\
+                                <li>\n\
+                                    <button onclick=\"Clicke(\'Red\', document)\"><p>Redundancy Check</p></button>\n\
+                                </li>\n\
+                            </div>\n\
+                            <div class=\"columns large-12 large-push-1\">\n\
+                                <li>\n\
+                                    <button onclick=\"Clicke(\'Doc\', document)\"><p>Document Comparison</p></button>\n\
+                                </li>\n\
+                            </div>\n\
+                        </ul>\n\
+                    </div>\n\
+                </div>\n\
             </div>\n\
         </div>\n\
         <div class=\"row\">\n\
@@ -1279,34 +1387,28 @@ void stuffReturn::mkFil(){
 </html>";
 	f.close();
 	f.open("style.css");
-	f << "/*SOURCE OF ARROW*/\n\
-/*https://www.w3schools.com/howto/howto_css_arrows.asp*/\n\
-i {\n\
-    border: solid black;\n\
-    border-width: 0 3px 3px 0;\n\
-    display: inline-block;\n\
-    padding: 3px;\n\
-  }\n\
-  \n\
-  .right {\n\
-    transform: rotate(-45deg);\n\
-    -webkit-transform: rotate(-45deg);\n\
-  }\n\
-  \n\
-  .left {\n\
-    transform: rotate(135deg);\n\
-    -webkit-transform: rotate(135deg);\n\
-  }\n\
-  \n\
-  .up {\n\
-    transform: rotate(-135deg);\n\
-    -webkit-transform: rotate(-135deg);\n\
-  }\n\
-  \n\
-  .down {\n\
-    transform: rotate(45deg);\n\
-    -webkit-transform: rotate(45deg);\n\
-  }\n\
+	f << "#dropdown {\n\
+  display: none;\n\
+  background: lightgrey;\n\
+  position: absolute;\n\
+  z-index: 5;\n\
+  padding-left: 5px;\n\
+  padding-bottom: 20px;\n\
+  border-radius: 10px;\n\
+}\n\
+.btn {\n\
+  background: grey;\n\
+  border-radius: 5px;\n\
+  padding: 2px;\n\
+}\n\
+.btn p, #dropdown p {\n\
+  font-size: 15px;\n\
+  color: black;\n\
+}\n\
+#dropdown li {\n\
+  list-style-type: square;\n\
+  color: black;\n\
+}\n\
 li {\n\
     font-size: 20px;\n\
 }\n\
@@ -1317,7 +1419,7 @@ h4, h1 {\n\
     color: limegreen;\n\
 }\n\
 h1 {\n\
-    padding-top: 1em;\n\
+  padding-top: 1em;\n\
 	font-family: 'Kumar One Outline', cursive;\n\
 }\n\
 h5 {\n\

@@ -17,7 +17,7 @@ class stuffReturn {
 		float progress = 0;
 		int chk = 0, numCheck = 0;
 		string loadBar, file0, file1;
-		const string verz = "v1.8.8";
+		const string verz = "v1.9.8";
 		bool tw = false, th = false, prd = false;
 	public:
 		~stuffReturn(){
@@ -61,7 +61,7 @@ class stuffReturn {
 		void progressBar(float x);
 		void rO(string s);
 		string ver();
-		void data();
+		void data(bool *a, bool *b, bool *c);
 		void mkFil();
 		void TFswitch(bool t);
 		vector<char> weBI();
