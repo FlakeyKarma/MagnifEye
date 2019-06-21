@@ -7,7 +7,7 @@ It's just a simple command-line-based function at the moment. You just type the 
 MagnifEye <options> <file>
 
 
-[-h, --help][-c, --cli][-red, --red-check][-l, --legend]
+[-h, --help][-c, --cli][-red, --red-check][-dc, --doc-com][-l, --legend][-w, --WeBI]
 
 
 options:
@@ -17,8 +17,7 @@ options:
 	-dc,  --doc-com	Display similar words
 	-l,   --legend     	Display legend to understand color coding for
 	output
-	-w,   --webInt        	Display information on a web interface
-	-p,   --path          	Set path to HTML and JavaScript files
+	-w,   --WeBI        	Display information on a web interface
 
 
 `
