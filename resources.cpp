@@ -1055,15 +1055,28 @@ void stuffReturn::data(bool *def, bool *rC, bool *dC){
     ctx.fill();\n\
     ctx.stroke();\n\
 }\n\
+\n\
 function opn(document, ID){\n\
-    var elm = document.querySelectorAll(\'#\' + ID), X;\n\
+    var elm = document.querySelectorAll('#' + ID), X, y = document.getElementById(ID + \"B\"), t = false, LETAry = ['Reg', 'Red', 'Doc'];\n\
+    \n\
+    for(var i = 0; i < LETAry.length; i++){\n\
+        if(LETAry[i] == ID){\n\
+            t = true;\n\
+        }\n\
+    }\n\
 \n\
     for (var i = 0; i < elm.length; i++) {\n\
         X = elm[i];\n\
         if(X.style.display == \"none\"){\n\
             X.style.display = \"block\";\n\
+            if(t){\n\
+                y.style.backgroundColor = \"green\";\n\
+            }\n\
         } else {\n\
             X.style.display = \"none\";\n\
+            if(t){\n\
+                y.style.backgroundColor = \"red\";\n\
+            }\n\
         }\n\
     }\n\
 }\n\
@@ -1073,19 +1086,15 @@ function Clicke(x, document) {\n\
     \n\
     LETAry = ['Reg', 'Red', 'Doc'];\n\
     for (i = 0; i < LETAry.length; i += 1) {\n\
-        try{\n\
-            if (x == LETAry[i]) {\n\
-                opn(document, x);\n\
-                continue;\n\
-            } else {\n\
-                opn(document, x);            \n\
-            }\n\
-        } catch (E) {\n\
-            alert(\"Nothing to check here!\");\n\
-            break;\n\
+        if (x == LETAry[i]) {\n\
+            opn(document, x);\n\
+            continue;\n\
+        } else {\n\
+            opn(document, x);\n\
         }\n\
     }\n\
 }\n\
+\n\
 function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
@@ -1108,7 +1117,6 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
     ctx.stroke();\n\
     mkBar(doc, xPos, yPos, max, h, id0);\n\
 }\n\
-\n\
 \n\
 function outP(x) { \n\
     var ";
@@ -1185,7 +1193,11 @@ function outP(x) { \n\
     canv0 = [],\n\
     lnl = 0;\n\
 \n\
-    var X = document.getElementById(\"dropdown\").style.display = \"none\";\n\
+    document.getElementById(\"dropdown\").style.display = \"none\";\n\
+    \n\
+    document.getElementById(\"RegB\").style.backgroundColor = \"green\";\n\
+    document.getElementById(\"RedB\").style.backgroundColor = \"red\";\n\
+    document.getElementById(\"DocB\").style.backgroundColor = \"red\";\n\
 \n\
     for(var i = 0; i < Slst.length; i++){\n\
         Slst[i].reverse();\n\
@@ -1334,23 +1346,23 @@ void stuffReturn::mkFil(){
                 <h5>By FlakeyKarma</h5>\n\
             </div>\n\
             <div class=\"columns large-3 medium-2 medium-pull-1\">\n\
-                <button onclick=\"opn(document, \'dropdown\', 'true')\" class=\"btn\"><p>Options</p></button>\n\
+                <button onclick=\"opn(document, 'dropdown', 'true')\" class=\"btn\" id=\"btn\"><p>Options</p></button>\n\
                 <div id=\"dropdown\">\n\
                     <div class=\"rows\">\n\
                         <ul>\n\
                             <div class=\"columns large-12 large-push-1\">\n\
-                                <li>\n\
-                                    <button onclick=\"Clicke(\'Reg\', document)\"><p>Regular Output</p></button>\n\
+                                <li id=\"RegB\">\n\
+                                    <button onclick=\"Clicke('Reg', document)\"><p>Regular Output</p></button>\n\
                                 </li>\n\
                             </div>\n\
                             <div class=\"columns large-12 large-push-1\">\n\
-                                <li>\n\
-                                    <button onclick=\"Clicke(\'Red\', document)\"><p>Redundancy Check</p></button>\n\
+                                <li id=\"RedB\">\n\
+                                    <button onclick=\"Clicke('Red', document)\"><p>Redundancy Check</p></button>\n\
                                 </li>\n\
                             </div>\n\
                             <div class=\"columns large-12 large-push-1\">\n\
-                                <li>\n\
-                                    <button onclick=\"Clicke(\'Doc\', document)\"><p>Document Comparison</p></button>\n\
+                                <li id=\"DocB\">\n\
+                                    <button onclick=\"Clicke('Doc', document)\"><p>Document Comparison</p></button>\n\
                                 </li>\n\
                             </div>\n\
                         </ul>\n\
@@ -1406,8 +1418,11 @@ void stuffReturn::mkFil(){
   color: black;\n\
 }\n\
 #dropdown li {\n\
-  list-style-type: square;\n\
-  color: black;\n\
+  list-style: none;\n\
+  width: 80%;\n\
+  padding-left: 5px;\n\
+  border-radius: 5px;\n\
+  margin-bottom: 2px;\n\
 }\n\
 li {\n\
     font-size: 20px;\n\
