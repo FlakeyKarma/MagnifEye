@@ -310,7 +310,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 			}
 			for(long i = 0; i < a.size(); i++){
 				while(a.at(i).length() < lng2 + 3){
-					a.at(i) += " ";
+					a.at(i) += "-";
 				}
 			}
 			while(outpt.length() < lng2 + 11){
@@ -472,7 +472,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 			}
 			for(long i = 0; i < a.size(); i++){
 				while(a.at(i).length() < lng2 + 3){
-					a.at(i) += " ";
+					a.at(i) += "-";
 				}
 			}
 			while(outpt.length() < lng2 + 11){
