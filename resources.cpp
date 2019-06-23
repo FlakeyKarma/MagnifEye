@@ -546,7 +546,6 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 			}
 
 		}
-		cout << "A" << endl;
 		W.close();
 		if(w){
 			this->data(&def, &rC, &co);
@@ -560,7 +559,7 @@ FUNCTIONS FOR outP
 
 //Search-N-Destroy
 void stuffReturn::SeNDe(string file, bool rC){
-	cout << "\n\n\tSeNDe\n\n" << endl;
+	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
 	for(int i = 0; i < chr.size(); i++){
@@ -597,7 +596,6 @@ void stuffReturn::SeNDe(string file, bool rC){
 	vector<long> a0;
 	inpt = "";
 	inpt0 = "";
-	cout << def << c << dc << endl;
 	if(def && !c)
 		nuMake(0, &a);
 	if(rC && !c && !dc){
@@ -689,7 +687,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 		*spDoc = a;
 		*ipDoc = a0;
 	}
-	std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
+	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
 //Breaks down full string into vector of all words
@@ -756,7 +754,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 
 //Counts instances of each word
 void stuffReturn::nuMake(int t, vector<string> *s) {
-	cout << "\n\n\tnuMake\n\n" << endl;
+	//cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
 		prg = 20.0;
@@ -809,6 +807,7 @@ void stuffReturn::nuMake(int t, vector<string> *s) {
 				}
 			}
 		}
+		
 		switch(t){
 			case 1:
 				*intPh = a0;
@@ -832,7 +831,7 @@ void stuffReturn::nuMake(int t, vector<string> *s) {
 		if(!a.empty())
 			a.clear();
 	}
-	cout  << "\n\n\t\\nuMake\n\n" << endl;
+	//cout  << "\n\n\t\\nuMake\n\n" << endl;
 }
 
 //Clears Screen
@@ -953,7 +952,7 @@ void stuffReturn::redCheck(vector<string> *s, bool d){
 
 //Compare documents for similarities in vocabulary and word patterns
 void stuffReturn::doCo(vector<char> *c){
-	cout  << "\n\n\tdoCo\n\n" << endl;
+	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	int NM = 0, RS;
 	while(1){
@@ -1000,12 +999,9 @@ void stuffReturn::doCo(vector<char> *c){
 	}
 	spD2->resize(RS + 1);
 	spD2->shrink_to_fit();
-	for(int i = 0; i < strDoc->size(); i++){
-		cout << strDoc->at(i) << endl;
-	}
 	nuMake(5, spD2);
 	//rO"DoCo::C");
-	cout  << "\n\n\t\\doCo\n\n" << endl;
+	//cout  << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if the string has more than one word
@@ -1135,9 +1131,7 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
 \n\
 function outP(x) { \n\
     var ";
-	cout << "B" << endl;
 	vector<vector<string>> *allS = new vector<vector<string>>(5);
-	cout << "B0" << endl;
 	vector<vector<long>> *allL = new vector<vector<long>>(5);
 	if(*def){
 		allS->at(0) = *strSz;
@@ -1156,9 +1150,7 @@ function outP(x) { \n\
 		allL->at(4) = *ipD2;
 	}
 	
-	cout << "B1" << endl;
 	vector<string> *stz = new vector<string>(5), *lnz = new vector<string>(5);
-	cout << "B2" << endl;
 	string strFil = "";
 	for(int i = 0; i < allS->size(); i++){
 		for(int j = i; j < allS->at(i).size(); j++){
