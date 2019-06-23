@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 					opti.push_back('r');
 					opti.push_back('d');
 				}
-				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--weBI") == 0){
+				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--WeBI") == 0){
 					opti.push_back('w');
 				}
 			}

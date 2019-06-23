@@ -472,7 +472,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 			}
 			for(long i = 0; i < a.size(); i++){
 				while(a.at(i).length() < lng2 + 3){
-					a.at(i) += "-";
+					a.at(i) += " ";
 				}
 			}
 			while(outpt.length() < lng2 + 11){
@@ -503,7 +503,7 @@ void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
 				}
 				while (SET == a0.at(i)) {
 					if(w)
-						W << a.at(i) <<" " << a0.at(i) << endl;
+						W << a.at(i) << " " << a0.at(i) << endl;
 					if(!toFil)
 						if(i % 30 == 0 && i > 0)
 							this->pauz();
@@ -560,7 +560,7 @@ FUNCTIONS FOR outP
 
 //Search-N-Destroy
 void stuffReturn::SeNDe(string file, bool rC){
-	//cout << "\n\n\tSeNDe\n\n" << endl;
+	cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
 	for(int i = 0; i < chr.size(); i++){
@@ -689,7 +689,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 		*spDoc = a;
 		*ipDoc = a0;
 	}
-	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
+	std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
 //Breaks down full string into vector of all words
@@ -756,7 +756,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 
 //Counts instances of each word
 void stuffReturn::nuMake(int t, vector<string> *s) {
-	//cout << "\n\n\tnuMake\n\n" << endl;
+	cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
 		prg = 20.0;
@@ -832,7 +832,7 @@ void stuffReturn::nuMake(int t, vector<string> *s) {
 		if(!a.empty())
 			a.clear();
 	}
-	//cout  << "\n\n\t\\nuMake\n\n" << endl;
+	cout  << "\n\n\t\\nuMake\n\n" << endl;
 }
 
 //Clears Screen
@@ -953,8 +953,9 @@ void stuffReturn::redCheck(vector<string> *s, bool d){
 
 //Compare documents for similarities in vocabulary and word patterns
 void stuffReturn::doCo(vector<char> *c){
-	//cout  << "\n\n\tdoCo\n\n" << endl;
+	cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
+	int NM = 0, RS;
 	while(1){
 		std::cout << "MEye> Enter second file: ";
 		cin >> file;
@@ -971,26 +972,40 @@ void stuffReturn::doCo(vector<char> *c){
 	for(int i = 0; i < strSz->size(); i++){
 		for(int j = 0; j < strS2->size(); j++){
 			if(strSz->at(i) == strS2->at(j)){
-				strDoc->push_back(strSz->at(j));
+				strDoc->at(NM) = strSz->at(j);
+				if(strDoc->at(NM) != "")
+					RS = NM;
+				NM++;
 				break;
 			}
 		}
 	}
+	strDoc->resize(RS + 1);
+	strDoc->shrink_to_fit();
 	nuMake(3, strDoc);
 	chr.push_back('O');
 	SeNDe(file, 1);
 	chr.pop_back();
+	NM = 0;
 	for(int i = 0; i < strPh->size(); i++){
 		for(int j = 0; j < spDoc->size(); j++){
 			if(strPh->at(i) == spDoc->at(j)){
-				spD2->push_back(strPh->at(i));
+				spD2->at(NM) = strPh->at(j);
+				if(spD2->at(NM) != "")
+					RS = NM;
+				NM++;
 				break;
 			}
 		}
 	}
+	spD2->resize(RS + 1);
+	spD2->shrink_to_fit();
+	for(int i = 0; i < strDoc->size(); i++){
+		cout << strDoc->at(i) << endl;
+	}
 	nuMake(5, spD2);
 	//rO"DoCo::C");
-	//cout  << "\n\n\t\\doCo\n\n" << endl;
+	cout  << "\n\n\t\\doCo\n\n" << endl;
 }
 
 //Check if the string has more than one word
@@ -1612,7 +1627,7 @@ void stuffReturn::help(){
 	\n-- Display comparison between two documents both as \'Regular Output\'\n\
    and \'Redundancy Check\' in a similar format, with percentage of\n\
    similarity at the end." << std::endl;
-	std::cout << "\n\n- Web-Based-Interface \e[93m(WeBI)\e[0m \n\
+	std::cout << "\n\n- Web-Based-Interface \e[93m(WeBI)\e[0m   [-w, --WeBI]\n\
 	\n-- Display the output in a FireFox browser window." << std::endl;
 }
 
