@@ -1054,84 +1054,9 @@ void stuffReturn::setF(string fil, bool b){
 //Data to display on web-page
 void stuffReturn::data(bool *def, bool *rC, bool *dC){
 	ofstream f0;
-	f0.open("graphicOut.js");
-	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse,
-	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
-    var c = doc.getElementById(id);\n\
-    c.width = w;\n\
-    c.height = h;\n\
-    var ctx = c.getContext(\"2d\");\n\
-    ctx.rect(xPos, yPos, w, h);\n\
-	ctx.fillStyle = \"lightgrey\";\n\
-    ctx.fill();\n\
-    ctx.stroke();\n\
-}\n\
-\n\
-function opn(document, ID){\n\
-    var elm = document.querySelectorAll('#' + ID), X, y = document.getElementById(ID + \"B\"), t = false, LETAry = ['Reg', 'Red', 'Doc'];\n\
-    \n\
-    for(var i = 0; i < LETAry.length; i++){\n\
-        if(LETAry[i] == ID){\n\
-            t = true;\n\
-        }\n\
-    }\n\
-\n\
-    for (var i = 0; i < elm.length; i++) {\n\
-        X = elm[i];\n\
-        if(X.style.display == \"none\"){\n\
-            X.style.display = \"block\";\n\
-            if(t){\n\
-                y.style.backgroundColor = \"green\";\n\
-            }\n\
-        } else {\n\
-            X.style.display = \"none\";\n\
-            if(t){\n\
-                y.style.backgroundColor = \"red\";\n\
-            }\n\
-        }\n\
-    }\n\
-}\n\
-\n\
-function Clicke(x, document) {\n\
-    var LETAry, i;\n\
-    \n\
-    LETAry = ['Reg', 'Red', 'Doc'];\n\
-    for (i = 0; i < LETAry.length; i += 1) {\n\
-        if (x == LETAry[i]) {\n\
-            opn(document, x);\n\
-            continue;\n\
-        } else {\n\
-            opn(document, x);\n\
-        }\n\
-    }\n\
-}\n\
-\n\
-function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
-    var c = doc.getElementById(id);\n\
-    c.width = w;\n\
-    c.height = h;\n\
-    var ctx = c.getContext(\"2d\");\n\
-    ctx.rect(xPos, yPos, w, h);\n\
-    if(w/max <= 0.25){\n\
-        ctx.fillStyle = \"green\";\n\
-    }\n\
-    if(w/max > 0.25 && w/max <= 0.50){\n\
-        ctx.fillStyle = \"yellow\";\n\
-    }\n\
-    if(w/max > 0.50 && w/max <=0.75){\n\
-        ctx.fillStyle = \"orange\";\n\
-    }\n\
-    if(w/max > 0.75){\n\
-        ctx.fillStyle = \"red\";\n\
-    }\n\
-    ctx.fill();\n\
-    ctx.stroke();\n\
-    mkBar(doc, xPos, yPos, max, h, id0);\n\
-}\n\
-\n\
-function outP(x) { \n\
-    var ";
-	vector<vector<string>> *allS = new vector<vector<string>>(5);
+	f0.open("wrdz.json");
+	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse, jsFil = "";
+		vector<vector<string>> *allS = new vector<vector<string>>(5);
 	vector<vector<long>> *allL = new vector<vector<long>>(5);
 	if(*def){
 		allS->at(0) = *strSz;
@@ -1165,153 +1090,30 @@ function outP(x) { \n\
 			}
 		}
 	}
+	jsFil += "{";
 	for(int i = 0; i < stz->size(); i++){
 		if(i > 0)
 			jsFil += ", ";
 		switch(i){
 			case 0:
-				jsFil += "sSz = [" + stz->at(i) + "], iSz = [" + lnz->at(i) + "] ";
+				jsFil += "\"sSz\" : [" + stz->at(i) + "], \"iSz\" : [" + lnz->at(i) + "] ";
 				break;
 			case 1:
-				jsFil += "sPh = [" + stz->at(i) + "], iPh = [" + lnz->at(i) + "] ";
+				jsFil += "\"sPh\" : [" + stz->at(i) + "], \"iPh\" : [" + lnz->at(i) + "] ";
 				break;
 			case 2:
-				jsFil += "sS2 = [" + stz->at(i) + "], iS2 = [" + lnz->at(i) + "] ";
+				jsFil += "\"sS2\" : [" + stz->at(i) + "], \"iS2\" : [" + lnz->at(i) + "] ";
 				break;				
 			case 3:
-				jsFil += "sDc = [" + stz->at(i) + "], iDc = [" + lnz->at(i) + "] ";
+				jsFil += "\"sDc\" : [" + stz->at(i) + "], \"iDc\" : [" + lnz->at(i) + "] ";
 				break;
 			case 4:
-				jsFil += "sD2 = [" + stz->at(i) + "], iD2 = [" + lnz->at(i) + "] ";
+				jsFil += "\"sD2\" : [" + stz->at(i) + "], \"iD2\" : [" + lnz->at(i) + "] ";
 				break;
 		}
 	}
-	f0 << jsFil + " ,\n\
-    Slst = [sSz, sPh, sS2, sDc, sD2],\n\
-    Ilst = [iSz, iPh, iS2, iDc, iD2],\n\
-    sP = [], sP0 = [],\n\
-    iP = [], iP0 = [],\n\
-    lt0 = [],\n\
-    lt1 = [],\n\
-    lt2 = [],\n\
-    lt = [lt0, lt1, lt2],\n\
-    ul0 = [],\n\
-    canv = [],\n\
-    canv0 = [],\n\
-    lnl = 0;\n\
-\n\
-    document.getElementById(\"dropdown\").style.display = \"none\";\n\
-    \n\
-    document.getElementById(\"RegB\").style.backgroundColor = \"green\";\n\
-    document.getElementById(\"RedB\").style.backgroundColor = \"red\";\n\
-    document.getElementById(\"DocB\").style.backgroundColor = \"red\";\n\
-\n\
-    for(var i = 0; i < Slst.length; i++){\n\
-        Slst[i].reverse();\n\
-        Ilst[i].reverse();\n\
-    }\n\
-\n\
-    for(var i = 0; i < Slst.length; i++){\n\
-        for(var j = 0; j < Slst[i].length; j++){\n\
-            canv[lnl] = \"\";\n\
-            canv[lnl] = document.createElement(\"canvas\");\n\
-            canv[lnl].id = \"canv\" + j + i;\n\
-            \n\
-            canv0[lnl] = \"\";\n\
-            canv0[lnl] = document.createElement(\"canvas\");\n\
-            canv0[lnl].id = \"canv0\" + j + i;\n\
-            \n\
-            if(x){                \n\
-                iP[lnl] = \"\";\n\
-                iP0[lnl] = \"\";\n\
-                sP[lnl] = \"\";\n\
-                sP0[lnl] = \"\";\n\
-                lt0[lnl] = \"\";\n\
-                lt1[lnl] = \"\";\n\
-                \n\
-                sP[lnl] = document.createElement(\"p\");\n\
-                sP0[lnl] = document.createTextNode(Slst[i][j]);\n\
-                sP[lnl].appendChild(sP0[lnl]);\n\
-                lt0[lnl] = document.createElement(\"li\");\n\
-                lt0[lnl].appendChild(sP[lnl]);\n\
-                \n\
-                iP[lnl] = document.createElement(\"p\");\n\
-                iP0[lnl] = document.createTextNode(Ilst[i][j]);\n\
-                iP[lnl].appendChild(iP0[lnl]);\n\
-                lt1[lnl] = document.createElement(\"li\");\n\
-                lt1[lnl].appendChild(iP[lnl]);\n\
-            }            \n\
-            lt2[lnl] = document.createElement(\"li\");\n\
-            lt2[lnl].appendChild(canv[lnl]);\n\
-            lt2[lnl].appendChild(canv0[lnl]);\n\
-            lnl++;\n\
-            if(lnl - 1 < sSz.length){\n\
-                lt0[lnl - 1].id = \"Reg\";\n\
-                lt1[lnl - 1].id = \"Reg\";\n\
-                lt2[lnl - 1].id = \"Reg\";\n\
-                lt0[lnl - 1].style.display = \"block\";\n\
-                lt1[lnl - 1].style.display = \"block\";\n\
-                lt2[lnl - 1].style.display = \"block\";\n\
-                continue;\n\
-            }\n\
-            if(lnl - 1 < sSz.length + sPh.length){\n\
-                lt0[lnl - 1].id = \"Red\";\n\
-                lt1[lnl - 1].id = \"Red\";\n\
-                lt2[lnl - 1].id = \"Red\";\n\
-                lt0[lnl - 1].style.display = \"none\";\n\
-                lt1[lnl - 1].style.display = \"none\";\n\
-                lt2[lnl - 1].style.display = \"none\";\n\
-                continue;\n\
-            } else {\n\
-                lt0[lnl - 1].id = \"Doc\";\n\
-                lt1[lnl - 1].id = \"Doc\";\n\
-                lt2[lnl - 1].id = \"Doc\";\n\
-                lt0[lnl - 1].style.display = \"none\";\n\
-                lt1[lnl - 1].style.display = \"none\";\n\
-                lt2[lnl - 1].style.display = \"none\";\n\
-            }\n\
-        }\n\
-    }\n\
-\n\
-    for(var i = 0; i < lt.length; i++){\n\
-        for(var j = 0; j < lt[i].length; j++){\n\
-            console.log(lt[i][j]);\n\
-        }\n\
-    }\n\
-\n\
-    if(x){\n\
-        for(var i = 0; i < lt.length; i++){\n\
-            ul0[i] = \"\";\n\
-            ul0[i] = document.createElement(\"ol\");\n\
-            for(var j = 0; j < lt[i].length; j++){\n\
-                ul0[i].appendChild(lt[i][j]);\n\
-\n\
-                if(i == 0){\n\
-                    ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
-                    document.getElementById(\"hW\").appendChild(ul0[i]);\n\
-                }\n\
-                if(i == 1){\n\
-                    ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
-                    document.getElementById(\"hW0\").appendChild(ul0[i]);\n\
-                }\n\
-                if(i == 2){\n\
-                    ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
-                    document.getElementById(\"hW1\").appendChild(ul0[i]);\n\
-                }   \n\
-            }\n\
-        }\n\
-    }\n\
-\n\
-    lnl = 0;\n\
-\n\
-    for(var i = 0; i < Slst.length; i++){\n\
-        for(var j = 0; j < Slst[i].length; j++){\n\
-            /* doc, xPos, yPos, w, h, id*/\n\
-            mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * (window.innerWidth * 0.20), 10, canv[lnl].id, (window.innerWidth * 0.20), canv0[lnl].id);\n\
-            lnl++;\n\
-        }\n\
-    }\n\
-}";
+	jsFil += "}";
+	f0 << jsFil;
 	f0.close();
 	Lfl += "index.html";
 	#if WIN_32
@@ -1463,6 +1265,234 @@ img {\n\
 li {\n\
   color: red;\n\
 }";
+	f.close();
+	f.open("graphicOut.js");
+	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse,
+	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
+    var c = doc.getElementById(id);\n\
+    c.width = w;\n\
+    c.height = h;\n\
+    var ctx = c.getContext(\"2d\");\n\
+    ctx.rect(xPos, yPos, w, h);\n\
+	ctx.fillStyle = \"lightgrey\";\n\
+    ctx.fill();\n\
+    ctx.stroke();\n\
+}\n\
+\n\
+function opn(document, ID){\n\
+    var elm = document.querySelectorAll('#' + ID), X, y = document.getElementById(ID + \"B\"), t = false, LETAry = ['Reg', 'Red', 'Doc'];\n\
+    \n\
+    for(var i = 0; i < LETAry.length; i++){\n\
+        if(LETAry[i] == ID){\n\
+            t = true;\n\
+        }\n\
+    }\n\
+\n\
+    for (var i = 0; i < elm.length; i++) {\n\
+        X = elm[i];\n\
+        if(X.style.display == \"none\"){\n\
+            X.style.display = \"block\";\n\
+            if(t){\n\
+                y.style.backgroundColor = \"green\";\n\
+            }\n\
+        } else {\n\
+            X.style.display = \"none\";\n\
+            if(t){\n\
+                y.style.backgroundColor = \"red\";\n\
+            }\n\
+        }\n\
+    }\n\
+}\n\
+\n\
+function Clicke(x, document) {\n\
+    var LETAry, i;\n\
+    \n\
+    LETAry = ['Reg', 'Red', 'Doc'];\n\
+    for (i = 0; i < LETAry.length; i += 1) {\n\
+        if (x == LETAry[i]) {\n\
+            opn(document, x);\n\
+            continue;\n\
+        } else {\n\
+            opn(document, x);\n\
+        }\n\
+    }\n\
+}\n\
+\n\
+function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
+    var c = doc.getElementById(id);\n\
+    c.width = w;\n\
+    c.height = h;\n\
+    var ctx = c.getContext(\"2d\");\n\
+    ctx.rect(xPos, yPos, w, h);\n\
+    if(w/max <= 0.25){\n\
+        ctx.fillStyle = \"green\";\n\
+    }\n\
+    if(w/max > 0.25 && w/max <= 0.50){\n\
+        ctx.fillStyle = \"yellow\";\n\
+    }\n\
+    if(w/max > 0.50 && w/max <=0.75){\n\
+        ctx.fillStyle = \"orange\";\n\
+    }\n\
+    if(w/max > 0.75){\n\
+        ctx.fillStyle = \"red\";\n\
+    }\n\
+    ctx.fill();\n\
+    ctx.stroke();\n\
+    mkBar(doc, xPos, yPos, max, h, id0);\n\
+}\n\
+\n\
+function outP(x) {\n\
+    var X = new XMLHttpRequest(), path = \"wrdz.json\";\n\
+    X.open(\'GET\', path, true);\n\
+    X.responseType = \'blob\';\n\
+    X.onload = function(window) {\n\
+        if(this.status == 200){\n\
+            var F = new File([this.response], \'temp\');\n\
+            var FReader = new FileReader();\n\
+            FReader.addEventListener(\'load\', function(window){\n\
+                var JSs = JSON.parse(FReader.result);\n\
+                var sSz = JSs.sSz,\n\
+                iSz = JSs.iSz,\n\
+                sPh = JSs.sPh,\n\
+                iPh = JSs.iPh,\n\
+                sS2 = JSs.sS2,\n\
+                iS2 = JSs.iS2,\n\
+                sDc = JSs.sDc,\n\
+                iDc = JSs.iDc,\n\
+                sD2 = JSs.sD2,\n\
+                iD2 = JSs.iD2,\n\
+                Slst = [sSz, sPh, sS2, sDc, sD2],\n\
+                Ilst = [iSz, iPh, iS2, iDc, iD2],\n\
+                sP = [], sP0 = [],\n\
+                iP = [], iP0 = [],\n\
+                lt0 = [],\n\
+                lt1 = [],\n\
+                lt2 = [],\n\
+                lt = [lt0, lt1, lt2],\n\
+                ul0 = [],\n\
+                canv = [],\n\
+                canv0 = [],\n\
+                lnl = 0;\n\
+            \n\
+                document.getElementById(\"dropdown\").style.display = \"none\";\n\
+                \n\
+                document.getElementById(\"RegB\").style.backgroundColor = \"green\";\n\
+                document.getElementById(\"RedB\").style.backgroundColor = \"red\";\n\
+                document.getElementById(\"DocB\").style.backgroundColor = \"red\";\n\
+            \n\
+                for(var i = 0; i < Slst.length; i++){\n\
+                    Slst[i].reverse();\n\
+                    Ilst[i].reverse();\n\
+                }\n\
+            \n\
+                for(var i = 0; i < Slst.length; i++){\n\
+                    for(var j = 0; j < Slst[i].length; j++){\n\
+                        canv[lnl] = \"\";\n\
+                        canv[lnl] = document.createElement(\"canvas\");\n\
+                        canv[lnl].id = \"canv\" + j + i;\n\
+                        \n\
+                        canv0[lnl] = \"\";\n\
+                        canv0[lnl] = document.createElement(\"canvas\");\n\
+                        canv0[lnl].id = \"canv0\" + j + i;\n\
+                        \n\
+                        if(x){                \n\
+                            iP[lnl] = \"\";\n\
+                            iP0[lnl] = \"\";\n\
+                            sP[lnl] = \"\";\n\
+                            sP0[lnl] = \"\";\n\
+                            lt0[lnl] = \"\";\n\
+                            lt1[lnl] = \"\";\n\
+                            \n\
+                            sP[lnl] = document.createElement(\"p\");\n\
+                            sP0[lnl] = document.createTextNode(Slst[i][j]);\n\
+                            sP[lnl].appendChild(sP0[lnl]);\n\
+                            lt0[lnl] = document.createElement(\"li\");\n\
+                            lt0[lnl].appendChild(sP[lnl]);\n\
+                            \n\
+                            iP[lnl] = document.createElement(\"p\");\n\
+                            iP0[lnl] = document.createTextNode(Ilst[i][j]);\n\
+                            iP[lnl].appendChild(iP0[lnl]);\n\
+                            lt1[lnl] = document.createElement(\"li\");\n\
+                            lt1[lnl].appendChild(iP[lnl]);\n\
+                        }            \n\
+                        lt2[lnl] = document.createElement(\"li\");\n\
+                        lt2[lnl].appendChild(canv[lnl]);\n\
+                        lt2[lnl].appendChild(canv0[lnl]);\n\
+                        lnl++;\n\
+                        if(lnl - 1 < sSz.length){\n\
+                            lt0[lnl - 1].id = \"Reg\";\n\
+                            lt1[lnl - 1].id = \"Reg\";\n\
+                            lt2[lnl - 1].id = \"Reg\";\n\
+                            lt0[lnl - 1].style.display = \"block\";\n\
+                            lt1[lnl - 1].style.display = \"block\";\n\
+                            lt2[lnl - 1].style.display = \"block\";\n\
+                            continue;\n\
+                        }\n\
+                        if(lnl - 1 < sSz.length + sPh.length){\n\
+                            lt0[lnl - 1].id = \"Red\";\n\
+                            lt1[lnl - 1].id = \"Red\";\n\
+                            lt2[lnl - 1].id = \"Red\";\n\
+                            lt0[lnl - 1].style.display = \"none\";\n\
+                            lt1[lnl - 1].style.display = \"none\";\n\
+                            lt2[lnl - 1].style.display = \"none\";\n\
+                            continue;\n\
+                        } else {\n\
+                            lt0[lnl - 1].id = \"Doc\";\n\
+                            lt1[lnl - 1].id = \"Doc\";\n\
+                            lt2[lnl - 1].id = \"Doc\";\n\
+                            lt0[lnl - 1].style.display = \"none\";\n\
+                            lt1[lnl - 1].style.display = \"none\";\n\
+                            lt2[lnl - 1].style.display = \"none\";\n\
+                        }\n\
+                    }\n\
+                }\n\
+            \n\
+                for(var i = 0; i < lt.length; i++){\n\
+                    for(var j = 0; j < lt[i].length; j++){\n\
+                        console.log(lt[i][j]);\n\
+                    }\n\
+                }\n\
+            \n\
+                if(x){\n\
+                    for(var i = 0; i < lt.length; i++){\n\
+                        ul0[i] = \"\";\n\
+                        ul0[i] = document.createElement(\"ol\");\n\
+                        for(var j = 0; j < lt[i].length; j++){\n\
+                            ul0[i].appendChild(lt[i][j]);\n\
+            \n\
+                            if(i == 0){\n\
+                                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                                document.getElementById(\"hW\").appendChild(ul0[i]);\n\
+                            }\n\
+                            if(i == 1){\n\
+                                ul0[i].setAttribute(\"padding-top\", \"20px\");\n\
+                                document.getElementById(\"hW0\").appendChild(ul0[i]);\n\
+                            }\n\
+                            if(i == 2){\n\
+                                ul0[i].setAttribute(\"style\", \"list-style:none; margin:0;\");\n\
+                                document.getElementById(\"hW1\").appendChild(ul0[i]);\n\
+                            }   \n\
+                        }\n\
+                    }\n\
+                }\n\
+            \n\
+                lnl = 0;\n\
+            \n\
+                for(var i = 0; i < Slst.length; i++){\n\
+                    for(var j = 0; j < Slst[i].length; j++){\n\
+                        /* doc, xPos, yPos, w, h, id*/\n\
+                        mkRct(document, 0, 0, (Ilst[i][j]/Ilst[i][0]) * (innerWidth * 0.20), 10, canv[lnl].id, (innerWidth * 0.20), canv0[lnl].id);\n\
+                        lnl++;\n\
+                    }\n\
+                }\n\
+            });\n\
+            FReader.readAsText(F);\n\
+        }\n\
+    }\n\
+    X.send();\n\
+}";
+
+	f << jsFil;
 	f.close();
 }
 
