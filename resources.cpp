@@ -1151,7 +1151,7 @@ void stuffReturn::mkFil(){
             <div class=\"columns large-12 large-pull-3 medium-9 medium-push-1\">\n\
                     <h4>v1.8.8</h4>\n\
             </div>\n\
-            <div class=\"columns large-9 large-pull-3 medium-10 medium-pull-1\">\n\
+            <div class=\"columns large-9 large-pull-3 medium-10 medium-push-1\">\n\
                 <h5>By FlakeyKarma</h5>\n\
             </div>\n\
             <div class=\"columns large-3 medium-2 medium-pull-1\">\n\
@@ -1395,26 +1395,28 @@ function outP(x) {\n\
                         canv0[lnl] = document.createElement(\"canvas\");\n\
                         canv0[lnl].id = \"canv0\" + j + i;\n\
                         \n\
-                        if(x){                \n\
-                            iP[lnl] = \"\";\n\
-                            iP0[lnl] = \"\";\n\
-                            sP[lnl] = \"\";\n\
-                            sP0[lnl] = \"\";\n\
-                            lt0[lnl] = \"\";\n\
-                            lt1[lnl] = \"\";\n\
-                            \n\
-                            sP[lnl] = document.createElement(\"p\");\n\
-                            sP0[lnl] = document.createTextNode(Slst[i][j]);\n\
-                            sP[lnl].appendChild(sP0[lnl]);\n\
-                            lt0[lnl] = document.createElement(\"li\");\n\
-                            lt0[lnl].appendChild(sP[lnl]);\n\
-                            \n\
-                            iP[lnl] = document.createElement(\"p\");\n\
-                            iP0[lnl] = document.createTextNode(Ilst[i][j]);\n\
-                            iP[lnl].appendChild(iP0[lnl]);\n\
-                            lt1[lnl] = document.createElement(\"li\");\n\
-                            lt1[lnl].appendChild(iP[lnl]);\n\
-                        }            \n\
+						//Just in case\n\
+                        //if(x){                \n\
+						iP[lnl] = \"\";\n\
+						iP0[lnl] = \"\";\n\
+						sP[lnl] = \"\";\n\
+						sP0[lnl] = \"\";\n\
+						lt0[lnl] = \"\";\n\
+						lt1[lnl] = \"\";\n\
+						\n\
+						sP[lnl] = document.createElement(\"p\");\n\
+						sP0[lnl] = document.createTextNode(Slst[i][j]);\n\
+						sP[lnl].appendChild(sP0[lnl]);\n\
+						lt0[lnl] = document.createElement(\"li\");\n\
+						lt0[lnl].appendChild(sP[lnl]);\n\
+						\n\
+						iP[lnl] = document.createElement(\"p\");\n\
+						iP0[lnl] = document.createTextNode(Ilst[i][j]);\n\
+						iP[lnl].appendChild(iP0[lnl]);\n\
+						lt1[lnl] = document.createElement(\"li\");\n\
+						lt1[lnl].appendChild(iP[lnl]);\n\
+						//Just in case\n\
+                        //}            \n\
                         lt2[lnl] = document.createElement(\"li\");\n\
                         lt2[lnl].appendChild(canv[lnl]);\n\
                         lt2[lnl].appendChild(canv0[lnl]);\n\

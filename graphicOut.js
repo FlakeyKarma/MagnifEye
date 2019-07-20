@@ -125,26 +125,28 @@ function outP(x) {
                         canv0[lnl] = document.createElement("canvas");
                         canv0[lnl].id = "canv0" + j + i;
                         
-                        if(x){                
-                            iP[lnl] = "";
-                            iP0[lnl] = "";
-                            sP[lnl] = "";
-                            sP0[lnl] = "";
-                            lt0[lnl] = "";
-                            lt1[lnl] = "";
-                            
-                            sP[lnl] = document.createElement("p");
-                            sP0[lnl] = document.createTextNode(Slst[i][j]);
-                            sP[lnl].appendChild(sP0[lnl]);
-                            lt0[lnl] = document.createElement("li");
-                            lt0[lnl].appendChild(sP[lnl]);
-                            
-                            iP[lnl] = document.createElement("p");
-                            iP0[lnl] = document.createTextNode(Ilst[i][j]);
-                            iP[lnl].appendChild(iP0[lnl]);
-                            lt1[lnl] = document.createElement("li");
-                            lt1[lnl].appendChild(iP[lnl]);
-                        }            
+						//Just in case
+                        //if(x){                
+						iP[lnl] = "";
+						iP0[lnl] = "";
+						sP[lnl] = "";
+						sP0[lnl] = "";
+						lt0[lnl] = "";
+						lt1[lnl] = "";
+						
+						sP[lnl] = document.createElement("p");
+						sP0[lnl] = document.createTextNode(Slst[i][j]);
+						sP[lnl].appendChild(sP0[lnl]);
+						lt0[lnl] = document.createElement("li");
+						lt0[lnl].appendChild(sP[lnl]);
+						
+						iP[lnl] = document.createElement("p");
+						iP0[lnl] = document.createTextNode(Ilst[i][j]);
+						iP[lnl].appendChild(iP0[lnl]);
+						lt1[lnl] = document.createElement("li");
+						lt1[lnl].appendChild(iP[lnl]);
+						//Just in case
+                        //}            
                         lt2[lnl] = document.createElement("li");
                         lt2[lnl].appendChild(canv[lnl]);
                         lt2[lnl].appendChild(canv0[lnl]);
