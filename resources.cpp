@@ -1055,7 +1055,7 @@ void stuffReturn::setF(string fil, bool b){
 void stuffReturn::data(bool *def, bool *rC, bool *dC){
 	ofstream f0;
 	f0.open("wrdz.json");
-	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse, jsFil = "";
+	string fil, inpt = "", Wfl = "start 10.0.0.185:8000", Lfl = "firefox 10.0.0.185:8000", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil = "";
 		vector<vector<string>> *allS = new vector<vector<string>>(5);
 	vector<vector<long>> *allL = new vector<vector<long>>(5);
 	if(*def){
@@ -1115,10 +1115,11 @@ void stuffReturn::data(bool *def, bool *rC, bool *dC){
 	jsFil += "}";
 	f0 << jsFil;
 	f0.close();
-	Lfl += "index.html";
 	#if WIN_32
+		std::system(WFilr.c_str());
 		std::system(Wlf.c_str());
 	#else
+		std::system(LFilr.c_str());
 		std::system(Lfl.c_str());
 	#endif
 }
@@ -1268,7 +1269,7 @@ li {\n\
 }";
 	f.close();
 	f.open("graphicOut.js");
-	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", bse,
+	string fil, inpt = "", bse,
 	jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
@@ -1774,4 +1775,46 @@ void stuffReturn::rO(string s){
 	std::cout << spD2->size();
 	std::cout << " " << ipD2->size() << endl;
 	pauz();
+}
+
+//Set as to whether to download the files needed or not
+void stuffReturn::setDownload(){
+	char answer, FIN = 0;
+	std::ofstream fil;
+	fil.open("downloadTF.txt");
+	std::cout << "Would you like to download Node.JS, NPM, and http-server? [y/n]" << std::endl;
+	#ifdef _WIN32
+		std::cout << "I will automatically add this to your path as well." << std::endl;
+	#endif
+	std::cin >> answer;
+	while(true){
+		if(FIN)
+			break;
+		switch(answer){
+			case 1:
+			case 'y':
+			case 'Y':
+				fil << "YES";
+				FIN = 1;
+				break;
+			case 0:
+			case 'n':
+			case 'N':
+				fil << "NO";
+				FIN = 1;
+				break;
+			default:
+				std::cout << "Please enter \'y\' or \'n\'." << std::endl;
+		}
+	}
+	fil.close();
+}
+
+void stuffReturn::Downloadz(){
+	cout << "A" << endl;
+	#ifdef _WIN32
+		//Download files w/ batch files
+	#else
+		//Download w/ sh files
+	#endif
 }

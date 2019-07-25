@@ -2,11 +2,12 @@
 
 int main(int argc, char* argv[]) {
 	try{
+		std::ifstream FL;
 		int sz = 0, sp = 0;
 		stuffReturn* sr = new stuffReturn, *stRt;
 		char inpt01[5];
 		sz = 0;
-		string OPT, fil;
+		string OPT, fil, ansr;
 		vector<char> opti;
 		bool TF = false, dl = 1;
 		//INTAKE:BEGIN
@@ -24,9 +25,9 @@ int main(int argc, char* argv[]) {
 					std::cout << "options:" << std::endl;
 					std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
 					std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << std::endl;
-					std::cout << "\t-red, --red-check \tDisplay redundancy of phrases used in document" << std::endl;
-					std::cout << "\t-dc,  --doc-com\tDisplay similar words" << std::endl;
-					std::cout << "\t-l,   --legend     \tDisplay legend to understand color coding for\n\toutput" << std::endl;
+					std::cout << "\t-red, --red-check   \tDisplay redundancy of phrases used in document" << std::endl;
+					std::cout << "\t-dc,  --doc-com     \tDisplay similar words" << std::endl;
+					std::cout << "\t-l,   --legend      \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
 					OPT = argv[i];
 					sr->pauz();
@@ -65,6 +66,12 @@ int main(int argc, char* argv[]) {
 					stRt = new stuffReturn;
 					dl = 0;
 				}
+				FL.open("downloadTF.txt");
+				while(getline(FL, ansr)){
+					if(ansr == "NOT-YET" || ansr == "NO" || ansr == "YES"){
+						break;
+					}
+				}
 				sr->clr();
 
 				std::cout << " __   __                         ___  ____" << std::endl;
@@ -85,6 +92,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "[4] Legend" << std::endl;
 				std::cout << "[5] About" << std::endl;
 				std::cout << "[6] Help" << std::endl;
+				std::cout << "[i] Install :: Current setting=" << ansr << std::endl;
 				std::cout << "[x] Exit" << std::endl;
 				std::cout << "\nMEye> ";
 				std::cin >> inpt01[0];
@@ -164,8 +172,24 @@ int main(int argc, char* argv[]) {
 					sr->help();
 					sr->pauz();
 					break;
+				//What to install
+				case 'i':
+				case 'I':
+					sr->clr();
+					sr->setDownload();
+					FL.open("downloadTF.txt");
+					while(getline(FL, ansr)){
+						if(ansr == "YES"){
+							sr->Downloadz();
+							break;
+						}
+					}
+					FL.close();
+					sr->pauz();
+					break;
 				//Exit
 				case 'x':
+				case 'X':
 					sr->clr();
 					std::cout << "--=goodbye=--" << std::endl;
 					std::exit(0);

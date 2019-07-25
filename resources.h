@@ -67,4 +67,6 @@ class stuffReturn {
 		vector<char> weBI();
 		string filIn();
 		void help();
+		void setDownload();
+		void Downloadz();
 };
