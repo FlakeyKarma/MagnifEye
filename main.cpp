@@ -92,9 +92,11 @@ int main(int argc, char* argv[]) {
 				std::cout << "[4] Legend" << std::endl;
 				std::cout << "[5] About" << std::endl;
 				std::cout << "[6] Help" << std::endl;
-				std::cout << "[i] Install :: Current setting=" << ansr << std::endl;
+				std::cout << "[c] Check Files" << std::endl;
+				std::cout << "[i] Install Libraries :: Current setting=" << ansr << std::endl;
 				std::cout << "[x] Exit" << std::endl;
 				std::cout << "\nMEye> ";
+				sr->libInstl(&ansr);
 				std::cin >> inpt01[0];
 				switch (inpt01[0]) {
 				//Regular output
@@ -171,6 +173,12 @@ int main(int argc, char* argv[]) {
 					sr->clr();
 					sr->help();
 					sr->pauz();
+					break;
+				//Check for other files that may be needed for functions
+				case 'c':
+				case 'C':
+					sr->clr();
+					sr->mkFil();
 					break;
 				//What to install
 				case 'i':

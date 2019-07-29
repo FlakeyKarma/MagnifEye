@@ -2,9 +2,7 @@
 #include <fstream>
 #include <string>
 #include <string.h>
-#include <algorithm>
 #include <vector>
-#include <experimental/filesystem>
 using namespace std;
 
 class stuffReturn {
@@ -17,8 +15,8 @@ class stuffReturn {
 		float progress = 0;
 		int chk = 0, numCheck = 0;
 		string loadBar, file0, file1;
-		const string verz = "v1.11.8";
-		bool tw = false, th = false, prd = false;
+		const string verz = "v1.12.8";
+		bool tw = false, th = false, prd = false, libUse;
 	public:
 		~stuffReturn(){
 			if(!strSz->empty())
@@ -47,21 +45,21 @@ class stuffReturn {
 				delete ipD2;
 
 		}
-		void setF(string s, bool b);
-		vector<string> wordReturn(string s);
-		void SeNDe(string s, bool t);
-		void nuMake(int c, vector<string> *s);
-		void outP(string file, int ac, vector<char> *c);
+		void setF(string* s, bool b);
+		vector<string> wordReturn(string* s);
+		void SeNDe(string* s, bool t);
+		void nuMake(int* c, vector<string> *s);
+		void outP(string* file, int* ac, vector<char> *c);
 		void redCheck(vector<string> *s, bool t);
-		bool GT1(string s);
-		bool GUD(string f);
+		bool GT1(string* s);
+		bool GUD(string* f);
 		void doCo(vector<char> *c);
 		void clr();
 		void pauz();
-		void progressBar(float x);
-		void rO(string s);
+		void progressBar(float* x);
+		void rO(string* s);
 		string ver();
-		void data(bool *a, bool *b, bool *c);
+		void data(bool a, bool b, bool c);
 		void mkFil();
 		void TFswitch(bool t);
 		vector<char> weBI();
@@ -69,4 +67,5 @@ class stuffReturn {
 		void help();
 		void setDownload();
 		void Downloadz();
+		void libInstl(string* s);
 };
