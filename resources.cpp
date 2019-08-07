@@ -1005,29 +1005,29 @@ void stuffReturn::doCo(vector<char> *c){
 }
 
 //Check if the string has more than one word
-bool stuffReturn::GT1(string* s){
+bool stuffReturn::GT1(string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
 			if(i != s.length() - 1){
-				if((char *)s[i + 1] != ' '){
+				if(s[i + 1] != ' '){
 					return 1;
 				}
 			}
-			if(i == s->length() - 1){
+			if(i == s.length() - 1){
 				return 0;
 			}
 		}
-		if(i == s->length() - 1){
+		if(i == s.length() - 1){
 			return 0;
 		}
 	}
 }
 
 //Check if file is good
-bool stuffReturn::GUD(string* fil){
+bool stuffReturn::GUD(string fil){
 	bool tf = 0;
 	ifstream f;
-	f.open(*fil);
+	f.open(fil);
 	if(!f.good()){
 			std::cout << fil << std::endl;
 			std::cout << "-+=FileNotFound=+-" << std::endl;
@@ -1039,7 +1039,7 @@ bool stuffReturn::GUD(string* fil){
 }
 
 //Setting file names
-void stuffReturn::setF(string* fil, bool b){
+void stuffReturn::setF(string fil, bool b){
 	string f = "";
 	for(int i = 0; i < f.length() - 4; i++){
 		f += fil[i];
@@ -1869,7 +1869,7 @@ void stuffReturn::help(){
 }
 
 //Dev debug variable tool
-void stuffReturn::rO(string* s){
+void stuffReturn::rO(string s){
 	int J = 0;
 	std::cout << "--LISTS--" << endl;
 	std::cout << s;

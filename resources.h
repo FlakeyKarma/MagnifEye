@@ -45,19 +45,19 @@ class stuffReturn {
 				delete ipD2;
 
 		}
-		void setF(string* s, bool b);
-		vector<string> wordReturn(string* s);
-		void SeNDe(string* s, bool t);
-		void nuMake(int* c, vector<string> *s);
-		void outP(string* file, int* ac, vector<char> *c);
+		void setF(string s, bool b);
+		vector<string> wordReturn(string s);
+		void SeNDe(string s, bool t);
+		void nuMake(int c, vector<string> *s);
+		void outP(string file, int ac, vector<char> *c);
 		void redCheck(vector<string> *s, bool t);
-		bool GT1(string* s);
-		bool GUD(string* f);
+		bool GT1(string s);
+		bool GUD(string f);
 		void doCo(vector<char> *c);
 		void clr();
 		void pauz();
-		void progressBar(float* x);
-		void rO(string* s);
+		void progressBar(float x);
+		void rO(string s);
 		string ver();
 		void data(bool a, bool b, bool c);
 		void mkFil();
