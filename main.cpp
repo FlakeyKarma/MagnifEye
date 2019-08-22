@@ -171,7 +171,7 @@ int main(int argc, char* argv[]) {
 								std::cout << "\n\n\\\\About" << std::endl;
 								std::cout << "\n\\\\I started needing to make this program when I found myself trying\
 												\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
-												\n  innate of itself, the main problem for me was trying to find out if\
+												\n  in of itself, the main problem for me was trying to find out if\
 												\n  I needed to change up the wordage used. Different words used show\
 												\n  the variance in one\'s vocabulary and that's beneficial to prove a\
 												\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
