@@ -15,7 +15,7 @@ class stuffReturn {
 		float progress = 0;
 		int chk = 0, numCheck = 0;
 		string loadBar, file0, file1;
-		const string verz = "v1.12.8";
+		const string verz = "v1.13.8";
 		bool tw = false, th = false, prd = false, libUse;
 	public:
 		~stuffReturn(){

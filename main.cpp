@@ -5,17 +5,18 @@ int main(int argc, char* argv[]) {
 		std::ifstream FL;
 		int sz = 0, sp = 0;
 		stuffReturn* sr = new stuffReturn, *stRt;
-		char inpt01[5];
+		char inpt01[5], inpt02[1];
 		sz = 0;
 		string OPT, fil, ansr;
 		vector<char> opti;
-		bool TF = false, dl = 1;
+		bool TF = false, dl = 1, othr = 0;
 		//INTAKE:BEGIN
 		if(argc == 1){
 			TF = true;
 		}
 		else{
 			for (int i = 1; i < (signed)argc; i++) {
+				cout << argv[i] << endl;
 				if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], ">>") == 0){
 					opti.push_back('F');
 				}
@@ -89,11 +90,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "[1] Redundancy Check \e[91m(RedCheck)\e[0m" << std::endl;
 				std::cout << "[2] Document Comparison \e[96m(DoCo)\e[0m" << std::endl;
 				std::cout << "[3] Web-Based Interface \e[93m(WeBI)\e[0m" << std::endl;
-				std::cout << "[4] Legend" << std::endl;
-				std::cout << "[5] About" << std::endl;
-				std::cout << "[6] Help" << std::endl;
-				std::cout << "[c] Check Files" << std::endl;
-				std::cout << "[i] Install Libraries :: Current setting=" << ansr << std::endl;
+				std::cout << "[4] Other" << std::endl;
 				std::cout << "[x] Exit" << std::endl;
 				std::cout << "\nMEye> ";
 				sr->libInstl(&ansr);
@@ -142,58 +139,80 @@ int main(int argc, char* argv[]) {
 					dl = 1;
 					sr->pauz();
 					break;
-				//Legend
+				//Other
 				case '4':
-					sr->clr();
-					std::cout << "\n\t\t\tLegend\n" << std::endl;
-					std::cout << "\t\e[92mGood\n" << std::endl;
-					std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
-					std::cout << "\t\e[93mOkay\n" << std::endl;
-					std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
-					std::cout << "\t\e[31mBad\n" << std::endl;
-					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
-					sr->pauz();
-					break;
-				//About
-				case '5':
-					sr->clr();
-					std::cout << "\n\n\\\\About" << std::endl;
-					std::cout << "\n\\\\I started needing to make this program when I found myself trying\
-									\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
-									\n  innate of itself, the main problem for me was trying to find out if\
-									\n  I needed to change up the wordage used. Different words used show\
-									\n  the variance in one\'s vocabulary and that's beneficial to prove a\
-									\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
-									\n  There you go\n\
-									\n  -FlakeyKarma\n\n" << std::endl;
-					sr->pauz();
-					break;
-				//Help
-				case '6':
-					sr->clr();
-					sr->help();
-					sr->pauz();
-					break;
-				//Check for other files that may be needed for functions
-				case 'c':
-				case 'C':
-					sr->clr();
-					sr->mkFil();
-					break;
-				//What to install
-				case 'i':
-				case 'I':
-					sr->clr();
-					sr->setDownload();
-					FL.open("downloadTF.txt");
-					while(getline(FL, ansr)){
-						if(ansr == "YES"){
-							sr->Downloadz();
-							break;
+					while(true){
+						sr->clr();
+						std::cout << "\n\n\t\t-<OTHER>-\n\n" << std::endl;
+						std::cout << "=============>[0] Legend" << std::endl;
+						std::cout << "=============>[1] About" << std::endl;
+						std::cout << "=============>[2] Help" << std::endl;
+						std::cout << "=============>[3] Check Files" << std::endl;
+						std::cout << "=============>[4] Install Libraries :: Current setting=" << ansr << std::endl;
+						std::cout << "=============>[x] Exit" << std::endl;
+						std::cout << "\n========>MEye> ";
+						std::cin >> inpt02[0];
+						switch(inpt02[0]){
+							//Legend
+							case '0':
+								sr->clr();
+								std::cout << "\n\t\t\tLegend\n" << std::endl;
+								std::cout << "\t\e[92mGood\n" << std::endl;
+								std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
+								std::cout << "\t\e[93mOkay\n" << std::endl;
+								std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
+								std::cout << "\t\e[31mBad\n" << std::endl;
+								std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
+								sr->pauz();
+								break;
+							//About
+							case '1':
+								sr->clr();
+								std::cout << "\n\n\\\\About" << std::endl;
+								std::cout << "\n\\\\I started needing to make this program when I found myself trying\
+												\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
+												\n  innate of itself, the main problem for me was trying to find out if\
+												\n  I needed to change up the wordage used. Different words used show\
+												\n  the variance in one\'s vocabulary and that's beneficial to prove a\
+												\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
+												\n  There you go\n\
+												\n  -FlakeyKarma\n\n" << std::endl;
+								sr->pauz();
+								break;
+							//Help
+							case '2':
+								sr->clr();
+								sr->help();
+								sr->pauz();
+								break;
+							//Check for other files that may be needed for functions
+							case '3':
+								sr->clr();
+								sr->mkFil();
+								break;
+							//What to install
+							case '4':
+								sr->clr();
+								sr->setDownload();
+								FL.open("downloadTF.txt");
+								while(getline(FL, ansr)){
+									if(ansr == "YES"){
+										sr->Downloadz();
+										break;
+									}
+								}
+								FL.close();
+								sr->pauz();
+								break;
+							//Exit
+							case 'x':
+							case 'X':
+								sr->clr();
+								othr = 1;
+								break;						
 						}
+						if(othr) break;
 					}
-					FL.close();
-					sr->pauz();
 					break;
 				//Exit
 				case 'x':
