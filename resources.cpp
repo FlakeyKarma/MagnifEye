@@ -1,7 +1,7 @@
 #include "resources.h"
 
 //Information output
-void stuffReturn::outP(string file, int ac, vector<char> *chr0) {
+void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 	ifstream fil;
 	bool def = false, rC = false, co = false, M = false, tw = false, th = false, toFil = false, w = false, pth = false;
 	for(int i = 0; i < chr0->size(); i++){
@@ -558,7 +558,7 @@ FUNCTIONS FOR outP
 */
 
 //Search-N-Destroy
-void stuffReturn::SeNDe(string file, bool rC){
+void ThNeedle::SeNDe(string file, bool rC){
 	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
@@ -691,7 +691,7 @@ void stuffReturn::SeNDe(string file, bool rC){
 }
 
 //Breaks down full string into vector of all words
-vector<string> stuffReturn::wordReturn(string inpt) {
+vector<string> ThNeedle::wordReturn(string inpt) {
 	//cout  << "\n\n\twordReturn\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -753,7 +753,7 @@ vector<string> stuffReturn::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void stuffReturn::nuMake(int t, vector<string> *s) {
+void ThNeedle::nuMake(int t, vector<string> *s) {
 	//cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -835,7 +835,7 @@ void stuffReturn::nuMake(int t, vector<string> *s) {
 }
 
 //Clears Screen
-void stuffReturn::clr(){
+void ThNeedle::clr(){
 	#ifdef _WIN32
 	system("CLS");
 	#else
@@ -844,7 +844,7 @@ void stuffReturn::clr(){
 }
 
 //Pauses screen for user
-void stuffReturn::pauz(){
+void ThNeedle::pauz(){
 	char a[0];
 	#ifdef _WIN32
 	system("pause");
@@ -856,12 +856,12 @@ void stuffReturn::pauz(){
 }
 
 //Returns Version
-string stuffReturn::ver(){
+string ThNeedle::ver(){
 	return verz;
 }
 
 //Progress bar for...Progress
-void stuffReturn::progressBar(float x){
+void ThNeedle::progressBar(float x){
 	progress += x;
 	char bar[] = {'\\', '|', '/', '-'};
 	loadBar = "[";
@@ -887,7 +887,7 @@ void stuffReturn::progressBar(float x){
 }
 
 //Check for redundant phrases us.
-void stuffReturn::redCheck(vector<string> *s, bool d){
+void ThNeedle::redCheck(vector<string> *s, bool d){
 	//cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
@@ -951,7 +951,7 @@ void stuffReturn::redCheck(vector<string> *s, bool d){
 }
 
 //Compare documents for similarities in vocabulary and word patterns
-void stuffReturn::doCo(vector<char> *c){
+void ThNeedle::doCo(vector<char> *c){
 	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	int NM = 0, RS;
@@ -1005,7 +1005,7 @@ void stuffReturn::doCo(vector<char> *c){
 }
 
 //Check if the string has more than one word
-bool stuffReturn::GT1(string s){
+bool ThNeedle::GT1(string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
 			if(i != s.length() - 1){
@@ -1024,7 +1024,7 @@ bool stuffReturn::GT1(string s){
 }
 
 //Check if file is good
-bool stuffReturn::GUD(string fil){
+bool ThNeedle::GUD(string fil){
 	bool tf = 0;
 	ifstream f;
 	f.open(fil);
@@ -1039,7 +1039,7 @@ bool stuffReturn::GUD(string fil){
 }
 
 //Setting file names
-void stuffReturn::setF(string fil, bool b){
+void ThNeedle::setF(string fil, bool b){
 	string f = "";
 	for(int i = 0; i < f.length() - 4; i++){
 		f += fil[i];
@@ -1052,7 +1052,7 @@ void stuffReturn::setF(string fil, bool b){
 }
 
 //Data to display on web-page
-void stuffReturn::data(bool def, bool rC, bool dC){
+void ThNeedle::data(bool def, bool rC, bool dC){
 	ofstream f0;
 	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
 	if(libUse){
@@ -1337,7 +1337,7 @@ function outP(x) { \n\
 }
 
 //Constructs all files not present
-void stuffReturn::mkFil(){
+void ThNeedle::mkFil(){
 	ofstream f;
 	f.open("index.html");
 	f << "<!DOCTYPE html>\n\
@@ -1712,7 +1712,7 @@ li {\n\
 }
 
 //Returns file requested to have read
-string stuffReturn::filIn(){
+string ThNeedle::filIn(){
 	string fil;
 	while(1){
 		std::cout << "MEye> Enter directory to file: ";
@@ -1727,7 +1727,7 @@ string stuffReturn::filIn(){
 }
 
 //Returns chars required to run full weBI
-vector<char> stuffReturn::weBI(){
+vector<char> ThNeedle::weBI(){
 	char ch, inpt;
 	vector<char> opti;
 	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
@@ -1829,7 +1829,7 @@ vector<char> stuffReturn::weBI(){
 }
 
 //Switch to display true or false
-void stuffReturn::TFswitch(bool t){
+void ThNeedle::TFswitch(bool t){
 	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
 	string fll = "";
 	if(t){
@@ -1847,7 +1847,7 @@ void stuffReturn::TFswitch(bool t){
 }
 
 //Output help for each function
-void stuffReturn::help(){
+void ThNeedle::help(){
 	std::cout << "- Help [-h, --help]\n\
 	\n-- Display this screen in console view, but otherwise shows\n\
    the command and a shorter version of this screen." << std::endl;
@@ -1869,7 +1869,7 @@ void stuffReturn::help(){
 }
 
 //Dev debug variable tool
-void stuffReturn::rO(string s){
+void ThNeedle::rO(string s){
 	int J = 0;
 	std::cout << "--LISTS--" << endl;
 	std::cout << s;
@@ -1989,7 +1989,7 @@ void stuffReturn::rO(string s){
 }
 
 //Set as to whether to download the files needed or not
-void stuffReturn::setDownload(){
+void ThNeedle::setDownload(){
 	char answer, FIN = 0;
 	std::ofstream fil;
 	fil.open("downloadTF.txt");
@@ -2022,7 +2022,7 @@ void stuffReturn::setDownload(){
 }
 
 //Download libraries needed
-void stuffReturn::Downloadz(){
+void ThNeedle::Downloadz(){
 	cout << "A" << endl;
 	#ifdef _WIN32
 		//Download files w/ batch files
@@ -2032,7 +2032,7 @@ void stuffReturn::Downloadz(){
 }
 
 //Set value of bool libUse depending on whether or not the "libraries" are in "use"
-void stuffReturn::libInstl(string *s){
+void ThNeedle::libInstl(string *s){
 	if(*s == "YES"){
 		libUse = 1;
 	} else {

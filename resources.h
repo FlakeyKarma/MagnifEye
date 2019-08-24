@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-class stuffReturn {
+class ThNeedle {
 	private:
 		vector<string> *strSz = new vector<string>(500), *strPh = new vector<string>(500), *strS2 = new vector<string>(500),
 					  *strDoc = new vector<string>(500), *spDoc = new vector<string>(500), *spD2 = new vector<string>(500);
@@ -18,7 +18,7 @@ class stuffReturn {
 		const string verz = "v1.13.8";
 		bool tw = false, th = false, prd = false, libUse;
 	public:
-		~stuffReturn(){
+		~ThNeedle(){
 			if(!strSz->empty())
 				delete strSz;
 			if(!strPh->empty())
@@ -68,4 +68,12 @@ class stuffReturn {
 		void setDownload();
 		void Downloadz();
 		void libInstl(string* s);
+};
+
+class redCheck : public ThNeedle{
+
+};
+
+class doCo : public redCheck {
+
 };
