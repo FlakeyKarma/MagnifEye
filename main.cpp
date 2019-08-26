@@ -4,7 +4,7 @@ int main(int argc, char* argv[]) {
 	try{
 		std::ifstream FL;
 		int sz = 0, sp = 0;
-		ThNeedle* th = new ThNeedle, *thNd;
+		MagnifEye* me = new MagnifEye, *mfEy;
 		char inpt01[5], inpt02[1];
 		sz = 0;
 		string OPT, fil, ansr;
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-l,   --legend      \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
 					OPT = argv[i];
-					th->pauz();
+					me->pauz();
 				}
 				if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0)
 					TF = true;
@@ -60,11 +60,11 @@ int main(int argc, char* argv[]) {
 		}
 		//INTAKE:END
 		if (TF) {
-			th->clr();
+			me->clr();
 			opti.clear();
 			while (true) {
 				if(dl){
-					thNd = new ThNeedle;
+					mfEy = new MagnifEye;
 					dl = 0;
 				}
 				FL.open("downloadTF.txt");
@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 						break;
 					}
 				}
-				th->clr();
+				me->clr();
 
 				std::cout << " __   __                         ___  ____" << std::endl;
 				std::cout << "|  \\ /  |                       / __||  __|" << std::endl;
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 				std::cout << "                  _| |                      / /" << std::endl;
 				std::cout << "                 [__/                      / /" << std::endl;
 				std::cout << "                                          /_/" << std::endl;
-				std::cout << "\n" << th->ver() << std::endl;
+				std::cout << "\n" << me->ver() << std::endl;
 				std::cout << "By FlakeyKarma\n\n" << std::endl;
 				std::cout << "[0] Regular Output" << std::endl;
 				std::cout << "[1] Redundancy Check \e[91m(RedCheck)\e[0m" << std::endl;
@@ -93,56 +93,56 @@ int main(int argc, char* argv[]) {
 				std::cout << "[4] Other" << std::endl;
 				std::cout << "[x] Exit" << std::endl;
 				std::cout << "\nMEye> ";
-				th->libInstl(&ansr);
+				me->libInstl(&ansr);
 				std::cin >> inpt01[0];
 				switch (inpt01[0]) {
 				//Regular output
 				case '0':
-					th->clr();
-					fil = thNd->filIn();
+					me->clr();
+					fil = mfEy->filIn();
 					opti.push_back('A');
-					thNd->outP(fil, argc, &opti);
+					mfEy->outP(fil, argc, &opti);
 					dl = 1;
-					th->pauz();
+					me->pauz();
 					if(!opti.empty())
 						opti.clear();
 					break;
 				//RedCheck
 				case '1':
-					th->clr();
-					fil = thNd->filIn();
+					me->clr();
+					fil = mfEy->filIn();
 					opti.push_back('r');
 					opti.push_back('A');
-					thNd->outP(fil, argc, &opti);
+					mfEy->outP(fil, argc, &opti);
 					dl = 1;
-					th->pauz();
+					me->pauz();
 					break;
 				//DoCo
 				case '2':
-					th->clr();
-					fil = thNd->filIn();
+					me->clr();
+					fil = mfEy->filIn();
 					opti.push_back('M');
 					opti.push_back('A');
 					opti.push_back('d');
 					opti.push_back('r');
-					thNd->outP(fil, argc, &opti);
+					mfEy->outP(fil, argc, &opti);
 					dl = 1;
-					th->pauz();
+					me->pauz();
 					break;
 				//weBI
 				case '3':
-					th->clr();
-					fil = thNd->filIn();
-					opti = thNd->weBI();
+					me->clr();
+					fil = mfEy->filIn();
+					opti = mfEy->weBI();
 					if(!opti.empty())
-						thNd->outP(fil, argc, &opti);
+						mfEy->outP(fil, argc, &opti);
 					dl = 1;
-					th->pauz();
+					me->pauz();
 					break;
 				//Other
 				case '4':
 					while(true){
-						th->clr();
+						me->clr();
 						std::cout << "\n\n\t\t-<OTHER>-\n\n" << std::endl;
 						std::cout << "=============>[0] Legend" << std::endl;
 						std::cout << "=============>[1] About" << std::endl;
@@ -155,7 +155,7 @@ int main(int argc, char* argv[]) {
 						switch(inpt02[0]){
 							//Legend
 							case '0':
-								th->clr();
+								me->clr();
 								std::cout << "\n\t\t\tLegend\n" << std::endl;
 								std::cout << "\t\e[92mGood\n" << std::endl;
 								std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
@@ -163,11 +163,11 @@ int main(int argc, char* argv[]) {
 								std::cout << "\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n" << std::endl;
 								std::cout << "\t\e[31mBad\n" << std::endl;
 								std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
-								th->pauz();
+								me->pauz();
 								break;
 							//About
 							case '1':
-								th->clr();
+								me->clr();
 								std::cout << "\n\n\\\\About" << std::endl;
 								std::cout << "\n\\\\I started needing to make this program when I found myself trying\
 												\n  finish a ten-page-paper far too late. Albeit, that was a struggle\
@@ -177,37 +177,37 @@ int main(int argc, char* argv[]) {
 												\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
 												\n  There you go\n\
 												\n  -FlakeyKarma\n\n" << std::endl;
-								th->pauz();
+								me->pauz();
 								break;
 							//Help
 							case '2':
-								th->clr();
-								th->help();
-								th->pauz();
+								me->clr();
+								me->help();
+								me->pauz();
 								break;
 							//Check for other files that may be needed for functions
 							case '3':
-								th->clr();
-								th->mkFil();
+								me->clr();
+								me->mkFil();
 								break;
 							//What to install
 							case '4':
-								th->clr();
-								th->setDownload();
+								me->clr();
+								me->setDownload();
 								FL.open("downloadTF.txt");
 								while(getline(FL, ansr)){
 									if(ansr == "YES"){
-										th->Downloadz();
+										me->Downloadz();
 										break;
 									}
 								}
 								FL.close();
-								th->pauz();
+								me->pauz();
 								break;
 							//Exit
 							case 'x':
 							case 'X':
-								th->clr();
+								me->clr();
 								othr = 1;
 								break;						
 						}
@@ -217,7 +217,7 @@ int main(int argc, char* argv[]) {
 				//Exit
 				case 'x':
 				case 'X':
-					th->clr();
+					me->clr();
 					std::cout << "--=goodbye=--" << std::endl;
 					std::exit(0);
 				}
@@ -226,7 +226,7 @@ int main(int argc, char* argv[]) {
 
 		if (strcmp(inpt01, ".txt") && !TF)
 			std::exit(0);
-		std::cout << "   \nMagnifEye " << th->ver() << std::endl;
+		std::cout << "   \nMagnifEye " << me->ver() << std::endl;
 		std::cout << "//          \\\\" << std::endl;
 		std::cout << "  //   _   \\\\" << std::endl;
 		std::cout << "     /` `\\" << std::endl;
@@ -240,7 +240,7 @@ int main(int argc, char* argv[]) {
 		std::cout << std::endl;
 		std::cout << "\nBy FlakeyKarma\n\n" << std::endl;
 		opti.push_back('A');
-		th->outP(argv[argc-1], argc, &opti);
+		me->outP(argv[argc-1], argc, &opti);
 		std::cout << "\n\n--=goodbye=--\n\n" << std::endl;
 		return 0;
 	}catch(int e){

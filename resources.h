@@ -5,8 +5,8 @@
 #include <vector>
 using namespace std;
 
-class ThNeedle {
-	private:
+class MagnifEye {
+	protected:
 		vector<string> *strSz = new vector<string>(500), *strPh = new vector<string>(500), *strS2 = new vector<string>(500),
 					  *strDoc = new vector<string>(500), *spDoc = new vector<string>(500), *spD2 = new vector<string>(500);
 		vector<long> *intSz = new vector<long>(500), *intPh = new vector<long>(500), *intS2 = new vector<long>(500),
@@ -18,7 +18,7 @@ class ThNeedle {
 		const string verz = "v1.13.8";
 		bool tw = false, th = false, prd = false, libUse;
 	public:
-		~ThNeedle(){
+		~MagnifEye(){
 			if(!strSz->empty())
 				delete strSz;
 			if(!strPh->empty())
@@ -68,6 +68,10 @@ class ThNeedle {
 		void setDownload();
 		void Downloadz();
 		void libInstl(string* s);
+};
+
+class ThNeedle : public MagnifEye{
+
 };
 
 class redCheck : public ThNeedle{

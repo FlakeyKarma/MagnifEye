@@ -1,7 +1,7 @@
 #include "resources.h"
 
 //Information output
-void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
+void MagnifEye::outP(string file, int ac, vector<char> *chr0) {
 	ifstream fil;
 	bool def = false, rC = false, co = false, M = false, tw = false, th = false, toFil = false, w = false, pth = false;
 	for(int i = 0; i < chr0->size(); i++){
@@ -558,7 +558,7 @@ FUNCTIONS FOR outP
 */
 
 //Search-N-Destroy
-void ThNeedle::SeNDe(string file, bool rC){
+void MagnifEye::SeNDe(string file, bool rC){
 	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
@@ -691,7 +691,7 @@ void ThNeedle::SeNDe(string file, bool rC){
 }
 
 //Breaks down full string into vector of all words
-vector<string> ThNeedle::wordReturn(string inpt) {
+vector<string> MagnifEye::wordReturn(string inpt) {
 	//cout  << "\n\n\twordReturn\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -753,7 +753,7 @@ vector<string> ThNeedle::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void ThNeedle::nuMake(int t, vector<string> *s) {
+void MagnifEye::nuMake(int t, vector<string> *s) {
 	//cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -835,7 +835,7 @@ void ThNeedle::nuMake(int t, vector<string> *s) {
 }
 
 //Clears Screen
-void ThNeedle::clr(){
+void MagnifEye::clr(){
 	#ifdef _WIN32
 	system("CLS");
 	#else
@@ -844,7 +844,7 @@ void ThNeedle::clr(){
 }
 
 //Pauses screen for user
-void ThNeedle::pauz(){
+void MagnifEye::pauz(){
 	char a[0];
 	#ifdef _WIN32
 	system("pause");
@@ -856,12 +856,12 @@ void ThNeedle::pauz(){
 }
 
 //Returns Version
-string ThNeedle::ver(){
+string MagnifEye::ver(){
 	return verz;
 }
 
 //Progress bar for...Progress
-void ThNeedle::progressBar(float x){
+void MagnifEye::progressBar(float x){
 	progress += x;
 	char bar[] = {'\\', '|', '/', '-'};
 	loadBar = "[";
@@ -887,7 +887,7 @@ void ThNeedle::progressBar(float x){
 }
 
 //Check for redundant phrases us.
-void ThNeedle::redCheck(vector<string> *s, bool d){
+void MagnifEye::redCheck(vector<string> *s, bool d){
 	//cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
@@ -951,7 +951,7 @@ void ThNeedle::redCheck(vector<string> *s, bool d){
 }
 
 //Compare documents for similarities in vocabulary and word patterns
-void ThNeedle::doCo(vector<char> *c){
+void MagnifEye::doCo(vector<char> *c){
 	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	int NM = 0, RS;
@@ -1005,7 +1005,7 @@ void ThNeedle::doCo(vector<char> *c){
 }
 
 //Check if the string has more than one word
-bool ThNeedle::GT1(string s){
+bool MagnifEye::GT1(string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
 			if(i != s.length() - 1){
@@ -1024,7 +1024,7 @@ bool ThNeedle::GT1(string s){
 }
 
 //Check if file is good
-bool ThNeedle::GUD(string fil){
+bool MagnifEye::GUD(string fil){
 	bool tf = 0;
 	ifstream f;
 	f.open(fil);
@@ -1039,7 +1039,7 @@ bool ThNeedle::GUD(string fil){
 }
 
 //Setting file names
-void ThNeedle::setF(string fil, bool b){
+void MagnifEye::setF(string fil, bool b){
 	string f = "";
 	for(int i = 0; i < f.length() - 4; i++){
 		f += fil[i];
@@ -1052,7 +1052,7 @@ void ThNeedle::setF(string fil, bool b){
 }
 
 //Data to display on web-page
-void ThNeedle::data(bool def, bool rC, bool dC){
+void MagnifEye::data(bool def, bool rC, bool dC){
 	ofstream f0;
 	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
 	if(libUse){
@@ -1337,7 +1337,7 @@ function outP(x) { \n\
 }
 
 //Constructs all files not present
-void ThNeedle::mkFil(){
+void MagnifEye::mkFil(){
 	ofstream f;
 	f.open("index.html");
 	f << "<!DOCTYPE html>\n\
@@ -1712,7 +1712,7 @@ li {\n\
 }
 
 //Returns file requested to have read
-string ThNeedle::filIn(){
+string MagnifEye::filIn(){
 	string fil;
 	while(1){
 		std::cout << "MEye> Enter directory to file: ";
@@ -1727,7 +1727,7 @@ string ThNeedle::filIn(){
 }
 
 //Returns chars required to run full weBI
-vector<char> ThNeedle::weBI(){
+vector<char> MagnifEye::weBI(){
 	char ch, inpt;
 	vector<char> opti;
 	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
@@ -1829,7 +1829,7 @@ vector<char> ThNeedle::weBI(){
 }
 
 //Switch to display true or false
-void ThNeedle::TFswitch(bool t){
+void MagnifEye::TFswitch(bool t){
 	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
 	string fll = "";
 	if(t){
@@ -1847,7 +1847,7 @@ void ThNeedle::TFswitch(bool t){
 }
 
 //Output help for each function
-void ThNeedle::help(){
+void MagnifEye::help(){
 	std::cout << "- Help [-h, --help]\n\
 	\n-- Display this screen in console view, but otherwise shows\n\
    the command and a shorter version of this screen." << std::endl;
@@ -1869,7 +1869,7 @@ void ThNeedle::help(){
 }
 
 //Dev debug variable tool
-void ThNeedle::rO(string s){
+void MagnifEye::rO(string s){
 	int J = 0;
 	std::cout << "--LISTS--" << endl;
 	std::cout << s;
@@ -1989,7 +1989,7 @@ void ThNeedle::rO(string s){
 }
 
 //Set as to whether to download the files needed or not
-void ThNeedle::setDownload(){
+void MagnifEye::setDownload(){
 	char answer, FIN = 0;
 	std::ofstream fil;
 	fil.open("downloadTF.txt");
@@ -2022,7 +2022,7 @@ void ThNeedle::setDownload(){
 }
 
 //Download libraries needed
-void ThNeedle::Downloadz(){
+void MagnifEye::Downloadz(){
 	cout << "A" << endl;
 	#ifdef _WIN32
 		//Download files w/ batch files
@@ -2032,7 +2032,7 @@ void ThNeedle::Downloadz(){
 }
 
 //Set value of bool libUse depending on whether or not the "libraries" are in "use"
-void ThNeedle::libInstl(string *s){
+void MagnifEye::libInstl(string *s){
 	if(*s == "YES"){
 		libUse = 1;
 	} else {
