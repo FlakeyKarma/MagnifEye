@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 				case '3':
 					me->clr();
 					fil = mfEy->filIn();
-					opti = mfEy->weBI();
+					opti = mfEy->weBI::main();
 					if(!opti.empty())
 						mfEy->outP(fil, argc, &opti);
 					dl = 1;

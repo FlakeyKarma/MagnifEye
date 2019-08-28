@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-class MagnifEye {
+class Starter {
 	protected:
 		vector<string> *strSz = new vector<string>(500), *strPh = new vector<string>(500), *strS2 = new vector<string>(500),
 					  *strDoc = new vector<string>(500), *spDoc = new vector<string>(500), *spD2 = new vector<string>(500);
@@ -18,7 +18,7 @@ class MagnifEye {
 		const string verz = "v1.13.8";
 		bool tw = false, th = false, prd = false, libUse;
 	public:
-		~MagnifEye(){
+		~Starter(){
 			if(!strSz->empty())
 				delete strSz;
 			if(!strPh->empty())
@@ -46,14 +46,8 @@ class MagnifEye {
 
 		}
 		void setF(string s, bool b);
-		vector<string> wordReturn(string s);
-		void SeNDe(string s, bool t);
-		void nuMake(int c, vector<string> *s);
-		void outP(string file, int ac, vector<char> *c);
-		void redCheck(vector<string> *s, bool t);
 		bool GT1(string s);
 		bool GUD(string f);
-		void doCo(vector<char> *c);
 		void clr();
 		void pauz();
 		void progressBar(float x);
@@ -62,7 +56,6 @@ class MagnifEye {
 		void data(bool a, bool b, bool c);
 		void mkFil();
 		void TFswitch(bool t);
-		vector<char> weBI();
 		string filIn();
 		void help();
 		void setDownload();
@@ -70,14 +63,31 @@ class MagnifEye {
 		void libInstl(string* s);
 };
 
-class ThNeedle : public MagnifEye{
-
+class ThNeedle : public Starter{
+	public:
+		vector<string> wordReturn(string s);
+		void SeNDe(string s, bool t);
+		void nuMake(int c, vector<string> *s);
 };
 
 class redCheck : public ThNeedle{
+	public:
+		void main(vector<string> *s, bool t);
 
 };
 
 class doCo : public redCheck {
+	public:
+		void main(vector<char> *c);
+};
+
+class weBI : public doCo {
+	public:
+		vector<char> main();
+};
+
+class MagnifEye : public weBI {
+	public:
+		void outP(string file, int ac, vector<char> *c);
 
 };

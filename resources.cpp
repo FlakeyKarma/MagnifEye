@@ -87,7 +87,7 @@ void MagnifEye::outP(string file, int ac, vector<char> *chr0) {
 			std::cout << "---------" << std::endl;
 		if(co){
 			this->chr.push_back('d');
-			this->doCo(&this->chr);
+			this->doCo::main(&this->chr);
 		}
 
 		//No RedCheck
@@ -558,7 +558,7 @@ FUNCTIONS FOR outP
 */
 
 //Search-N-Destroy
-void MagnifEye::SeNDe(string file, bool rC){
+void ThNeedle::SeNDe(string file, bool rC){
 	//cout << "\n\n\tSeNDe\n\n" << endl;
 	bool c = false, def = false, dc = false;
 	int prg;
@@ -585,6 +585,7 @@ void MagnifEye::SeNDe(string file, bool rC){
 		def = false;
 	//rO"FF::SeNDe::A::");
 	ifstream fil;
+	MagnifEye ME;
 	string inpt, inpt0;
 	fil.open(file);
 	while (!fil.eof()) {
@@ -599,10 +600,10 @@ void MagnifEye::SeNDe(string file, bool rC){
 	if(def && !c)
 		nuMake(0, &a);
 	if(rC && !c && !dc){
-		redCheck(&a, 0);
+		ME.redCheck::main(&a, 0);
 	}
 	if(dc)
-		redCheck(&a, 1);
+		ME.redCheck::main(&a, 1);
 	if(c && !dc)
 		nuMake(2, &a);
 	strSz = this->strSz;
@@ -691,7 +692,7 @@ void MagnifEye::SeNDe(string file, bool rC){
 }
 
 //Breaks down full string into vector of all words
-vector<string> MagnifEye::wordReturn(string inpt) {
+vector<string> ThNeedle::wordReturn(string inpt) {
 	//cout  << "\n\n\twordReturn\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -753,7 +754,7 @@ vector<string> MagnifEye::wordReturn(string inpt) {
 }
 
 //Counts instances of each word
-void MagnifEye::nuMake(int t, vector<string> *s) {
+void ThNeedle::nuMake(int t, vector<string> *s) {
 	//cout << "\n\n\tnuMake\n\n" << endl;
 	int prg;
 	if(!tw && !th)
@@ -835,7 +836,7 @@ void MagnifEye::nuMake(int t, vector<string> *s) {
 }
 
 //Clears Screen
-void MagnifEye::clr(){
+void Starter::clr(){
 	#ifdef _WIN32
 	system("CLS");
 	#else
@@ -844,7 +845,7 @@ void MagnifEye::clr(){
 }
 
 //Pauses screen for user
-void MagnifEye::pauz(){
+void Starter::pauz(){
 	char a[0];
 	#ifdef _WIN32
 	system("pause");
@@ -856,12 +857,12 @@ void MagnifEye::pauz(){
 }
 
 //Returns Version
-string MagnifEye::ver(){
+string Starter::ver(){
 	return verz;
 }
 
 //Progress bar for...Progress
-void MagnifEye::progressBar(float x){
+void Starter::progressBar(float x){
 	progress += x;
 	char bar[] = {'\\', '|', '/', '-'};
 	loadBar = "[";
@@ -887,7 +888,7 @@ void MagnifEye::progressBar(float x){
 }
 
 //Check for redundant phrases us.
-void MagnifEye::redCheck(vector<string> *s, bool d){
+void redCheck::main(vector<string> *s, bool d){
 	//cout  << "\n\n\tredCheck\n\n" << endl;
 	vector<string> phrase;
 	string nxt = "";
@@ -951,7 +952,7 @@ void MagnifEye::redCheck(vector<string> *s, bool d){
 }
 
 //Compare documents for similarities in vocabulary and word patterns
-void MagnifEye::doCo(vector<char> *c){
+void doCo::main(vector<char> *c){
 	//cout  << "\n\n\tdoCo\n\n" << endl;
 	string file;
 	int NM = 0, RS;
@@ -1005,7 +1006,7 @@ void MagnifEye::doCo(vector<char> *c){
 }
 
 //Check if the string has more than one word
-bool MagnifEye::GT1(string s){
+bool Starter::GT1(string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
 			if(i != s.length() - 1){
@@ -1024,7 +1025,7 @@ bool MagnifEye::GT1(string s){
 }
 
 //Check if file is good
-bool MagnifEye::GUD(string fil){
+bool Starter::GUD(string fil){
 	bool tf = 0;
 	ifstream f;
 	f.open(fil);
@@ -1039,7 +1040,7 @@ bool MagnifEye::GUD(string fil){
 }
 
 //Setting file names
-void MagnifEye::setF(string fil, bool b){
+void Starter::setF(string fil, bool b){
 	string f = "";
 	for(int i = 0; i < f.length() - 4; i++){
 		f += fil[i];
@@ -1052,7 +1053,7 @@ void MagnifEye::setF(string fil, bool b){
 }
 
 //Data to display on web-page
-void MagnifEye::data(bool def, bool rC, bool dC){
+void Starter::data(bool def, bool rC, bool dC){
 	ofstream f0;
 	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
 	if(libUse){
@@ -1337,7 +1338,7 @@ function outP(x) { \n\
 }
 
 //Constructs all files not present
-void MagnifEye::mkFil(){
+void Starter::mkFil(){
 	ofstream f;
 	f.open("index.html");
 	f << "<!DOCTYPE html>\n\
@@ -1712,7 +1713,7 @@ li {\n\
 }
 
 //Returns file requested to have read
-string MagnifEye::filIn(){
+string Starter::filIn(){
 	string fil;
 	while(1){
 		std::cout << "MEye> Enter directory to file: ";
@@ -1727,7 +1728,7 @@ string MagnifEye::filIn(){
 }
 
 //Returns chars required to run full weBI
-vector<char> MagnifEye::weBI(){
+vector<char> weBI::main(){
 	char ch, inpt;
 	vector<char> opti;
 	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
@@ -1829,7 +1830,7 @@ vector<char> MagnifEye::weBI(){
 }
 
 //Switch to display true or false
-void MagnifEye::TFswitch(bool t){
+void Starter::TFswitch(bool t){
 	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
 	string fll = "";
 	if(t){
@@ -1847,7 +1848,7 @@ void MagnifEye::TFswitch(bool t){
 }
 
 //Output help for each function
-void MagnifEye::help(){
+void Starter::help(){
 	std::cout << "- Help [-h, --help]\n\
 	\n-- Display this screen in console view, but otherwise shows\n\
    the command and a shorter version of this screen." << std::endl;
@@ -1869,7 +1870,7 @@ void MagnifEye::help(){
 }
 
 //Dev debug variable tool
-void MagnifEye::rO(string s){
+void Starter::rO(string s){
 	int J = 0;
 	std::cout << "--LISTS--" << endl;
 	std::cout << s;
@@ -1989,7 +1990,7 @@ void MagnifEye::rO(string s){
 }
 
 //Set as to whether to download the files needed or not
-void MagnifEye::setDownload(){
+void Starter::setDownload(){
 	char answer, FIN = 0;
 	std::ofstream fil;
 	fil.open("downloadTF.txt");
@@ -2022,7 +2023,7 @@ void MagnifEye::setDownload(){
 }
 
 //Download libraries needed
-void MagnifEye::Downloadz(){
+void Starter::Downloadz(){
 	cout << "A" << endl;
 	#ifdef _WIN32
 		//Download files w/ batch files
@@ -2032,7 +2033,7 @@ void MagnifEye::Downloadz(){
 }
 
 //Set value of bool libUse depending on whether or not the "libraries" are in "use"
-void MagnifEye::libInstl(string *s){
+void Starter::libInstl(string *s){
 	if(*s == "YES"){
 		libUse = 1;
 	} else {
