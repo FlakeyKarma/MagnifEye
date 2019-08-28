@@ -585,8 +585,8 @@ void ThNeedle::SeNDe(string file, bool rC){
 		def = false;
 	//rO"FF::SeNDe::A::");
 	ifstream fil;
-	MagnifEye ME;
 	string inpt, inpt0;
+	redCheck redCheck;
 	fil.open(file);
 	while (!fil.eof()) {
 		getline(fil, inpt0);
@@ -600,10 +600,10 @@ void ThNeedle::SeNDe(string file, bool rC){
 	if(def && !c)
 		nuMake(0, &a);
 	if(rC && !c && !dc){
-		ME.redCheck::main(&a, 0);
+		redCheck.main(&a, 0);
 	}
 	if(dc)
-		ME.redCheck::main(&a, 1);
+		redCheck.main(&a, 1);
 	if(c && !dc)
 		nuMake(2, &a);
 	strSz = this->strSz;
