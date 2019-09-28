@@ -7,8 +7,8 @@ int main(int argc, char* argv[]) {
 		ThNeedle* th = new ThNeedle, *thNd;
 		char inpt01[5], inpt02[1];
 		sz = 0;
-		string OPT, fil, ansr;
-		vector<char> opti;
+		std::string OPT, fil, ansr;
+		std::vector<char> opti;
 		bool TF = false, dl = 1, othr = 0;
 		//INTAKE:BEGIN
 		if(argc == 1){
@@ -16,13 +16,12 @@ int main(int argc, char* argv[]) {
 		}
 		else{
 			for (int i = 1; i < (signed)argc; i++) {
-				cout << argv[i] << endl;
-				if (strcmp(argv[i], ">") == 0 || strcmp(argv[i], ">>") == 0){
+				if (!strcmp(argv[i], "-o") || !strcmp(argv[i], "--out-par")){
 					opti.push_back('F');
 				}
-				if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
+				if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h")) {
 					std::cout << "Usage:\nMagnifEye <options> <file>\n\n" << std::endl;
-					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend]\n\n" << std::endl;
+					std::cout << "[-h, --help][-c, --cli][-red, --red-check][-l, --legend][-w ,--WeBI ][-o ,--out-par ]\n\n" << std::endl;
 					std::cout << "options:" << std::endl;
 					std::cout << "\t-h,   --help        \tDisplay this screen" << std::endl;
 					std::cout << "\t-c,   --cli         \tDisplay the CLI(Command Line Interface)" << std::endl;
@@ -30,14 +29,15 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t-dc,  --doc-com     \tDisplay similar words" << std::endl;
 					std::cout << "\t-l,   --legend      \tDisplay legend to understand color coding for\n\toutput" << std::endl;
 					std::cout << "\t-w,   --WeBI        \tDisplay information on a web interface" << std::endl;
+					std::cout << "\t-o,  --out-par      \tOutput info into parsed version" << std::endl;
 					OPT = argv[i];
 					th->pauz();
 				}
-				if (strcmp(argv[i], "-c") == 0 || strcmp(argv[i], "--cli") == 0)
+				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli"))
 					TF = true;
-				if (strcmp(argv[i], "-red") == 0 || strcmp(argv[i], "--red-check") == 0)
+				if (!strcmp(argv[i], "-red") || !strcmp(argv[i], "--red-check"))
 					opti.push_back('r');
-				if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--legend") == 0){
+				if (!strcmp(argv[i], "-l") || !strcmp(argv[i], "--legend")){
 					std::cout << "\n\t\t\tLegend\n" << std::endl;
 					std::cout << "\t\e[92mGood\n" << std::endl;
 					std::cout << "\tMay need some adjustment, depending on preference\n\n" << std::endl;
@@ -46,11 +46,11 @@ int main(int argc, char* argv[]) {
 					std::cout << "\t\e[31mBad\n" << std::endl;
 					std::cout << "\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m" << std::endl;
 				}
-				if (strcmp(argv[i], "-dc") == 0 || strcmp(argv[i], "--doc-com") == 0){
+				if (!strcmp(argv[i], "-dc") || !strcmp(argv[i], "--doc-com")){
 					opti.push_back('r');
 					opti.push_back('d');
 				}
-				if (strcmp(argv[i], "-w") == 0 || strcmp(argv[i], "--WeBI") == 0){
+				if (!strcmp(argv[i], "-w") || !strcmp(argv[i], "--WeBI")){
 					opti.push_back('w');
 				}
 			}
@@ -223,7 +223,6 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-
 		if (strcmp(inpt01, ".txt") && !TF)
 			std::exit(0);
 		std::cout << "   \nMagnifEye " << th->ver() << std::endl;

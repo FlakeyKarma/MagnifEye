@@ -1,8 +1,8 @@
 #include "resources.h"
 
 //Information output
-void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
-	ifstream fil;
+void ThNeedle::outP(std::string file, int ac, std::vector<char> *chr0) {
+	std::ifstream fil;
 	bool def = false, rC = false, co = false, M = false, tw = false, th = false, toFil = false, w = false, pth = false;
 	for(int i = 0; i < chr0->size(); i++){
 		switch(chr0->at(i)){
@@ -24,7 +24,6 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 				break;
 			case 'w':
 				w = true;
-				toFil = true;
 				break;
 			case 'F':
 				toFil = true;
@@ -65,24 +64,24 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 	isGud = GUD(file);
 	fil.close();
 	if(isGud){
-		ofstream W;
+		std::ofstream W;
 		W.open("temp.txt");
-		string temp = "";
+		std::string temp = "";
 		this->chr = *chr0;
 		this->mkFil();
 		this->tw = tw;
 		this->th = th;
 		this->setF(file, 1);
-		//cout << "A" << endl;
+		//std::cout << "A" << std::endl;
 		this->SeNDe(file, 0);
 		////this->rO("AA::outP::A::");
 		if(rC){
 			this->SeNDe(file, 1);
 		}
 		//this->rO("BB::outP::B::");
-		//cout << "B" << endl;
-		vector<string> a = *this->strSz;
-		vector<long> a0 = *this->intSz;
+		//cout << "B" << std::endl;
+		std::vector<std::string> a = *this->strSz;
+		std::vector<long> a0 = *this->intSz;
 		if(!w)
 			std::cout << "---------" << std::endl;
 		if(co){
@@ -109,13 +108,13 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 
 		long SET, numS;
 		long LENg = 0, i = 0;
-		string SP = " |--->  ";
+		std::string SP = " |--->  ";
 		//this->rO("CC::outP::C::");
-		//cout << "C" << endl;
+		//std::cout << "C" << std::endl;
 		if(!M && def){
-			if(w){
+			if(w || toFil){
 				for(int i = 0; i < this->strSz->size(); i++){
-					W << "STRSZ= " << this->strSz->at(i) <<" " << this->intSz->at(i) << endl;
+					W << "STRSZ=" << this->strSz->at(i) << ">" << this->intSz->at(i) << "\n";
 				}
 			}
 			while (true) {
@@ -144,12 +143,13 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 					break;
 			}
 		}
+		//std::cout << "E" << std::endl;
 		if(rC){
 			bool rCT = 0;
-			if(w){
+			if(w || toFil){
 				for(int i = 0; i < this->strPh->size(); i++){
 					if(this->intPh->at(i) > 1)
-						W << "STRPH= " << this->strPh->at(i) <<" " << this->intPh->at(i) << std::endl;
+						W << "STRPH=" << this->strPh->at(i) << ">" << this->intPh->at(i) << std::endl;
 				}
 			}
 			if(!M)
@@ -204,22 +204,23 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 				std::cout << "\n\e[4mEND::(RedCheck)\e[0m" << std::endl;
 			}
 		}
+		//std::cout << "E" << std::endl;
 		if(co){
-			vector<string> nLW, nL0, pr0, pr1;
-			if(w){
-				W << "FILE 1: " << this->file0 << std::endl;
-				W << "FILE 2: " << this->file1 << std::endl;
+			std::vector<std::string> nLW, nL0, pr0, pr1;
+			if(w || toFil){
+				W << "FILE1=" << this->file0 << std::endl;
+				W << "FILE2=" << this->file1 << std::endl;
 				for(int i = 0; i < this->strS2->size(); i++){
-					W << "STRS2= " << this->strS2->at(i) <<" " << this->intS2->at(i) << std::endl;
+					W << "STRS2=" << this->strS2->at(i) << ">" << this->intS2->at(i) << std::endl;
 				}
 				for(int i = 0; i < this->strDoc->size(); i++){
-					W << "STRDOC= " << this->strDoc->at(i) <<" " << this->intDoc->at(i) << std::endl;
+					W << "STRDOC=" << this->strDoc->at(i) << ">" << this->intDoc->at(i) << std::endl;
 				}
 				for(int i = 0; i < this->spDoc->size(); i++){
-					W << "SPDOC= " << this->spDoc->at(i) <<" " << this->ipDoc->at(i) << std::endl;
+					W << "SPDOC=" << this->spDoc->at(i) << ">" << this->ipDoc->at(i) << std::endl;
 				}
 				for(int i = 0; i < this->spD2->size(); i++){
-					W << "SPD2= " << this->spD2->at(i) <<" " << this->ipD2->at(i) << std::endl;
+					W << "SPD2=" << this->spD2->at(i) << ">" << this->ipD2->at(i) << std::endl;
 				}
 			}
 			if(!M)
@@ -228,12 +229,12 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 						this->pauz();
 			//this->rO("EE::outP::D::");
 			int ln0 = 0, sWrd = 0, s0 = 0, s1 = 0, lng0, lng1, lng2 = 0;
-			string spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
+			std::string spWrd = "", sp0 = "", outpt = " +===> OUTPUT", lne = "-{", prc = "%  ", prcW;
 			long chk0, chk1;
 			//Set sWrd as length of longest word in strSz 
 			for(long i = 0; i < this->strSz->size(); i++){
 				if(i > 0){
-					if(to_string(this->intSz->at(i)).length() > to_string(this->intSz->at(i-1)).length()){
+					if(std::to_string(this->intSz->at(i)).length() > std::to_string(this->intSz->at(i-1)).length()){
 						sWrd = this->strSz->at(i).length();
 					}
 				}
@@ -241,7 +242,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			//Add presence of percentages from first document to list of prO
 			for(long i = 0; i < this->intSz->size(); i++){
 				if(this->intSz->at(i)/this->intSz->size() > 0)
-					prcW = to_string(this->intSz->at(i)/this->intSz->size());
+					prcW = std::to_string(this->intSz->at(i)/this->intSz->size());
 				else
 					prcW = "<0";
 				
@@ -253,7 +254,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			//Add presence of percentages from second document to list of pr1
 			for(long i = 0; i < this->intS2->size(); i++){
 				if(this->intS2->at(i)/this->intS2->size() > 0)
-					prcW = to_string(this->intS2->at(i)/this->intS2->size());
+					prcW = std::to_string(this->intS2->at(i)/this->intS2->size());
 				else
 					prcW = "<0";
 				while(prcW.length() < prc.length()){
@@ -263,7 +264,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			}
 			//Make length of each number to equal that of the size of the longest number, plus two spaces
 			for(long i = 0; i < this->intSz->size(); i++){
-				spWrd = to_string(this->intSz->at(i));
+				spWrd = std::to_string(this->intSz->at(i));
 				while(spWrd.length() < sWrd + 2){
 					spWrd += " ";
 				}
@@ -271,7 +272,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			}
 			for(long i = 0; i < this->strS2->size(); i++){
 				if(i > 0){
-					if(to_string(this->intS2->at(i)).length() > to_string(this->intS2->at(i-1)).length()){
+					if(std::to_string(this->intS2->at(i)).length() > std::to_string(this->intS2->at(i-1)).length()){
 						sWrd = this->strS2->at(i).length();
 					}
 				}
@@ -284,7 +285,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 				}
 			}
 			for(long i = 0; i < this->strS2->size(); i++){
-				sp0 = to_string(this->intS2->at(i));
+				sp0 = std::to_string(this->intS2->at(i));
 				while(sp0.length() < sWrd + 3){
 					sp0 += " ";
 				}
@@ -379,7 +380,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 				pauz();
 			
 			
-			vector<vector<string>> chekk = {nLW, nL0, pr0, pr1};
+			std::vector<std::vector<std::string>> chekk = {nLW, nL0, pr0, pr1};
 			for(int i = 0; i < chekk.size(); i++){
 				if(!chekk.at(i).empty())
 					chekk.at(i).clear();
@@ -395,15 +396,15 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			//Set sWrd as length of longest word in strPh 
 			for(long i = 0; i < this->strPh->size(); i++){
 				if(i > 0){
-					if(to_string(this->intPh->at(i)).length() > to_string(this->intPh->at(i-1)).length()){
-						sWrd = to_string(this->intPh->at(i)).length();
+					if(std::to_string(this->intPh->at(i)).length() > std::to_string(this->intPh->at(i-1)).length()){
+						sWrd = std::to_string(this->intPh->at(i)).length();
 					}
 				}
 			}
 			//Add presence of percentages from first document to list of prO
 			for(long i = 0; i < this->intPh->size(); i++){
 				if(this->intPh->at(i)/this->intPh->size() > 0)
-					prcW = to_string(this->intPh->at(i)/this->intPh->size());
+					prcW = std::to_string(this->intPh->at(i)/this->intPh->size());
 				else
 					prcW = "<0";
 				
@@ -415,7 +416,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			//Add presence of percentages from second document to list of pr1
 			for(long i = 0; i < this->ipDoc->size(); i++){
 				if(this->ipDoc->at(i)/this->ipDoc->size() > 0)
-					prcW = to_string(this->ipDoc->at(i)/this->ipDoc->size());
+					prcW = std::to_string(this->ipDoc->at(i)/this->ipDoc->size());
 				else
 					prcW = "<0";
 				while(prcW.length() < prc.length()){
@@ -425,7 +426,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			}
 			//Make length of each number to equal that of the size of the longest number, plus two spaces
 			for(long i = 0; i < this->intPh->size(); i++){
-				spWrd = to_string(this->intPh->at(i));
+				spWrd = std::to_string(this->intPh->at(i));
 				while(spWrd.length() < sWrd + 3){
 					spWrd += " ";
 				}
@@ -433,8 +434,8 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			}
 			for(long i = 0; i < this->spDoc->size(); i++){
 				if(i > 0){
-					if(to_string(this->ipDoc->at(i)).length() > to_string(this->ipDoc->at(i-1)).length()){
-						sWrd = to_string(this->ipDoc->at(i)).length();
+					if(std::to_string(this->ipDoc->at(i)).length() > std::to_string(this->ipDoc->at(i-1)).length()){
+						sWrd = std::to_string(this->ipDoc->at(i)).length();
 					}
 				}
 			}
@@ -446,7 +447,7 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 				}
 			}
 			for(long i = 0; i < this->spDoc->size(); i++){
-				sp0 = to_string(this->ipDoc->at(i));
+				sp0 = std::to_string(this->ipDoc->at(i));
 				while(sp0.length() < sWrd + 3){
 					sp0 += " ";
 				}
@@ -502,8 +503,8 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 					std::cout << lne << std::endl;
 				}
 				while (SET == a0.at(i)) {
-					if(w)
-						W << a.at(i) << " " << a0.at(i) << endl;
+					if(w || toFil)
+						W << a.at(i) << ">" << a0.at(i) << std::endl;
 					if(!toFil)
 						if(i % 30 == 0 && i > 0)
 							this->pauz();
@@ -546,10 +547,10 @@ void ThNeedle::outP(string file, int ac, vector<char> *chr0) {
 			}
 
 		}
-		W.close();
 		if(w){
 			this->data(&def, &rC, &co);
-		}
+		}		
+		W.close();
 	}
 }
 
@@ -558,8 +559,8 @@ FUNCTIONS FOR outP
 */
 
 //Search-N-Destroy
-void ThNeedle::SeNDe(string file, bool rC){
-	//cout << "\n\n\tSeNDe\n\n" << endl;
+void ThNeedle::SeNDe(std::string file, bool rC){
+	//cout << "\n\n\tSeNDe\n\n" << std::endl;
 	bool c = false, def = false, dc = false;
 	int prg;
 	for(int i = 0; i < chr.size(); i++){
@@ -584,16 +585,16 @@ void ThNeedle::SeNDe(string file, bool rC){
 	if(rC)
 		def = false;
 	//rO"FF::SeNDe::A::");
-	ifstream fil;
-	string inpt, inpt0;
+	std::ifstream fil;
+	std::string inpt, inpt0;
 	fil.open(file);
 	while (!fil.eof()) {
 		getline(fil, inpt0);
 		inpt += inpt0 + " \n";
 	}
 	fil.close();
-	vector<string> a = wordReturn(inpt);
-	vector<long> a0;
+	std::vector<std::string> a = wordReturn(inpt);
+	std::vector<long> a0;
 	inpt = "";
 	inpt0 = "";
 	if(def && !c)
@@ -690,9 +691,9 @@ void ThNeedle::SeNDe(string file, bool rC){
 	//std::cout << "\n\n\t\\SeNDe\n\n" << std::endl;
 }
 
-//Breaks down full string into vector of all words
-vector<string> ThNeedle::wordReturn(string inpt) {
-	//cout  << "\n\n\twordReturn\n\n" << endl;
+//Breaks down full std::string into std::vector of all words
+std::vector<std::string> ThNeedle::wordReturn(std::string inpt) {
+	//cout  << "\n\n\twordReturn\n\n" << std::endl;
 	int prg;
 	if(!tw && !th)
 		prg = 5.0;
@@ -701,9 +702,9 @@ vector<string> ThNeedle::wordReturn(string inpt) {
 	if(th)
 		prg = 0.75;
 	long sz = 0;
-	string s = "";
-	vector<string> sS;
-	vector<char> BLACKLIST = {};
+	std::string s = "";
+	std::vector<std::string> sS;
+	std::vector<char> BLACKLIST = {};
 	for (int i = 0; i < 255; i++) {
 		progressBar(1.0/255 * prg);
 		if (i < 32 || i > 123) {
@@ -748,13 +749,13 @@ vector<string> ThNeedle::wordReturn(string inpt) {
 			}
 	}
 	//rO"JJ::wordReturn::B::");
-	//cout << "\n\n\t\\wordReturn\n\n" << endl;
+	//cout << "\n\n\t\\wordReturn\n\n" << std::endl;
 	return sS;
 }
 
 //Counts instances of each word
-void ThNeedle::nuMake(int t, vector<string> *s) {
-	//cout << "\n\n\tnuMake\n\n" << endl;
+void ThNeedle::nuMake(int t, std::vector<std::string> *s) {
+	//cout << "\n\n\tnuMake\n\n" << std::endl;
 	int prg;
 	if(!tw && !th)
 		prg = 20.0;
@@ -783,8 +784,8 @@ void ThNeedle::nuMake(int t, vector<string> *s) {
 		}
 	}
 	else if(t >= 1){
-		vector<string> a, strV;
-		vector<long> a0;
+		std::vector<std::string> a, strV;
+		std::vector<long> a0;
 		switch(t){
 			case 1:
 				strV = *strPh;
@@ -831,7 +832,7 @@ void ThNeedle::nuMake(int t, vector<string> *s) {
 		if(!a.empty())
 			a.clear();
 	}
-	//cout  << "\n\n\t\\nuMake\n\n" << endl;
+	//cout  << "\n\n\t\\nuMake\n\n" << std::endl;
 }
 
 //Clears Screen
@@ -850,13 +851,13 @@ void ThNeedle::pauz(){
 	system("pause");
 	#else
 	std::cout << "PressEnter\\" << std::endl;
-	cin.ignore();
-	cin.get();
+	std::cin.ignore();
+	std::cin.get();
 	#endif
 }
 
 //Returns Version
-string ThNeedle::ver(){
+std::string ThNeedle::ver(){
 	return verz;
 }
 
@@ -887,10 +888,10 @@ void ThNeedle::progressBar(float x){
 }
 
 //Check for redundant phrases us.
-void ThNeedle::redCheck(vector<string> *s, bool d){
-	//cout  << "\n\n\tredCheck\n\n" << endl;
-	vector<string> phrase;
-	string nxt = "";
+void ThNeedle::redCheck(std::vector<std::string> *s, bool d){
+	//cout  << "\n\n\tredCheck\n\n" << std::endl;
+	std::vector<std::string> phrase;
+	std::string nxt = "";
 	long leng = 0, l = 0;
 	for(int i = 0; i < s->size(); i++){
 		if(prd){
@@ -947,17 +948,17 @@ void ThNeedle::redCheck(vector<string> *s, bool d){
 		if(!phrase.empty())
 			phrase.clear();
 	}
-	//cout  << "\n\n\t\\redCheck\n\n" << endl;
+	//cout  << "\n\n\t\\redCheck\n\n" << std::endl;
 }
 
 //Compare documents for similarities in vocabulary and word patterns
-void ThNeedle::doCo(vector<char> *c){
-	//cout  << "\n\n\tdoCo\n\n" << endl;
-	string file;
+void ThNeedle::doCo(std::vector<char> *c){
+	//cout  << "\n\n\tdoCo\n\n" << std::endl;
+	std::string file;
 	int NM = 0, RS;
 	while(1){
 		std::cout << "MEye> Enter second file: ";
-		cin >> file;
+		std::cin >> file;
 		if(file == "ls"){
 			std::system("ls");
 			file = "";
@@ -1001,11 +1002,11 @@ void ThNeedle::doCo(vector<char> *c){
 	spD2->shrink_to_fit();
 	nuMake(5, spD2);
 	//rO"DoCo::C");
-	//cout  << "\n\n\t\\doCo\n\n" << endl;
+	//cout  << "\n\n\t\\doCo\n\n" << std::endl;
 }
 
-//Check if the string has more than one word
-bool ThNeedle::GT1(string s){
+//Check if the std::string has more than one word
+bool ThNeedle::GT1(std::string s){
 	for(int i = 0; i < s.length(); i++){
 		if(s[i] == ' '){
 			if(i != s.length() - 1){
@@ -1024,9 +1025,9 @@ bool ThNeedle::GT1(string s){
 }
 
 //Check if file is good
-bool ThNeedle::GUD(string fil){
+bool ThNeedle::GUD(std::string fil){
 	bool tf = 0;
-	ifstream f;
+	std::ifstream f;
 	f.open(fil);
 	if(!f.good()){
 			std::cout << fil << std::endl;
@@ -1039,8 +1040,8 @@ bool ThNeedle::GUD(string fil){
 }
 
 //Setting file names
-void ThNeedle::setF(string fil, bool b){
-	string f = "";
+void ThNeedle::setF(std::string fil, bool b){
+	std::string f = "";
 	for(int i = 0; i < f.length() - 4; i++){
 		f += fil[i];
 	}
@@ -1053,8 +1054,8 @@ void ThNeedle::setF(string fil, bool b){
 
 //Data to display on web-page
 void ThNeedle::data(bool def, bool rC, bool dC){
-	ofstream f0;
-	string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
+	std::ofstream f0;
+	std::string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
 	if(libUse){
 		f0.open("wrdz.json");
 		Wfl += "10.0.0.185:8000";
@@ -1138,8 +1139,8 @@ function mkRct(doc, xPos, yPos, w, h, id, max, id0){\n\
 function outP(x) { \n\
     var ";
 	}
-	vector<vector<string>> *allS = new vector<vector<string>>(5);
-	vector<vector<long>> *allL = new vector<vector<long>>(5);
+	std::vector<std::vector<std::string>> *allS = new std::vector<std::vector<std::string>>(5);
+	std::vector<std::vector<long>> *allL = new std::vector<std::vector<long>>(5);
 	if(def){
 		allS->at(0) = *strSz;
 		allL->at(0) = *intSz;
@@ -1157,15 +1158,15 @@ function outP(x) { \n\
 		allL->at(4) = *ipD2;
 	}
 	
-	vector<string> *stz = new vector<string>(5), *lnz = new vector<string>(5);
-	string strFil = "";
+	std::vector<std::string> *stz = new std::vector<std::string>(5), *lnz = new std::vector<std::string>(5);
+	std::string strFil = "";
 	for(int i = 0; i < allS->size(); i++){
 		for(int j = i; j < allS->at(i).size(); j++){
 			if(i > 0 && allL->at(i).at(j) <= 1)
 				continue;
 			strFil = allS->at(i).at(j);
 			stz->at(i) += "\"" + strFil + "\"";
-			lnz->at(i) += to_string(allL->at(i).at(j));
+			lnz->at(i) += std::to_string(allL->at(i).at(j));
 			if(j < allS->at(i).size() - 1){
 				stz->at(i) += ", ";
 				lnz->at(i) += ", ";
@@ -1338,7 +1339,7 @@ function outP(x) { \n\
 
 //Constructs all files not present
 void ThNeedle::mkFil(){
-	ofstream f;
+	std::ofstream f;
 	f.open("index.html");
 	f << "<!DOCTYPE html>\n\
 <html lang=\"en\">\n\
@@ -1712,12 +1713,12 @@ li {\n\
 }
 
 //Returns file requested to have read
-string ThNeedle::filIn(){
-	string fil;
+std::string ThNeedle::filIn(){
+	std::string fil;
 	while(1){
 		std::cout << "MEye> Enter directory to file: ";
 		std::cin >> fil;
-		std::cout << fil << endl;
+		std::cout << fil << std::endl;
 		if(fil == "ls"){
 			system("ls");
 		}else{
@@ -1727,17 +1728,17 @@ string ThNeedle::filIn(){
 }
 
 //Returns chars required to run full weBI
-vector<char> ThNeedle::weBI(){
+std::vector<char> ThNeedle::weBI(){
 	char ch, inpt;
-	vector<char> opti;
+	std::vector<char> opti;
 	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
-	string rgS = "[ ", rCS = "[ ", dCS = "[ ";
-	vector<string> stAr = {rgS, rCS, dCS};
-	vector<bool> boAr = {rg, rC, dC};
+	std::string rgS = "[ ", rCS = "[ ", dCS = "[ ";
+	std::vector<std::string> stAr = {rgS, rCS, dCS};
+	std::vector<bool> boAr = {rg, rC, dC};
 	while(1){
 		clr();
 		for(int i = 0; i < stAr.size(); i++){
-			stAr.at(i) += to_string(boAr.at(i)) + " ]";
+			stAr.at(i) += std::to_string(boAr.at(i)) + " ]";
 		}
 		std::cout << "Select the options to be displayed:" << std::endl;
 		std::cout << "[0] Regular Output               ";
@@ -1831,7 +1832,7 @@ vector<char> ThNeedle::weBI(){
 //Switch to display true or false
 void ThNeedle::TFswitch(bool t){
 	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
-	string fll = "";
+	std::string fll = "";
 	if(t){
 		fll += iArr;
 		fll += iArr;
@@ -1866,22 +1867,24 @@ void ThNeedle::help(){
    similarity at the end." << std::endl;
 	std::cout << "\n\n- Web-Based-Interface \e[93m(WeBI)\e[0m   [-w, --WeBI]\n\
 	\n-- Display the output in a FireFox browser window." << std::endl;
+	std::cout << "\n\n- Output-Parsed [-o, --out-par]\n\
+	\n-- Output the results into a parsed version intended for usage by other programs." << std::endl;
 }
 
 //Dev debug variable tool
-void ThNeedle::rO(string s){
+void ThNeedle::rO(std::string s){
 	int J = 0;
-	std::cout << "--LISTS--" << endl;
+	std::cout << "--LISTS--" << std::endl;
 	std::cout << s;
 	std::cout << "::::::::::::::>Doc 1 words<< ";
 	std::cout << strSz->size();
-	std::cout << " " << intSz->size() << endl;
+	std::cout << " " << intSz->size() << std::endl;
 	for(int i = 0; i < strSz->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();
 		if(intSz->at(i) != 0)
-			std::cout << strSz->at(i) << " :: " << intSz->at(i) << endl;
+			std::cout << strSz->at(i) << " :: " << intSz->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1889,18 +1892,18 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\Doc 1 words<< ";
 	std::cout << strSz->size();
-	std::cout << " " << intSz->size() << endl;
+	std::cout << " " << intSz->size() << std::endl;
 	pauz();
 	std::cout << s;
 	std::cout << "::::::::::::::>Doc 1 red<< ";
 	std::cout << strPh->size();
-	std::cout << " " << intPh->size() << endl;
+	std::cout << " " << intPh->size() << std::endl;
 	for(int i = 0; i < strPh->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();
 		if(intPh->at(i) != 0)
-			std::cout << strPh->at(i) << " :: " << intPh->at(i) << endl;
+			std::cout << strPh->at(i) << " :: " << intPh->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1908,18 +1911,18 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\Doc 1 red<< ";
 	std::cout << strPh->size();
-	std::cout << " " << intPh->size() << endl;
+	std::cout << " " << intPh->size() << std::endl;
 	pauz();
 	std::cout << s;
 	std::cout << "::::::::::::::>Doc 2 words<< ";
 	std::cout << strS2->size();
-	std::cout << " " << intS2->size() << endl;
+	std::cout << " " << intS2->size() << std::endl;
 	for(int i = 0; i < strS2->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();
 		if(intS2->at(i) != 0)
-			std::cout << strS2->at(i) << " :: " << intS2->at(i) << endl;
+			std::cout << strS2->at(i) << " :: " << intS2->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1927,18 +1930,18 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\Doc 2 words<< ";
 	std::cout << strS2->size();
-	std::cout << " " << intS2->size() << endl;
+	std::cout << " " << intS2->size() << std::endl;
 	pauz();
 	std::cout << s;
 	std::cout << "::::::::::::::>doCo:Words<< ";
 	std::cout << strDoc->size();
-	std::cout << " " << intDoc->size() << endl;
+	std::cout << " " << intDoc->size() << std::endl;
 	for(int i = 0; i < strDoc->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();	
 		if(intDoc->at(i) != 0)
-			std::cout << strDoc->at(i) << " :: " << intDoc->at(i) << endl;
+			std::cout << strDoc->at(i) << " :: " << intDoc->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1946,18 +1949,18 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\doCo:Words<< ";
 	std::cout << strDoc->size();
-	std::cout << " " << intDoc->size() << endl;
+	std::cout << " " << intDoc->size() << std::endl;
 	pauz();
 	std::cout << s;
 	std::cout << "::::::::::::::>Doc 2 red<< ";
 	std::cout << spDoc->size();
-	std::cout << " " << ipDoc->size() << endl;
+	std::cout << " " << ipDoc->size() << std::endl;
 	for(int i = 0; i < spDoc->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();
 		if(ipDoc->at(i) != 0)
-			std::cout << spDoc->at(i) << " :: " << ipDoc->at(i) << endl;
+			std::cout << spDoc->at(i) << " :: " << ipDoc->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1965,18 +1968,18 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\Doc 2 red<< ";
 	std::cout << spDoc->size();
-	std::cout << " " << ipDoc->size() << endl;
+	std::cout << " " << ipDoc->size() << std::endl;
 	pauz();
 	std::cout << s;
 	std::cout << "::::::::::::::>doCo:Red<< ";
 	std::cout << spD2->size();
-	std::cout << " " << ipD2->size() << endl;
+	std::cout << " " << ipD2->size() << std::endl;
 	for(int i = 0; i < spD2->size(); i++){
 		J++;
 		if(J % 30 == 0)
 			pauz();
 		if(ipD2->at(i) != 0)
-			std::cout << spD2->at(i) << " :: " << ipD2->at(i) << endl;
+			std::cout << spD2->at(i) << " :: " << ipD2->at(i) << std::endl;
 		else
 			J--;
 		
@@ -1984,7 +1987,7 @@ void ThNeedle::rO(string s){
 	std::cout << s;
 	std::cout << "::::::::::::::>\\doCo:Red<< ";
 	std::cout << spD2->size();
-	std::cout << " " << ipD2->size() << endl;
+	std::cout << " " << ipD2->size() << std::endl;
 	pauz();
 }
 
@@ -2023,7 +2026,7 @@ void ThNeedle::setDownload(){
 
 //Download libraries needed
 void ThNeedle::Downloadz(){
-	cout << "A" << endl;
+	std::cout << "A" << std::endl;
 	#ifdef _WIN32
 		//Download files w/ batch files
 	#else
@@ -2032,7 +2035,7 @@ void ThNeedle::Downloadz(){
 }
 
 //Set value of bool libUse depending on whether or not the "libraries" are in "use"
-void ThNeedle::libInstl(string *s){
+void ThNeedle::libInstl(std::string *s){
 	if(*s == "YES"){
 		libUse = 1;
 	} else {

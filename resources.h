@@ -3,19 +3,18 @@
 #include <string>
 #include <string.h>
 #include <vector>
-using namespace std;
 
 class ThNeedle {
 	private:
-		vector<string> *strSz = new vector<string>(500), *strPh = new vector<string>(500), *strS2 = new vector<string>(500),
-					  *strDoc = new vector<string>(500), *spDoc = new vector<string>(500), *spD2 = new vector<string>(500);
-		vector<long> *intSz = new vector<long>(500), *intPh = new vector<long>(500), *intS2 = new vector<long>(500),
-					 *intDoc = new vector<long>(500), *ipDoc = new vector<long>(500), *ipD2 = new vector<long>(500);
-		vector<char> chr;
+		std::vector<std::string> *strSz = new std::vector<std::string>(500), *strPh = new std::vector<std::string>(500), *strS2 = new std::vector<std::string>(500),
+					  *strDoc = new std::vector<std::string>(500), *spDoc = new std::vector<std::string>(500), *spD2 = new std::vector<std::string>(500);
+		std::vector<long> *intSz = new std::vector<long>(500), *intPh = new std::vector<long>(500), *intS2 = new std::vector<long>(500),
+					 *intDoc = new std::vector<long>(500), *ipDoc = new std::vector<long>(500), *ipD2 = new std::vector<long>(500);
+		std::vector<char> chr;
 		float progress = 0;
 		int chk = 0, numCheck = 0;
-		string loadBar, file0, file1;
-		const string verz = "v1.13.8";
+		std::string loadBar, file0, file1;
+		const std::string verz = "v1.15.8";
 		bool tw = false, th = false, prd = false, libUse;
 	public:
 		~ThNeedle(){
@@ -45,29 +44,29 @@ class ThNeedle {
 				delete ipD2;
 
 		}
-		void setF(string s, bool b);
-		vector<string> wordReturn(string s);
-		void SeNDe(string s, bool t);
-		void nuMake(int c, vector<string> *s);
-		void outP(string file, int ac, vector<char> *c);
-		void redCheck(vector<string> *s, bool t);
-		bool GT1(string s);
-		bool GUD(string f);
-		void doCo(vector<char> *c);
+		void setF(std::string s, bool b);
+		std::vector<std::string> wordReturn(std::string s);
+		void SeNDe(std::string s, bool t);
+		void nuMake(int c, std::vector<std::string> *s);
+		void outP(std::string file, int ac, std::vector<char> *c);
+		void redCheck(std::vector<std::string> *s, bool t);
+		bool GT1(std::string s);
+		bool GUD(std::string f);
+		void doCo(std::vector<char> *c);
 		void clr();
 		void pauz();
 		void progressBar(float x);
-		void rO(string s);
-		string ver();
+		void rO(std::string s);
+		std::string ver();
 		void data(bool a, bool b, bool c);
 		void mkFil();
 		void TFswitch(bool t);
-		vector<char> weBI();
-		string filIn();
+		std::vector<char> weBI();
+		std::string filIn();
 		void help();
 		void setDownload();
 		void Downloadz();
-		void libInstl(string* s);
+		void libInstl(std::string* s);
 };
 
 class redCheck : public ThNeedle{
