@@ -1,2 +1,8 @@
 /.vscode/
 WS.code-workspace
+GUI/share/
+GUI/lib/
+GUI/local/
+GUI/include/
+GUI/bin/
+GUI/__pycache__/
