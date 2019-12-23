@@ -1,6 +1,8 @@
 from tkinter import *
+from tkinter import filedialog
 from PIL import ImageTk, Image
 import os
+import subprocess
 
 class HELPERS:
     def __init__(self, master=None):
@@ -9,25 +11,44 @@ class HELPERS:
         self.Y = self.master.winfo_screenheight()
         self.textBoxX = self.X/2
         self.textBoxY = self.Y/1.5
+        self.dirLocation = str(os.path.dirname(__file__)).split("MagnifEye")[0]+str('MagnifEye/')
+        self.filLocation = "/"
+    def tempWriter(x):
+        file=open("temP.txt", "w+")
+        file.write(x)
+        file.close()
 
 class MFEGUI(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.master = master
         #Left side
-        self.left(self.master)
-        #Right side
-        self.right(self.master)
+        self.WINDOW(self.master)
 
-    def left(self, master=None):
+    def WINDOW(self, master=None):
+        #LEFT SIDE
         #Var set
         hlp = HELPERS(master)
+        bitSet = 0
         ThNeedle = IntVar()
         RedCheck = IntVar()
         weBI = IntVar()
         DoCo = IntVar()
-        def MFY():
-            print("%d, %d, %d, %d" % (ThNeedle.get(), RedCheck.get(), weBI.get(), DoCo.get()))
+        #Var adjustment
+        def MFYcall():
+            bitSet = [ThNeedle.get(), RedCheck.get(), weBI.get(), DoCo.get()]
+            magOpt = [hlp.dirLocation+"linux-safe/MagnifEye", "-o"]
+            if(bitSet[1]==1):
+                magOpt.append("-red")
+            if(bitSet[2]==1):
+                magOpt.append("-w")
+            if(bitSet[3]==1):
+                magOpt.append("-dc")
+            magOpt.append(hlp.dirLocation+"GUI/asdf.txt")
+            #subprocess.run(magOpt)
+        def browseWindow():
+            filename = filedialog.askopenfilename(initialdir = hlp.filLocation,title = "Browsed file",filetypes = (("text files","*.txt")))
+            pathlabel.config(text=filename)
         #Logo Set
         logo = "imgs/MagnifEyeLogo.png"
         imgX, imgY = Image.open(logo).size
@@ -54,11 +75,16 @@ class MFEGUI(Frame):
         Checkbutton(master, text="weBI", font="Helvetica 10 bold", variable=weBI).place(x=int(hlp.X*.01), y=int(hlp.Y*.29))
         Checkbutton(master, text="DoCo", font="Helvetica 10 bold", variable=DoCo).place(x=int(hlp.X*.01), y=int(hlp.Y*.31))
         #Submission button
-        Button(master, text="Submit", font="Helvetica 10 bold", command=MFY, width=int(hlp.X*.0075)).place(x=int(hlp.X*.01), y=int(hlp.Y*.35))
-
-    def right(self, master=None):
-        #Var setting
-        hlp = HELPERS(master)
+        Button(master, text="Submit", font="Helvetica 10 bold", command=MFYcall, width=int(hlp.X*.0075)).place(x=int(hlp.X*.01), y=int(hlp.Y*.35))
+        #Display current file selected
+        broPth = Text(master, width=int(hlp.X*.0082), height=1)
+        broPth.pack()
+        broPth.place(x=int(hlp.X*.01), y=int(hlp.Y*.4))
+        #Button to browse for file
+        broBtn = Button(master, text="Browse", command=browseWindow)
+        broBtn.pack()
+        broBtn.place(x=int(hlp.X*.01), y=int(hlp.Y*.421))
+        #RIGHT SIDE
         #Text box
         txt = Text(master, width=int(hlp.textBoxX/10), height=int(hlp.textBoxY/19))
         scrl = Scrollbar(master, command=txt.yview)
