@@ -4,11 +4,11 @@ int main(int argc, char* argv[]) {
 	try{
 		std::ifstream FL;
 		int sz = 0, sp = 0;
-		Complementary* th = new Complementary, *thNd;
+		Complementary* th = new Complementary, *thNd = new Complementary;
 		char inpt01[5], inpt02[1];
 		sz = 0;
 		std::string fil, ansr;
-		bool TF = false, dl = 1, othr = 0;
+		bool TF = false, dl = 1, othr = 0, CLI = 0;
 		//INTAKE:BEGIN
 		if(argc == 1){
 			TF = true;
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 					thNd = new Complementary;
 					dl = 0;
 				}
-				thNd->setCLI();
+				thNd->CLI = CLI;
 				FL.open("downloadTF.txt");
 				while(getline(FL, ansr)){
 					if(ansr == "NOT-YET" || ansr == "NO" || ansr == "YES"){
@@ -88,24 +88,25 @@ int main(int argc, char* argv[]) {
 				std::printf("[1] Redundancy Check \e[91m(RedCheck)\e[0m\n");
 				std::printf("[2] Document Comparison \e[96m(DoCo)\e[0m\n");
 				std::printf("[3] Web-Based Interface \e[93m(WeBI)\e[0m\n");
-				std::printf("[4] Other\n");
-				std::printf("[x] Exit\n");
+				std::printf("[F] Enable Output to temp.txt file?");
+				thNd->TFswitch(thNd->CLI);
+				std::printf("[O] Other\n");
+				std::printf("[X] Exit\n");
 				std::printf("\nMEye> ");
 				th->libInstl(&ansr);
-				std::scanf("%c", inpt01);
+				std::scanf(" %c", inpt01);
 				inpt01[1] = '\0';
 				switch (inpt01[0]) {
 				//Regular output
 				case '0':
 					th->clr();
-					std::printf("EE\n");
 					fil = thNd->filIn();
-					std::printf("%s\n", fil.c_str());
 					thNd->opChc[0] = 1;
 					thNd->MagnifEye(fil);
 					dl = 1;
 					th->pauz();
 					inpt01[0] = '\0';
+					CLI = thNd->CLI;
 					break;
 				//RedCheck
 				case '1':
@@ -116,6 +117,7 @@ int main(int argc, char* argv[]) {
 					dl = 1;
 					th->pauz();
 					inpt01[0] = '\0';
+					CLI = thNd->CLI;
 					break;
 				//DoCo
 				case '2':
@@ -126,19 +128,32 @@ int main(int argc, char* argv[]) {
 					dl = 1;
 					th->pauz();
 					inpt01[0] = '\0';
+					CLI = thNd->CLI;
 					break;
 				//weBI
 				case '3':
 					th->clr();
 					fil = thNd->filIn();
-					thNd->WeBI();
-					thNd->MagnifEye(fil);
+					if(thNd->GUD(fil)){
+						thNd->WeBI();
+						thNd->MagnifEye(fil);
+					}
 					dl = 1;
 					th->pauz();
 					inpt01[0] = '\0';
+					CLI = thNd->CLI;
+					break;
+				//(De)Select appending info to temp file
+				case 'f':
+				case 'F':
+					thNd->clr();
+					inpt01[0] = '\0';
+					dl = 1;
+					CLI = !thNd->CLI;
 					break;
 				//Other
-				case '4':
+				case 'O':
+				case 'o':
 					while(true){
 						th->clr();
 						std::printf("\n\n\t\t-<OTHER>-\n\n\n");
@@ -186,6 +201,7 @@ int main(int argc, char* argv[]) {
 								th->help();
 								th->pauz();
 								inpt02[0] = '\0';
+								CLI = thNd->CLI;
 								break;
 							//Check for other files that may be needed for functions
 							case '3':
@@ -193,6 +209,7 @@ int main(int argc, char* argv[]) {
 								th->mkFil();
 								th->pauz();
 								inpt02[0] = '\0';
+								CLI = thNd->CLI;
 								break;
 							//What to install
 							case '4':

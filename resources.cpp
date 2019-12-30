@@ -215,15 +215,12 @@ void Complementary::WeBI(){
 		std::printf("Select the options to be displayed:\n");
 		std::printf("[0] Regular Output               ");
 		TFswitch(boAr.at(0));
-		std::printf("\n");
 		std::printf("[1] Redundancy Check ");
 		std::printf("\e[91m(RedCheck)\e[0m  ");
 		TFswitch(boAr.at(1));
-		std::printf("\n");
 		std::printf("[2] Document Comparison ");
 		std::printf("\e[96m(DoCo)\e[0m   ");
 		TFswitch(boAr.at(2));
-		std::printf("\n");
 		std::printf("[D] Done\n");
 		std::printf("[R] Reset selections\n");
 		std::printf("[C] Cancel\n");
@@ -1550,12 +1547,12 @@ void Complementary::TFswitch(bool t){
 		fll += iArr;
 		fll += iArr;
 		fll += btn;
-		std::printf("%s", fll.c_str());
+		std::printf("%s\n", fll.c_str());
 	}else{
 		fll += btn;
 		fll += oArr;
 		fll += oArr;
-		std::printf("%s", fll.c_str());
+		std::printf("%s\n", fll.c_str());
 	}
 }
 
@@ -1587,7 +1584,6 @@ char * Complementary::filIn(){
 		std::printf("MEye> Enter directory to file: ");
     std::scanf(" %s", fil);
     fil[strlen(fil)] = '\0';
-		std::printf("%s\n", fil);
 		if(!strcmp(fil, "ls")){
 			system("ls");
       fil = new char;
@@ -1743,9 +1739,4 @@ bool Complementary::GT1(std::string s){
 	}
   //std::printf("\n\n\t/GT1D\n\n");
 	return 0;
-}
-
-//Set CLI variable
-void Complementary::setCLI(){
-  this->CLI = 1;
 }

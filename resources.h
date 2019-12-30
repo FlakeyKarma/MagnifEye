@@ -22,7 +22,7 @@ class Complementary {
 		int chk = 0, numCheck = 0, prg = 0;
 		std::string loadBar, file0="", file1="", inptMain;
 		const std::string verz = "v2.15.8";
-		bool tw = false, th = false, prd = false, libUse, CLI = 0;
+		bool tw = false, th = false, prd = false, libUse;
 		~Complementary(){
 			if(!strThNeedle->empty())
 				delete strThNeedle;
@@ -83,7 +83,6 @@ class Complementary {
 				void setF(std::string s, bool b);
 				void TFswitch(bool t);
 				void setDownload();
-				void setCLI();
 
 			//Helper functions
 				void clr();
@@ -98,5 +97,5 @@ class Complementary {
 
 			//Var setF
 				//ThNeedle, RedCheck, DoCo0, Doco1, WeBI, ParseData
-				bool opChc[CHC_SIZE] = {0};
+				bool opChc[CHC_SIZE] = {0}, CLI = 0;
 };
