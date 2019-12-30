@@ -47,6 +47,8 @@ class MFEGUI(Frame):
             bitSet = [ThNeedle.get(), RedCheck.get(), weBI.get(), DoCo.get()]
             magOpt = [hlp.dirLocation+"linux-safe/MagnifEye", "-o"]
             hlp.tempWriter(txt.get('1.0', END))
+            if(bitSet[0]==1):
+                magOpt.append("-th")
             if(bitSet[1]==1):
                 magOpt.append("-red")
             if(bitSet[2]==1):
