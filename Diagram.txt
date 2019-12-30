@@ -1,0 +1,128 @@
+...Program
+.--The point of MagnifEye is to enumerate the amount of times a
+word or phrase appears in the text document present--.
+
+	MagnifEye
+
+...Main functions
+.--ThNeedle [Thesaurus Needed]enumerates amount of word appearances in
+documents--.
+
+		void ThNeedle()
+
+.--RedCheck [Redundancy Check] enumerates amount of phrase appearances
+in documents--.
+
+		void RedCheck()
+
+.--DoCo [Document Comparison] checks similarities in words and phrases
+in documents provided--.
+
+		void DoCo()
+
+.--WeBI [Web-Based Interface] Depending on whether or not http-server
+npm package is installed will determine if a new json or js file is
+created--.
+
+		void WeBI()
+
+...Helper functions
+.--setF [Set File] set file directory for file in use--.
+
+		void setF(string, bool)
+
+.--wordReturn [Word Return] return string vector of words in file without bad chars based on UTF-8--.
+
+		vector{string} wordReturn(string)
+
+.--SeNDe [Search-N-Destroy] sort strings and erase unneeded strings and corresponding longs--.
+
+		void SeNDe(string, bool)
+
+.--nuMake [Number Make] return long vector based on wordReturn() vector--.
+
+		void nuMake(int, vector{string})
+
+.--outP [Out Put] print values--.
+
+		void outP(string, int)
+
+.--GT1 [Greater Than 1] check if number of words in string is greater than 1--.
+
+		bool GT1()
+
+.--GUD [Good] check if file exists in given directory--.
+
+		bool GUD(string)
+
+.--clr [Clear] clear screen--.
+
+		void clr()
+
+.--progressBar [Progress Bar] display progress through MagnifEye process--.
+
+		void progressBar(float)
+
+.--r0 [NULL] dev tool to show variables, their size, and corresponding items--.
+
+		void r0(string)
+
+.--ver [Version] return version of program--.
+
+		string ver()
+
+.--data [Data] create js or json file for WeBI() function--.
+
+		void data(bool, bool, bool)
+
+.--mkFil [Make Files] create necessary files for WeBI() to work--.
+
+		void mkFil()
+
+.--TFswitch [True-False Switch] give visual for selected functions in CLI--.
+
+		void TFswitch(bool t)
+
+.--filIn [File In] take input for file--.
+
+		char *filIn()
+
+.--help [Help] display help text--.
+
+		void help()
+
+.--setDownload [Start Download Var] set YES or NO depending on whether user wants to install libraries--.
+
+		void setDownload()
+
+.--Downloadz [Download] depending on ``libUse``, do or don't install libraries--.
+
+		void Downloadz()
+
+.--libInstl [Library Install] set ``libUse`` var to 1 or 0 depending on setDownloadz()--.
+
+		void libInstl(string)
+
+...Diagram
+
++Diagram+
+.ThNeedle(file_text)
+	.stringVec = wordReturn(file_text)
+	.numberVec = nuMake(stringVec)
+	.TmpltUnPc = SeNDe()
+
++Diagram+
+.MagnifEye
+	ThNeedle()
+	
+	RedCheck()
+		ThNeedle()
+	
+	DoCo()
+		RedCheck()
+			ThNeedle()
+		RedCheck()
+			ThNeedle()
+	
+	WeBI()
+		ThNeedle() _V RedCheck() _V DoCo()
