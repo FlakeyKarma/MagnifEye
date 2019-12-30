@@ -1,4 +1,4 @@
-#include "rs.h"
+#include "resources.h"
 /*
   MAIN FUNCTIONS
 */
@@ -272,7 +272,7 @@ void Complementary::WeBI(){
 			case 'c':
 			case 'C':
 				std::printf("Are you sure?\n");
-				std::cin >> inpt;
+        std::scanf(" %c", &inpt);
 				switch(inpt){
 					case 'y':
 					case 'Y':
@@ -415,7 +415,9 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  W.open("temp.txt");
+  (this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
+  if(this->CLI) this->opChc[4] = 1;
+  //W.open("temp.txt");
   std::string temp = "";
   this->mkFil();
   this->tw = this->opChc[1];
@@ -1566,18 +1568,31 @@ void Complementary::clr(){
 	#endif
 }
 
+//Pause output
+void Complementary::pauz(){
+  #ifdef _WIN32
+  system("PAUSE");
+  #else
+  std::printf("PressAnyKey...\n");
+  std::cin.ignore();
+  std::cin.get();
+  #endif
+}
+
 //Returns file requested to have read
 char * Complementary::filIn(){
   //std::printf("\n\n\tfilIn\n\n");
-	char *fil[50];
+	char *fil;
 	while(1){
 		std::printf("MEye> Enter directory to file: ");
-		std::fgets(*fil, 50, stdin);
-		std::printf("%s\n", *fil);
-		if(*fil == "ls"){
+    std::scanf(" %s", fil);
+    fil[strlen(fil)] = '\0';
+		std::printf("%s\n", fil);
+		if(!strcmp(fil, "ls")){
 			system("ls");
+      fil = new char;
 		}else{
-			return *fil;
+			return fil;
 		}
 	}
   //std::printf("\n\n\t/filIn\n\n");
@@ -1617,7 +1632,7 @@ void Complementary::setDownload(){
 	#ifdef _WIN32
 		std::printf("I will automatically add this to your path as well.\n");
 	#endif
-	std::cin >> answer;
+  std::scanf(" %c", &answer);
 	while(true){
 		if(FIN)
 			break;
@@ -1728,4 +1743,9 @@ bool Complementary::GT1(std::string s){
 	}
   //std::printf("\n\n\t/GT1D\n\n");
 	return 0;
+}
+
+//Set CLI variable
+void Complementary::setCLI(){
+  this->CLI = 1;
 }

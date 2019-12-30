@@ -1,4 +1,4 @@
-#include "rs.h"
+#include "resources.h"
 
 int main(int argc, char* argv[]) {
 	try{
@@ -65,6 +65,7 @@ int main(int argc, char* argv[]) {
 					thNd = new Complementary;
 					dl = 0;
 				}
+				thNd->setCLI();
 				FL.open("downloadTF.txt");
 				while(getline(FL, ansr)){
 					if(ansr == "NOT-YET" || ansr == "NO" || ansr == "YES"){
@@ -81,7 +82,7 @@ int main(int argc, char* argv[]) {
 				std::printf("                  _| |                      / /\n");
 				std::printf("                 [__/                      / /\n");
 				std::printf("                                          /_/\n");
-				std::printf("\n%s", th->ver().c_str());
+				std::printf("\n%s\n", th->ver().c_str());
 				std::printf("By FlakeyKarma\n\n\n");
 				std::printf("[0] Regular Output\n");
 				std::printf("[1] Redundancy Check \e[91m(RedCheck)\e[0m\n");
@@ -91,15 +92,20 @@ int main(int argc, char* argv[]) {
 				std::printf("[x] Exit\n");
 				std::printf("\nMEye> ");
 				th->libInstl(&ansr);
-				std::scanf("%c", &inpt01[0]);
+				std::scanf("%c", inpt01);
+				inpt01[1] = '\0';
 				switch (inpt01[0]) {
 				//Regular output
 				case '0':
 					th->clr();
+					std::printf("EE\n");
 					fil = thNd->filIn();
+					std::printf("%s\n", fil.c_str());
 					thNd->opChc[0] = 1;
 					thNd->MagnifEye(fil);
 					dl = 1;
+					th->pauz();
+					inpt01[0] = '\0';
 					break;
 				//RedCheck
 				case '1':
@@ -108,6 +114,8 @@ int main(int argc, char* argv[]) {
 					thNd->opChc[1] = 1;
 					thNd->MagnifEye(fil);
 					dl = 1;
+					th->pauz();
+					inpt01[0] = '\0';
 					break;
 				//DoCo
 				case '2':
@@ -116,6 +124,8 @@ int main(int argc, char* argv[]) {
 					thNd->opChc[2] = 1;
 					thNd->MagnifEye(fil);
 					dl = 1;
+					th->pauz();
+					inpt01[0] = '\0';
 					break;
 				//weBI
 				case '3':
@@ -124,6 +134,8 @@ int main(int argc, char* argv[]) {
 					thNd->WeBI();
 					thNd->MagnifEye(fil);
 					dl = 1;
+					th->pauz();
+					inpt01[0] = '\0';
 					break;
 				//Other
 				case '4':
@@ -137,7 +149,8 @@ int main(int argc, char* argv[]) {
 						std::printf("=============>[4] Install Libraries :: Current setting=%s\n", ansr.c_str());
 						std::printf("=============>[x] Exit\n");
 						std::printf("\n========>MEye> \n");
-						std::scanf(" %c", &inpt02[0]);
+						std::scanf(" %c", inpt02);
+						inpt01[1] = '\0';
 						switch(inpt02[0]){
 							//Legend
 							case '0':
@@ -149,6 +162,8 @@ int main(int argc, char* argv[]) {
 								std::printf("\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n\n");
 								std::printf("\t\e[31mBad\n\n");
 								std::printf("\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m\n");
+								th->pauz();
+								inpt02[0] = '\0';
 								break;
 							//About
 							case '1':
@@ -162,16 +177,22 @@ int main(int argc, char* argv[]) {
 												\n  point. Sometimes, you also need a little \"umf\".. ya know?\n\
 												\n  There you go\n\
 												\n  -FlakeyKarma\n\n\n");
+								th->pauz();
+								inpt02[0] = '\0';
 								break;
 							//Help
 							case '2':
 								th->clr();
 								th->help();
+								th->pauz();
+								inpt02[0] = '\0';
 								break;
 							//Check for other files that may be needed for functions
 							case '3':
 								th->clr();
 								th->mkFil();
+								th->pauz();
+								inpt02[0] = '\0';
 								break;
 							//What to install
 							case '4':
@@ -193,6 +214,8 @@ int main(int argc, char* argv[]) {
 								othr = 1;
 								break;
 						}
+						th->pauz();
+						inpt01[0] = '\0';
 						if(othr) break;
 					}
 					break;
@@ -203,6 +226,7 @@ int main(int argc, char* argv[]) {
 					std::printf("--=goodbye=--\n");
 					std::exit(0);
 				}
+				inpt01[0] = '\0';
 			}
 		}
 		if (strcmp(inpt01, ".txt") && !TF)
