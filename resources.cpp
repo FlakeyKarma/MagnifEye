@@ -207,6 +207,7 @@ void Complementary::WeBI(){
 	std::string rgS = "[ ", rCS = "[ ", dCS = "[ ";
 	std::vector<std::string> stAr = {rgS, rCS, dCS};
 	std::vector<bool> boAr = {rg, rC, dC};
+  this->mkFil();
 	while(1){
 		clr();
 		for(int i = 0; i < stAr.size(); i++){
@@ -416,7 +417,6 @@ void Complementary::outP(){
   if(this->CLI) this->opChc[4] = 1;
   //W.open("temp.txt");
   std::string temp = "";
-  this->mkFil();
   this->tw = this->opChc[1];
   this->th = this->opChc[2];
   std::vector<std::string> a = *this->strThNeedle;
@@ -429,7 +429,7 @@ void Complementary::outP(){
   if(this->opChc[0]){
     if(this->opChc[4]){
       for(int i = 0; i < this->strThNeedle->size(); i++){
-        W << "strThNeedle=" << this->strThNeedle->at(i) << ">" << this->intThNeedle->at(i) << "\n";
+        W << "ThNeedle=" << this->strThNeedle->at(i) << ">" << this->intThNeedle->at(i) << "\n";
       }
     }
     while (true) {
@@ -461,7 +461,7 @@ void Complementary::outP(){
     if(this->opChc[4]){
       for(int i = 0; i < this->strRedCheck->size(); i++){
         if(this->intRedCheck->at(i) > 1)
-          W << "strRedCheck=" << this->strRedCheck->at(i) << ">" << this->intRedCheck->at(i) << std::endl;
+          W << "RedCheck=" << this->strRedCheck->at(i) << ">" << this->intRedCheck->at(i) << std::endl;
       }
     }
     a = *this->strRedCheck;
@@ -516,16 +516,16 @@ void Complementary::outP(){
       W << "FILE1=" << this->file0 << std::endl;
       W << "FILE2=" << this->file1 << std::endl;
       for(int i = 0; i < this->strComparison0->size(); i++){
-        W << "strComparison0=" << this->strComparison0->at(i) << ">" << this->intComparison0->at(i) << std::endl;
+        W << "Comparison0=" << this->strComparison0->at(i) << ">" << this->intComparison0->at(i) << std::endl;
       }
       for(int i = 0; i < this->strComparison1->size(); i++){
-        W << "strComparison1=" << this->strComparison1->at(i) << ">" << this->intComparison1->at(i) << std::endl;
+        W << "Comparison1=" << this->strComparison1->at(i) << ">" << this->intComparison1->at(i) << std::endl;
       }
       for(int i = 0; i < this->strDoc0->size(); i++){
-        W << "strDoc0=" << this->strDoc0->at(i) << ">" << this->intDoc0->at(i) << std::endl;
+        W << "Doc0=" << this->strDoc0->at(i) << ">" << this->intDoc0->at(i) << std::endl;
       }
       for(int i = 0; i < this->strDoc1->size(); i++){
-        W << "strDoc1=" << this->strDoc1->at(i) << ">" << this->intDoc1->at(i) << std::endl;
+        W << "Doc1=" << this->strDoc1->at(i) << ">" << this->intDoc1->at(i) << std::endl;
       }
     }
     //this->rO("EE::outP::D::");
@@ -834,7 +834,7 @@ void Complementary::outP(){
     }
 
   }
-  if(this->opChc[4]){
+  if(this->opChc[3]){
     this->data(&this->opChc[0], &this->opChc[1], &this->opChc[2]);
   }
   W.close();
