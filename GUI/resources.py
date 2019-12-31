@@ -74,10 +74,11 @@ class MFEGUI(Frame):
                     magOpt.append("-dc")
                 magOpt.append(hlp.tmpLocation)
                 subprocess.run(magOpt)
-                os.remove(hlp.tmpLocation)
                 #Work on function based on whether bit is set in bitSet
                 if(bitSet[0]):
                     ME_ThNeedle(fileTXT)
+                #Delete temp file created
+                os.remove(hlp.tmpLocation)
 
             else:
                 messagebox.showerror("ERROR", "No File Selected")
@@ -130,23 +131,28 @@ class MFEGUI(Frame):
         #String coloring
         def strColor():
             count = 0
-            color = ['green', 'red', 'blue']
+            color = ['green', 'yellow', 'red']
             for strng in hlp.idxStrg:
                 for word in range(len(strng)):
-                    print(word)
                     txt.tag_add("here"+str(count), strng[word][0], strng[word][1])
-                    txt.tag_config("here"+str(count), background = color[word])
+                    if(word <= 5):
+                        txt.tag_config("here"+str(count), foreground = color[0])
+                    if(word > 5 and word <= 10):
+                        txt.tag_config("here"+str(count), foreground = color[1])
+                    if(word > 10):
+                        txt.tag_config("here"+str(count), foreground = color[2])
+
                     count += 1
 
         #ThNeedle function
         def ME_ThNeedle(x):
             dictSet()
             #List of enumeration of corresponding words
-            numLst = lstRet(x)
+            # numLst = lstRet(x)
             #List of strings under analysis
-            strLst = [''.join([j for j in i if j.isalpha() or j == '\n' or j == '\t']) for i in x.split(" ")]
+            # strLst = [''.join([j for j in i if j.isalpha() or j == '\n' or j == '\t']) for i in x.split(" ")]
             #Prepare coordinates for coloring
-            clrPrp([i.lower() for i in strLst])
+            clrPrp([i.lower() for i in x.split(" ")])
             #Color words
             strColor()
 
