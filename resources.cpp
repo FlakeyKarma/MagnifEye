@@ -11,6 +11,7 @@ void Complementary::MagnifEye(std::string file){
 	if(GUD(file)){
     fil.close();
     this->setF(file, 0);
+
     if(this->opChc[2]){
       this->DoCo();
     }
@@ -332,14 +333,28 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 			for (long j = 0; j < a.size(); j++) {
 				if (a0.size() < a.size())
 					a0.push_back(0);
-				if (s.at(i) == a.at(j)) {
-					a0.at(j)++;
-					SZ++;
-					break;
-				}
-				if (s.at(i) != a.at(j) && j == a.size() - 1) {
-					a.push_back(s.at(i));
-				}
+        if(this->rawRead[0]){
+  				if (this->lower(s.at(i)) == this->lower(a.at(j))) {
+  					a0.at(j)++;
+  					SZ++;
+            if(!this->rawRead[1]) break;
+  				}
+          if (this->lower(s.at(i)) != this->lower(a.at(j)) && j == a.size() - 1) {
+            a.push_back(s.at(i));
+          }
+        }
+        if(this->rawRead[1]){
+          if (s.at(i) == a.at(j)) {
+            if(!this->rawRead[0]){
+              a0.at(j)++;
+              SZ++;
+            }
+            break;
+          }
+          if (s.at(i) != a.at(j) && j == a.size() - 1) {
+            a.push_back(s.at(i));
+          }
+        }
 			}
 		}
 	} else {
@@ -382,12 +397,7 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
         progressBar(float(1.0/inpt.length())*(prg*3));
         if((int)inpt[i] >= 32){
 			if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1]) || (char)inpt[i] == '\'') {
-				if(isalpha((char)inpt[i])){
-					s += tolower(inpt[i]);
-				}
-				else{
-					s += inpt[i];
-				}
+				s += inpt[i];
 			}
 			if((char)inpt[i] == '.' && !isalpha((char)inpt[i+1])){
 				sS.push_back("\\\\+==PERIOD==+//");
@@ -793,7 +803,7 @@ void Complementary::outP(){
         std::printf("%s\n",lne.c_str());
       }
       while (SET == a0.at(i)) {
-        if(this->opChc[4] || this->opChc[5])
+        if(this->opChc[4])
           W << a.at(i) << ">" << a0.at(i) << std::endl;
         for(int j = 0; j < this->strRedCheck->size(); j++){
           if(this->strRedCheck->at(j) == this->strDoc1->at(i)){
@@ -1739,4 +1749,10 @@ bool Complementary::GT1(std::string s){
 	}
   //std::printf("\n\n\t/GT1D\n\n");
 	return 0;
+}
+
+//
+std::string Complementary::lower(std::string s){
+  for(int i = 0; i < s.length(); i++) s[i] = tolower(s[i]);
+  return s;
 }
