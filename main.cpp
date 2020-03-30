@@ -286,6 +286,7 @@ int main(int argc, char* argv[]) {
 		std::printf("\n\n\n\n\nBy FlakeyKarma\n\n\n");
 		if(argc == 2) th->opChc[0] = 1;
 		if(!th->opChc[5]) th->rawRead[0] = 1;
+		//for(int i = 0; i < CHC_SIZE; i++) std::printf("%d \n", th->opChc[i]);
 		th->MagnifEye(argv[argc-1]);
 		std::printf("\n\n--=goodbye=--\n\n\n");
 		return 0;

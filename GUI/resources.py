@@ -15,12 +15,13 @@ class HELPERS:
         self.textBoxX = self.X/2
         self.textBoxY = self.Y/1.5
         self.dirLocation = str(os.path.dirname(__file__)).split("MagnifEye")[0]+str('MagnifEye/')
-        self.filLocation = "/"
+        self.filLocation = "/home/karma/.git/MagnifEye/GUI/"
         self.tmpLocation = self.dirLocation + "temP.txt"
         self.slFLocation = None
         self.storage = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
-        self.idxStrg = []
+        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
         self.dictList = ['ThNeedle', 'RedCheck', 'Comparison', 'DoCo']
+        self.TXT_LST = []
 
     def tempWriter(self, x):
         file=open(self.tmpLocation, "w")
@@ -30,7 +31,24 @@ class HELPERS:
     def varReset(self):
         self.slFLocation = None
         self.storage = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
-        self.idxStrg = []
+        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
+
+    def TXT_LSTBuild(self, x):
+        TEMP = ""
+        LNG = 0
+        NUM = int(self.textBoxX/10)
+        for i in x:
+            if i != '\n' and LNG <= int(self.textBoxX):
+                LNG += 1
+                TEMP += i
+            else:
+                if i != '\n':
+                    TEMP += i
+                if len(TEMP) != 0:
+                    self.TXT_LST.append(TEMP)
+                LNG = 0
+                TEMP = ""
+
 
 class MFEGUI(Frame):
     def __init__(self, master=None):
@@ -63,6 +81,7 @@ class MFEGUI(Frame):
                 bitSet = [ThNeedle.get(), RedCheck.get(), weBI.get(), DoCo.get()]
                 magOpt = [hlp.dirLocation+"linux-safe/MagnifEye", "-o"]
                 fileTXT = txt.get(1.0, END)
+                hlp.TXT_LSTBuild(fileTXT)
                 hlp.tempWriter(fileTXT)
                 if(bitSet[0]==1):
                     magOpt.append("-th")
@@ -121,38 +140,95 @@ class MFEGUI(Frame):
             y.reverse()
             return y
 
-        #Color Preparation
-        def clrPrp(x):
-            for i in hlp.dictList:
-                if(len(hlp.storage[i]) > 0):
-                    for j in hlp.storage[i]:
-                        hlp.idxStrg.append([["1." + str(k.start()), "1." + str(k.start()+len(j))] for k in re.finditer(j, ' '.join(x))])
+        #Adjust newline string
+        def newlineAdjust(x):
+            TMP_CONTAINER = list(x)
+            TMP_WORD = ''
+            TMP_RETURN = []
+            for i in TMP_CONTAINER:
+                if i == '\n':
+                    if TMP_WORD != '':
+                        TMP_RETURN.append(TMP_WORD)
+                    TMP_RETURN.append(i)
+                    TMP_WORD = ''
+                    continue
+                TMP_WORD += i
+            TMP_RETURN.append(TMP_WORD)
+            return TMP_RETURN
+
+        #Return full list of text with newline
+        def fullListReturn(x):
+            LISTING = list(x)
+            TMP_RETURN = []
+            for i in range(len(LISTING)):
+                if '\n' in LISTING[i]:
+                    TMP_ARY = newlineAdjust(LISTING[i])
+                    for j in TMP_ARY:
+                        TMP_RETURN.append(j)
+                else:
+                    TMP_RETURN.append(LISTING[i])
+            return TMP_RETURN
+
+        #Prepare for coloring text
+        def ColorPreparation(x):
+            #All characters removed except capital,lowercase,',-,\n
+            LST = [chr(i+65) for i in range(26)] + [chr(i+97) for i in range(26)] + ['\'', '-','\n']
+            x = [i for i in x.split(' ')]
+            DOC = fullListReturn(x)
+            TXT_ROW = 0
+            TXT_SNT = 0
+            TXT_SENTENCE = ''
+            for FUNC in hlp.dictList:
+                if hlp.storage[FUNC] != {}:
+                    for j in hlp.storage[FUNC]:
+                        hlp.idxStrg[FUNC][j] = []
+                    for i in DOC:
+                        if '\n' in i:
+                            TXT_ROW += 1
+                            TXT_SNT = 0
+                            for ITEM in hlp.storage:
+                                for ITEM_KEY in hlp.storage[ITEM]:
+                                    TEMPORARY = re.finditer(r'\b%s\b' % re.escape(ITEM_KEY), TXT_SENTENCE.lower())
+                                    if TEMPORARY != None:
+                                        for OCCURRANCE in TEMPORARY:
+                                            if TXT_ROW > 1:
+                                                hlp.idxStrg[FUNC][ITEM_KEY].append([str('%d.%d' % (TXT_ROW, OCCURRANCE.start()-2)),str('%d.%d' % (TXT_ROW,OCCURRANCE.start()+len(ITEM_KEY)-2))])
+                                            else:
+                                                hlp.idxStrg[FUNC][ITEM_KEY].append([str('%d.%d' % (TXT_ROW, OCCURRANCE.start())),str('%d.%d' % (TXT_ROW,OCCURRANCE.start()+len(ITEM_KEY)))])
+                            TXT_SENTENCE = ''
+                        if TXT_SENTENCE == '':
+                            TXT_SENTENCE += str('%s' %(i.lower()))
+                        else:
+                            TXT_SENTENCE += str(' %s' %(i.lower()))
+
+                        TXT_SNT = len(TXT_SENTENCE)
+
+            return hlp
 
         #String coloring
         def strColor():
-            count = 0
-            color = ['green', 'yellow', 'red']
-            for strng in hlp.idxStrg:
-                for word in range(len(strng)):
-                    txt.tag_add("here"+str(count), strng[word][0], strng[word][1])
-                    if(word <= 5):
-                        txt.tag_config("here"+str(count), foreground = color[0])
-                    if(word > 5 and word <= 10):
-                        txt.tag_config("here"+str(count), foreground = color[1])
-                    if(word > 10):
-                        txt.tag_config("here"+str(count), foreground = color[2])
-
+            count = -1
+            color = ['green', 'blue', 'red']
+            for SECTION in hlp.idxStrg:
+                for strng in hlp.idxStrg[SECTION]:
                     count += 1
+                    for word in hlp.idxStrg[SECTION][strng]:
+                        txt.tag_add("here"+str(count), str(word[0]), str(word[1]))
+                        if(hlp.storage[SECTION][strng] <= 5):
+                            txt.tag_config("here"+str(count), foreground = color[0])
+
+                        if(hlp.storage[SECTION][strng] > 5 and hlp.storage[SECTION][strng] <= 10):
+                            txt.tag_config("here"+str(count), foreground = color[1])
+
+                        if(hlp.storage[SECTION][strng] > 10):
+                            txt.tag_config("here"+str(count), foreground = color[2])
+
 
         #ThNeedle function
         def ME_ThNeedle(x):
             dictSet()
-            #List of enumeration of corresponding words
-            # numLst = lstRet(x)
-            #List of strings under analysis
-            # strLst = [''.join([j for j in i if j.isalpha() or j == '\n' or j == '\t']) for i in x.split(" ")]
             #Prepare coordinates for coloring
-            clrPrp([i.lower() for i in x.split(" ")])
+            hlp = ColorPreparation(x)
             #Color words
             strColor()
 
@@ -205,7 +281,7 @@ class MFEGUI(Frame):
         #RIGHT SIDE
 
         #Text box
-        txt = Text(master, width=int(hlp.textBoxX/10), height=int(hlp.textBoxY/19))
+        txt = Text(master, width=int(hlp.textBoxX/10), height=int(hlp.textBoxY/19), wrap=WORD)
         scrl = Scrollbar(master, command=txt.yview)
         txt.configure(yscrollcommand=scrl.set)
         txt.pack()

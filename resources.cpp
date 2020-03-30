@@ -118,8 +118,8 @@ std::vector<Complementary::set0> Complementary::RedCheck(bool d){
 }
 
 //DoCo      function
-
 void Complementary::DoCo(){
+  //std::printf("\n\n\tDoCo\n\n");
 	char *file = new(std::nothrow) char[15];
   //Set NewMetric and ReSize
 	long NM = 0, RS;
@@ -196,13 +196,13 @@ void Complementary::DoCo(){
 	this->tempSort = this->SeNDe(this->nuMake(5, *this->strDoc1));
   *this->strDoc1 = this->tempSort[0].str;
   *this->intDoc1 = this->tempSort[0].lng;
-  std::printf("\n\n\t/DoCo\n\n");
+  //std::printf("\n\n\t/DoCo\n\n");
 }
 
 //WeBI      function
 
 void Complementary::WeBI(){
-  std::printf("\n\n\tweBI\n\n");
+  //std::printf("\n\n\tweBI\n\n");
 	char ch, inpt;
 	bool rg = 0, rC = 0, dC = 0, brk = 0, x = 0;
 	std::string rgS = "[ ", rCS = "[ ", dCS = "[ ";
@@ -296,7 +296,7 @@ void Complementary::WeBI(){
 	}
 	if(x)
 		std::printf("Returning...\n");
-    std::printf("\n\n\t/weBI\n\n");
+    //std::printf("\n\n\t/weBI\n\n");
 }
 
 /*
@@ -439,7 +439,7 @@ void Complementary::outP(){
   if(this->opChc[0]){
     if(this->opChc[4]){
       for(int i = 0; i < this->strThNeedle->size(); i++){
-        W << "ThNeedle=" << this->strThNeedle->at(i) << ">" << this->intThNeedle->at(i) << "\n";
+        W << "ThNeedle=" << this->lower(this->strThNeedle->at(i)) << ">" << this->intThNeedle->at(i) << "\n";
       }
     }
     while (true) {
@@ -471,7 +471,7 @@ void Complementary::outP(){
     if(this->opChc[4]){
       for(int i = 0; i < this->strRedCheck->size(); i++){
         if(this->intRedCheck->at(i) > 1)
-          W << "RedCheck=" << this->strRedCheck->at(i) << ">" << this->intRedCheck->at(i) << std::endl;
+          W << "RedCheck=" << this->lower(this->strRedCheck->at(i)) << ">" << this->intRedCheck->at(i) << std::endl;
       }
     }
     a = *this->strRedCheck;
@@ -523,19 +523,19 @@ void Complementary::outP(){
   if(this->opChc[2]){
     std::vector<std::string> nLW, nL0, pr0, pr1;
     if(this->opChc[4]){
-      W << "FILE1=" << this->file0 << std::endl;
-      W << "FILE2=" << this->file1 << std::endl;
+      W << "FILE1=" << this->lower(this->file0) << std::endl;
+      W << "FILE2=" << this->lower(this->file1) << std::endl;
       for(int i = 0; i < this->strComparison0->size(); i++){
-        W << "Comparison0=" << this->strComparison0->at(i) << ">" << this->intComparison0->at(i) << std::endl;
+        W << "Comparison0=" << this->lower(this->strComparison0->at(i)) << ">" << this->intComparison0->at(i) << std::endl;
       }
       for(int i = 0; i < this->strComparison1->size(); i++){
-        W << "Comparison1=" << this->strComparison1->at(i) << ">" << this->intComparison1->at(i) << std::endl;
+        W << "Comparison1=" << this->lower(this->strComparison1->at(i)) << ">" << this->intComparison1->at(i) << std::endl;
       }
       for(int i = 0; i < this->strDoc0->size(); i++){
-        W << "Doc0=" << this->strDoc0->at(i) << ">" << this->intDoc0->at(i) << std::endl;
+        W << "Doc0=" << this->lower(this->strDoc0->at(i)) << ">" << this->intDoc0->at(i) << std::endl;
       }
       for(int i = 0; i < this->strDoc1->size(); i++){
-        W << "Doc1=" << this->strDoc1->at(i) << ">" << this->intDoc1->at(i) << std::endl;
+        W << "Doc1=" << this->lower(this->strDoc1->at(i)) << ">" << this->intDoc1->at(i) << std::endl;
       }
     }
     //this->rO("EE::outP::D::");
@@ -804,7 +804,7 @@ void Complementary::outP(){
       }
       while (SET == a0.at(i)) {
         if(this->opChc[4])
-          W << a.at(i) << ">" << a0.at(i) << std::endl;
+          W << this->lower(a.at(i)) << ">" << a0.at(i) << std::endl;
         for(int j = 0; j < this->strRedCheck->size(); j++){
           if(this->strRedCheck->at(j) == this->strDoc1->at(i)){
             chk0 = j;
