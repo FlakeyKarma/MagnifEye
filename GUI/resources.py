@@ -15,7 +15,7 @@ class HELPERS:
         self.textBoxX = self.X/2
         self.textBoxY = self.Y/1.5
         self.dirLocation = str(os.path.dirname(__file__)).split("MagnifEye")[0]+str('MagnifEye/')
-        self.filLocation = "/home/karma/.git/MagnifEye/GUI/"
+        self.filLocation = "/" + os.getcwd()
         self.tmpLocation = self.dirLocation + "temP.txt"
         self.slFLocation = None
         self.storage = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
