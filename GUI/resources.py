@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 import os
 import subprocess
 import re
+from pathlib import Path
 
 global file0, file1
 
@@ -22,6 +23,11 @@ class HELPERS:
         self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
         self.dictList = ['ThNeedle', 'RedCheck', 'Comparison', 'DoCo']
         self.TXT_LST = []
+        self.color = ['green', 'blue', 'red']
+        self.mtrec = [5, 10]
+        self.colSet()
+
+
 
     def tempWriter(self, x):
         file=open(self.tmpLocation, "w")
@@ -49,6 +55,38 @@ class HELPERS:
                 LNG = 0
                 TEMP = ""
 
+    def colSet(self):
+        if Path(str('%s/color.conf' % (os.getcwd()))).is_file():
+            with open(str('%s/color.conf' % (os.getcwd()))) as FIL:
+                FirstString = FIL.read()
+            LST = FirstString.split(',')
+            i = -1
+            while(i < len(LST)):
+                if LST[i] == '':
+                    LST.pop(i)
+                    i-=1
+                    continue
+                try:
+                    LST[i] = int(LST[i])
+                    i += 1
+                except ValueError:
+                    i += 1
+                    continue
+            i = 0
+            j = 0
+            while(i < len(LST)):
+                if isinstance(LST[i], str):
+                    self.color[j] = LST[i]
+                    j += 1
+                i+=1
+            i = 0
+            j = 0
+            while(i < len(LST)):
+                if isinstance(LST[i], int):
+                    self.mtrec[i] = LST[i]
+                    j += 1
+                i+=1
+
 
 class MFEGUI(Frame):
     def __init__(self, master=None):
@@ -56,6 +94,11 @@ class MFEGUI(Frame):
         self.master = master
         #Left side
         self.WINDOW(self.master)
+        self.hlp = HELPERS(master=self.master)
+
+    def CONF(self):
+        self.hlp.colSet()
+        self.config_window = outer_window()
 
     def WINDOW(self, master=None):
 
@@ -64,11 +107,7 @@ class MFEGUI(Frame):
         broPth = []
         hlp = HELPERS(master)
         bitSet = 0
-        ThNeedle = IntVar()
-        RedCheck = IntVar()
-        weBI = IntVar()
-        DoCo = IntVar()
-        filename = "E"
+        FUNCTION_CHOICE = IntVar()
 
         #FUNCTION CREATION
 
@@ -78,24 +117,19 @@ class MFEGUI(Frame):
                 hlp.varReset()
                 #Create command to run on command
                 file0 = (broPth[0]["text"]).replace('\n', '')
-                bitSet = [ThNeedle.get(), RedCheck.get(), weBI.get(), DoCo.get()]
+                bitSet = FUNCTION_CHOICE.get()
                 magOpt = [hlp.dirLocation+"linux-safe/MagnifEye", "-o"]
                 fileTXT = txt.get(1.0, END)
                 hlp.TXT_LSTBuild(fileTXT)
                 hlp.tempWriter(fileTXT)
-                if(bitSet[0]==1):
+                if(bitSet==1):
                     magOpt.append("-th")
-                if(bitSet[1]==1):
+                if(bitSet==2):
                     magOpt.append("-red")
-                if(bitSet[2]==1):
-                    magOpt.append("-w")
-                if(bitSet[3]==1):
-                    magOpt.append("-dc")
                 magOpt.append(hlp.tmpLocation)
                 subprocess.run(magOpt)
-                #Work on function based on whether bit is set in bitSet
-                if(bitSet[0]):
-                    ME_ThNeedle(fileTXT)
+                #Run through each function for coordinates and color
+                ME_RunThrough(fileTXT)
                 #Delete temp file created
                 os.remove(hlp.tmpLocation)
 
@@ -208,24 +242,24 @@ class MFEGUI(Frame):
         #String coloring
         def strColor():
             count = -1
-            color = ['green', 'blue', 'red']
             for SECTION in hlp.idxStrg:
                 for strng in hlp.idxStrg[SECTION]:
                     count += 1
                     for word in hlp.idxStrg[SECTION][strng]:
                         txt.tag_add("here"+str(count), str(word[0]), str(word[1]))
-                        if(hlp.storage[SECTION][strng] <= 5):
-                            txt.tag_config("here"+str(count), foreground = color[0])
+                        if(hlp.storage[SECTION][strng] <= hlp.mtrec[0]):
+                            txt.tag_config("here"+str(count), foreground = hlp.color[0])
 
-                        if(hlp.storage[SECTION][strng] > 5 and hlp.storage[SECTION][strng] <= 10):
-                            txt.tag_config("here"+str(count), foreground = color[1])
+                        if(hlp.storage[SECTION][strng] > hlp.mtrec[0] and hlp.storage[SECTION][strng] <= hlp.mtrec[1]):
+                            txt.tag_config("here"+str(count), foreground = hlp.color[1])
 
-                        if(hlp.storage[SECTION][strng] > 10):
-                            txt.tag_config("here"+str(count), foreground = color[2])
+                        if(hlp.storage[SECTION][strng] > hlp.mtrec[1]):
+                            txt.tag_config("here"+str(count), foreground = hlp.color[2])
 
 
-        #ThNeedle function
-        def ME_ThNeedle(x):
+        #Get Coordinates and color line(s)
+        def ME_RunThrough(x):
+            #Set up dictionary to hold data from temp.txt file
             dictSet()
             #Prepare coordinates for coloring
             hlp = ColorPreparation(x)
@@ -249,7 +283,7 @@ class MFEGUI(Frame):
         profName.place(x=int(hlp.X*.01), y=int(hlp.Y*.025))
 
         #Program name set
-        progName = Label(master, text="MagnifEye v1.15.8", font="Helvetica 10 bold")
+        progName = Label(master, text="MagnifEye v2.20.9", font="Helvetica 10 bold")
         progName.pack()
         progName.place(x=int(hlp.X*.01), y=int(hlp.Y*.19))
 
@@ -258,13 +292,12 @@ class MFEGUI(Frame):
         opts.pack()
         opts.place(x=int(hlp.X*.01), y=int(hlp.Y*.22))
 
-        #CheckBoxes
-        Checkbutton(master, text="ThNeedle", font="Helvetica 10 bold", variable=ThNeedle).place(x=int(hlp.X*.01), y=int(hlp.Y*.25))
-        Checkbutton(master, text="RedCheck", font="Helvetica 10 bold", variable=RedCheck).place(x=int(hlp.X*.01), y=int(hlp.Y*.27))
-        Checkbutton(master, text="weBI", font="Helvetica 10 bold", variable=weBI).place(x=int(hlp.X*.01), y=int(hlp.Y*.29))
-        Checkbutton(master, text="DoCo", font="Helvetica 10 bold", variable=DoCo).place(x=int(hlp.X*.01), y=int(hlp.Y*.31))
+        #RadioButtons
+        Radiobutton(master, text="ThNeedle", font="Helvetica 10 bold", variable=FUNCTION_CHOICE, value=1).place(x=int(hlp.X*.01), y=int(hlp.Y*.25))
+        Radiobutton(master, text="RedCheck", font="Helvetica 10 bold", variable=FUNCTION_CHOICE, value=2).place(x=int(hlp.X*.01), y=int(hlp.Y*.27))
 
         #Submission button
+        Button(master, text='Configure', font="Helvetica 10 bold", command=self.CONF).place(x=int(hlp.X*.01), y=int(hlp.Y*.32))
         Button(master, text="Submit", font="Helvetica 10 bold", command=MFYcall, width=int(hlp.X*.0075)).place(x=int(hlp.X*.01), y=int(hlp.Y*.35))
 
         #Button to browse for file
@@ -288,10 +321,83 @@ class MFEGUI(Frame):
         scrl.pack(side=RIGHT, fill=Y)
         txt.place(x = int(hlp.X/12), y=int(hlp.Y*.025))
 
-#DOCO:Pop up window
-class POPWINDOW(Frame):
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-        self.master = master
-        #Left side
-        self.WINDOW(self.master)
+class outer_window(Frame):
+    def __init__(self):
+        self.master = Tk()
+
+        #Helpers variable
+        hlp = HELPERS(self.master)
+
+        self.metric_config(hlp)
+
+        self.title_creation(hlp)
+
+        txtBx = self.txtBx_creation(hlp)
+
+        clrBx = self.dropD_creation(hlp)
+
+        self.Submission(hlp, [txtBx, clrBx])
+
+        self.Var_Labeling(hlp)
+
+        self.Cancel(hlp)
+
+        self.master.mainloop()
+
+    def metric_config(self, hlp):
+        self.master.title("Configuration")
+        self.master.configure(height=int(hlp.X*.15), width=int(hlp.Y*.29))
+
+    def title_creation(self, hlp):
+        LVL = ['A < X', 'X <= A and A < Y', 'Y <= A']
+        for i in range(3):
+            Label(self.master, text='%s' % (LVL[i])).place(x=(hlp.X*.02), y=(hlp.Y*((i + .05)*(hlp.Y*.00003))+(hlp.Y*.027)))
+
+    def txtBx_creation(self, hlp):
+        txtBx = []
+        for i in range(2):
+            txtBx.append(None)
+            txtBx[i] = Entry(self.master, width=10)
+            txtBx[i].place(x=(hlp.X*.08)+(hlp.X*.0065), y=(hlp.Y*((i + 1) * .025))+(hlp.Y*.137))
+        return txtBx
+
+    def Var_Labeling(self, hlp):
+        Label(self.master, text='Amount').place(x=(hlp.X*.08)+(hlp.X*.0065), y=(hlp.Y*.137))
+        Label(self.master, text='A').place(x=(hlp.X*.02), y=(hlp.Y*((5 + .05)*(hlp.Y*.00002504))))
+        #First number
+        Label(self.master, text='X').place(x=(hlp.X*.02), y=(hlp.Y*((6 + .05)*(hlp.Y*.00002505))))
+        #VALUE
+        Label(self.master, text=str(hlp.mtrec[0])).place(x=(hlp.X*.07), y=(hlp.Y*((6 + .05)*(hlp.Y*.00002505))))
+        #Second number
+        Label(self.master, text='Y').place(x=(hlp.X*.02), y=(hlp.Y*((7 + .05)*(hlp.Y*.00002506))))
+        #VALUE
+        Label(self.master, text=str(hlp.mtrec[1])).place(x=(hlp.X*.07), y=(hlp.Y*((7 + .05)*(hlp.Y*.00002506))))
+
+    def dropD_creation(self, hlp):
+        clrBx = []
+        for i in range(3):
+            clrBx.append(None)
+            clrBx[i] = StringVar(self.master)
+            clrBx[i].set("%s" % (hlp.color[i]))
+
+            T = OptionMenu(self.master, clrBx[i], 'Red', 'Blue', 'Green', 'Orange', 'Yellow', 'Gray')
+            T.place(x=(hlp.X*.08) + 10, y=(hlp.Y*((i + .05)*(hlp.Y*.00003))+25))
+        return clrBx
+
+    def Submission(self, hlp, P):
+        Button(self.master, text='Done', command=lambda:self.write(P)).place(y=(hlp.Y*.225), x=(hlp.X*.01))
+
+    def Cancel(self, hlp):
+        Button(self.master, text='Cancel', command=self.destr).place(y=(hlp.Y*.225), x=(hlp.X*.05))
+
+    def destr(self):
+        self.master.destroy()
+
+    def write(self, P):
+        with open('color.conf', 'w') as FIL:
+            for i in range(len(P[0])):
+                FIL.write(str('%s,' % (P[0][i].get())))
+            for i in range(len(P[1])):
+                FIL.write(str('%s,' % (P[1][i].get())))
+
+        self.destr()
