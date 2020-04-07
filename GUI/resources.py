@@ -13,31 +13,42 @@ class HELPERS:
         self.master = master
         self.X = self.master.winfo_screenwidth()
         self.Y = self.master.winfo_screenheight()
+        #Width of main content textbox
         self.textBoxX = self.X/2
+        #Height of main content textbox
         self.textBoxY = self.Y/1.5
+        #Location to look for files needed to run MagnifEye GUI menu
         self.dirLocation = str(os.path.dirname(__file__)).split("MagnifEye")[0]+str('MagnifEye/')
+        #Default location that the browse window will be at
         self.filLocation = "/" + os.getcwd()
+        #Location of temporary file used to hold text needed to be ran through MagnifEye driver
         self.tmpLocation = self.dirLocation + "temP.txt"
         self.slFLocation = None
-        self.storage = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
-        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
-        self.dictList = ['ThNeedle', 'RedCheck', 'Comparison', 'DoCo']
+        #Storage of text in each string per the function
+        self.storage = {'ThNeedle':{}, 'RedCheck':{}}
+        #Storage of the index that each string has in given text document
+        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}}
+        #Each category for the content to be stored
+        self.dictList = ['ThNeedle', 'RedCheck']
         self.TXT_LST = []
+        #Default colors used for display
         self.color = ['green', 'blue', 'red']
+        #Default measurement values
         self.mtrec = [5, 10]
+        #
         self.colSet()
 
-
-
+    #Write text from box to temp document for analysis
     def tempWriter(self, x):
         file=open(self.tmpLocation, "w")
         file.write(x)
         file.close()
 
+    #Reset each variable after the runthrough of a single file
     def varReset(self):
         self.slFLocation = None
-        self.storage = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
-        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}, 'Comparison':{}, 'DoCo':{}}
+        self.storage = {'ThNeedle':{}, 'RedCheck':{}}
+        self.idxStrg = {'ThNeedle':{}, 'RedCheck':{}}
 
     def TXT_LSTBuild(self, x):
         TEMP = ""
@@ -55,39 +66,41 @@ class HELPERS:
                 LNG = 0
                 TEMP = ""
 
+    #Set up word-count measurements and colors
     def colSet(self):
         if Path(str('%s/color.conf' % (os.getcwd()))).is_file():
             with open(str('%s/color.conf' % (os.getcwd()))) as FIL:
                 FirstString = FIL.read()
-            LST = FirstString.split(',')
-            i = -1
-            while(i < len(LST)):
-                if LST[i] == '':
-                    LST.pop(i)
-                    i-=1
-                    continue
-                try:
-                    LST[i] = int(LST[i])
-                    i += 1
-                except ValueError:
-                    i += 1
-                    continue
-            i = 0
-            j = 0
-            while(i < len(LST)):
-                if isinstance(LST[i], str):
-                    self.color[j] = LST[i]
-                    j += 1
-                i+=1
-            i = 0
-            j = 0
-            while(i < len(LST)):
-                if isinstance(LST[i], int):
-                    self.mtrec[i] = LST[i]
-                    j += 1
-                i+=1
+            if FirstString != '':
+                LST = FirstString.split(',')
+                i = -1
+                while(i < len(LST)):
+                    if LST[i] == '':
+                        LST.pop(i)
+                        i-=1
+                        continue
+                    try:
+                        LST[i] = int(LST[i])
+                        i += 1
+                    except ValueError:
+                        i += 1
+                        continue
+                i = 0
+                j = 0
+                while(i < len(LST)):
+                    if isinstance(LST[i], str):
+                        self.color[j] = LST[i]
+                        j += 1
+                    i+=1
+                i = 0
+                j = 0
+                while(i < len(LST)):
+                    if isinstance(LST[i], int):
+                        self.mtrec[i] = LST[i]
+                        j += 1
+                    i+=1
 
-
+#MagnifEye GUI
 class MFEGUI(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
@@ -96,10 +109,11 @@ class MFEGUI(Frame):
         self.WINDOW(self.master)
         self.hlp = HELPERS(master=self.master)
 
+    #Configure menu
     def CONF(self):
-        self.hlp.colSet()
-        self.config_window = outer_window()
+        outer_window()
 
+    #Main window
     def WINDOW(self, master=None):
 
         #LEFT SIDE
@@ -136,6 +150,7 @@ class MFEGUI(Frame):
             else:
                 messagebox.showerror("ERROR", "No File Selected")
 
+        #Window used to browse for file to select
         def browseWindow():
             hlp.slFLocation = filedialog.askopenfilename(initialdir = hlp.filLocation,title = "Browsed file",filetypes = (("text files","*.txt"),))
             if(hlp.slFLocation != ()):
@@ -241,6 +256,7 @@ class MFEGUI(Frame):
 
         #String coloring
         def strColor():
+            hlp.colSet()
             count = -1
             for SECTION in hlp.idxStrg:
                 for strng in hlp.idxStrg[SECTION]:
@@ -283,7 +299,7 @@ class MFEGUI(Frame):
         profName.place(x=int(hlp.X*.01), y=int(hlp.Y*.025))
 
         #Program name set
-        progName = Label(master, text="MagnifEye v2.20.9", font="Helvetica 10 bold")
+        progName = Label(master, text="MagnifEye v2.20.10", font="Helvetica 10 bold")
         progName.pack()
         progName.place(x=int(hlp.X*.01), y=int(hlp.Y*.19))
 
@@ -321,6 +337,7 @@ class MFEGUI(Frame):
         scrl.pack(side=RIGHT, fill=Y)
         txt.place(x = int(hlp.X/12), y=int(hlp.Y*.025))
 
+#Pop up window that allows for configuration per the user
 class outer_window(Frame):
     def __init__(self):
         self.master = Tk()
@@ -344,15 +361,18 @@ class outer_window(Frame):
 
         self.master.mainloop()
 
+    #Dimensions of window
     def metric_config(self, hlp):
         self.master.title("Configuration")
         self.master.configure(height=int(hlp.X*.15), width=int(hlp.Y*.29))
 
+    #Algebra used to explain each field
     def title_creation(self, hlp):
         LVL = ['A < X', 'X <= A and A < Y', 'Y <= A']
         for i in range(3):
             Label(self.master, text='%s' % (LVL[i])).place(x=(hlp.X*.02), y=(hlp.Y*((i + .05)*(hlp.Y*.00003))+(hlp.Y*.027)))
 
+    #Make entry fields
     def txtBx_creation(self, hlp):
         txtBx = []
         for i in range(2):
@@ -361,6 +381,7 @@ class outer_window(Frame):
             txtBx[i].place(x=(hlp.X*.08)+(hlp.X*.0065), y=(hlp.Y*((i + 1) * .025))+(hlp.Y*.137))
         return txtBx
 
+    #Create labels for variables used to explain each entry field
     def Var_Labeling(self, hlp):
         Label(self.master, text='Amount').place(x=(hlp.X*.08)+(hlp.X*.0065), y=(hlp.Y*.137))
         Label(self.master, text='A').place(x=(hlp.X*.02), y=(hlp.Y*((5 + .05)*(hlp.Y*.00002504))))
@@ -373,6 +394,7 @@ class outer_window(Frame):
         #VALUE
         Label(self.master, text=str(hlp.mtrec[1])).place(x=(hlp.X*.07), y=(hlp.Y*((7 + .05)*(hlp.Y*.00002506))))
 
+    #Create dropdown menus
     def dropD_creation(self, hlp):
         clrBx = []
         for i in range(3):
@@ -385,18 +407,26 @@ class outer_window(Frame):
         return clrBx
 
     def Submission(self, hlp, P):
-        Button(self.master, text='Done', command=lambda:self.write(P)).place(y=(hlp.Y*.225), x=(hlp.X*.01))
+        Button(self.master, text='Done', command=lambda:self.write(P, hlp)).place(y=(hlp.Y*.225), x=(hlp.X*.01))
 
+    #Cancel new metric configuration
     def Cancel(self, hlp):
         Button(self.master, text='Cancel', command=self.destr).place(y=(hlp.Y*.225), x=(hlp.X*.05))
 
+    #Destroy new window
     def destr(self):
         self.master.destroy()
 
-    def write(self, P):
+    #Write metris to color.conf
+    def write(self, P, hlp):
         with open('color.conf', 'w') as FIL:
+            #Write numbers to file
             for i in range(len(P[0])):
-                FIL.write(str('%s,' % (P[0][i].get())))
+                if P[0][i].get() == '':
+                    FIL.write(str('%s,' % (hlp.mtrec[i])))
+                else:
+                    FIL.write(str('%s,' % (P[0][i].get())))
+            #Write colors to file
             for i in range(len(P[1])):
                 FIL.write(str('%s,' % (P[1][i].get())))
 
