@@ -25,17 +25,17 @@ int main(int argc, char* argv[]) {
 					std::printf("Usage:\nMagnifEye <options> <file>\n\n\n");
 					std::printf("[-h, --help][-c, --cli][-th, --thneedle][-red, --redcheck][-l, --legend][-w ,--WeBI ][-o ,--out-par ]\n\n\n");
 					std::printf("options:\n");
-					std::printf("\t-h,   --help        		\tDisplay this screen\n");
-					std::printf("\t-th,  --thneedle				\tDisplay similar words\n");
-					std::printf("\t-c,   --cli         		\tDisplay the CLI(Command Line Interface)\n");
-					std::printf("\t-red, --redcheck    		\tDisplay redundancy of phrases used in document\n");
-					std::printf("\t-dc,  --doc-com     		\tDisplay similar phrases and words upon two documents\n");
-					std::printf("\t-l,   --legend      		\tDisplay legend to understand color coding for\n\toutput\n");
-					std::printf("\t-w,   --webi        		\tDisplay information on a web interface\n");
-					std::printf("\t-o,   --out-par     		\tOutput info into parsed version\n");
-					std::printf("\t-raw, --raw-read:<T|S> \tRead from file raw input\n");
-					std::printf("\t\tT (default)					\t\"Thorough\" read of the file to compare words/phrases similar in characters, but display raw\n");
-					std::printf("\t\tS										\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
+					std::printf("\t-h,   --help\t\tDisplay this screen\n");
+					std::printf("\t-th,  --thneedle\tDisplay similar words\n");
+					std::printf("\t-c,   --cli\t\tDisplay the CLI(Command Line Interface)\n");
+					std::printf("\t-red, --redcheck\tDisplay redundancy of phrases used in document\n");
+					std::printf("\t-dc,  --doc-com\t\tDisplay similar phrases and words upon two documents\n");
+					std::printf("\t-l,   --legend\t\tDisplay legend to understand color coding for\n\toutput\n");
+					std::printf("\t-w,   --webi\t\tDisplay information on a web interface\n");
+					std::printf("\t-o,   --out-par\t\tOutput info into parsed version\n");
+					std::printf("\t-raw, --raw-read:<T|S>\tRead from file raw input\n");
+					std::printf("\t\tT (default)\t\"Thorough\" read of the file to compare words/phrases similar in characters, but display raw\n");
+					std::printf("\t\tS\t\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
 				}
 				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli"))
 					TF = true;
@@ -62,22 +62,20 @@ int main(int argc, char* argv[]) {
 						case 'T':
 						case 't':
 							th->opChc[5] = 1;
-							th->rawRead[0] = 1;
 							break;
 						case 'S':
 						case 's':
 							th->opChc[5] = 1;
-							th->rawRead[1] = 1;
+							th->rawRead = 1;
 							break;
 					}
 				}
 				if (!strcmp(argv[i], "--raw-read:T")){
 					th->opChc[5] = 1;
-					th->rawRead[0] = 1;
 				}
 				if (!strcmp(argv[i], "--raw-read:S")){
 					th->opChc[5] = 1;
-					th->rawRead[1] = 1;
+					th->rawRead = 1;
 				}
 			}
 			for (int i = 4; i >= 0; i--)
@@ -285,8 +283,6 @@ int main(int argc, char* argv[]) {
 		std::printf("\\\\           //\n");
 		std::printf("\n\n\n\n\nBy FlakeyKarma\n\n\n");
 		if(argc == 2) th->opChc[0] = 1;
-		if(!th->opChc[5]) th->rawRead[0] = 1;
-		//for(int i = 0; i < CHC_SIZE; i++) std::printf("%d \n", th->opChc[i]);
 		th->MagnifEye(argv[argc-1]);
 		std::printf("\n\n--=goodbye=--\n\n\n");
 		return 0;

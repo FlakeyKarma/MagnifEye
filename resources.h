@@ -21,7 +21,7 @@ class Complementary {
 		float progress = 0;
 		int chk = 0, numCheck = 0, prg = 0;
 		std::string loadBar, file0="", file1="", inptMain;
-		const std::string verz = "v2.20.9";
+		const std::string verz = "v2.21.9";
 		bool tw = false, th = false, prd = false, libUse;
 		~Complementary(){
 			if(!strThNeedle->empty())
@@ -98,5 +98,5 @@ class Complementary {
 
 			//Var setF
 				//ThNeedle, RedCheck, DoCo0, Doco1, WeBI, ParseData
-				bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead[2] = {0};
+				bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead = 0;
 };

@@ -41,6 +41,7 @@ std::vector<Complementary::set0> Complementary::ThNeedle(bool b){
   std::ifstream fil;
   std::string inptMain, inptTemp;
 	fil.open((b ? this->file1 : this->file0)+".txt");
+
   this->inptMain = "";
 	while (!fil.eof()) {
 		getline(fil, inptTemp);
@@ -333,19 +334,19 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 			for (long j = 0; j < a.size(); j++) {
 				if (a0.size() < a.size())
 					a0.push_back(0);
-        if(this->rawRead[0]){
+        if(!this->rawRead){
   				if (this->lower(s.at(i)) == this->lower(a.at(j))) {
   					a0.at(j)++;
   					SZ++;
-            if(!this->rawRead[1]) break;
+            if(this->rawRead) break;
   				}
           if (this->lower(s.at(i)) != this->lower(a.at(j)) && j == a.size() - 1) {
             a.push_back(s.at(i));
           }
         }
-        if(this->rawRead[1]){
+        if(!this->rawRead){
           if (s.at(i) == a.at(j)) {
-            if(!this->rawRead[0]){
+            if(this->rawRead){
               a0.at(j)++;
               SZ++;
             }
