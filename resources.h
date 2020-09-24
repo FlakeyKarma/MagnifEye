@@ -1,9 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <string.h>
 #include <vector>
 #include <variant>
+
+#include "string.h"
+#include "math.h"
+
 #define CHC_SIZE 6
 
 class Complementary {
@@ -19,10 +22,11 @@ class Complementary {
 					 *intComparison1 = new std::vector<long>(0), *intDoc0 = new std::vector<long>(500), *intDoc1 = new std::vector<long>(0);
 
 		float progress = 0;
-		int chk = 0, numCheck = 0, prg = 0;
+		int chk = 0, numCheck = 0, prg = 0, metricz[2] = {5,10};
 		std::string loadBar, file0="", file1="", inptMain;
-		const std::string verz = "v2.21.9";
-		bool tw = false, th = false, prd = false, libUse;
+		const std::string verz = "v2.24.9";
+		bool tw = 0, th = 0, prd = 0, libUse, removal_set = 0, delimeter_set = 0, param_bool[2] = {0};
+		char *removal = (char *)malloc(1), *delimeterz = (char *)malloc(1);
 		~Complementary(){
 			if(!strThNeedle->empty())
 				delete strThNeedle;
@@ -52,51 +56,60 @@ class Complementary {
 	public:
 		//Main functions
 
-			//ThNeedle function
-			std::vector<set0> ThNeedle(bool b);
+		//ThNeedle function
+		std::vector<set0> ThNeedle(bool b);
 
-			//RedCheck function
-				std::vector<set0> RedCheck(bool b);
+		//RedCheck function
+		std::vector<set0> RedCheck(bool b);
 
-			//DoCo function
-				void DoCo();
+		//DoCo function
+		void DoCo();
 
-			//WeBI function
-				void WeBI();
+		//WeBI function
+		void WeBI();
 
-			//MagnifEye function
-				void MagnifEye(std::string f);
+		//MagnifEye function 14
+		void MagnifEye(std::string f);
 
-			//Output
-				void outP();
+		//Output
+		void outP();
 
-			//Return functions
-				std::vector<std::string> wordReturn(std::string s);
-				std::vector<set0> SeNDe(std::vector<set0>);
-				std::vector<set0> nuMake(bool t, std::vector<std::string> s);
-				char * filIn();
-				bool GT1(std::string s);
-				bool GUD(std::string f);
-				std::string ver();
+		//Return functions
+		std::vector<std::string> wordReturn(std::string s);
+		std::vector<set0> SeNDe(std::vector<set0>);
+		std::vector<set0> nuMake(bool t, std::vector<std::string> s);
+		char * filIn();
+		bool GT1(std::string s);
+		bool GUD(std::string f);
+		std::string ver();
 
-			//Set functions
-				void setF(std::string s, bool b);
-				void TFswitch(bool t);
-				void setDownload();
+		//Set functions
+		void setF(std::string s, bool b);
+		void TFswitch(bool t);
+		void setDownload();
+		void removalSET(char *ary);
+			void removalCLI();
+			void removalCHK(char *c);
+		void delimeterSET(char *ary);
+			void delimeterCLI();
+			void delimeterCHK(char *c);
+		void metricSET(char *ary);
 
-			//Helper functions
-				void clr();
-				void pauz();
-				void progressBar(float x);
-				void rO(std::string s);
-				void data(bool a, bool b, bool c);
-				void mkFil();
-				void help();
-				void Downloadz();
-				void libInstl(std::string* s);
-				std::string lower(std::string s);
+		//Helper functions
+		void paramGetter(char *ary);
+		bool checkIfNum(char *num);
+		void clr();
+		void pauz();
+		void progressBar(float x);
+		void rO(std::string s);
+		void data(bool a, bool b, bool c);
+		void mkFil();
+		void help();
+		void Downloadz();
+		void libInstl(std::string* s);
+		std::string lower(std::string s);
 
-			//Var setF
-				//ThNeedle, RedCheck, DoCo0, Doco1, WeBI, ParseData
-				bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead = 0;
+		//Var setF
+		//ThNeedle, RedCheck, DoCo0, Doco1, WeBI, ParseData
+		bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead = 0, reverse = 0;
 };

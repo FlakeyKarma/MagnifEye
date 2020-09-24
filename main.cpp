@@ -17,30 +17,46 @@ int main(int argc, char* argv[]) {
 			for (int i = 1; i < (signed)argc; i++) {
 				if (!strcmp(argv[i], "-th") || !strcmp(argv[i], "--thneedle")){
 					th->opChc[0] = 1;
+					continue;
 				}
 				if (!strcmp(argv[i], "-o") || !strcmp(argv[i], "--out-par")){
 					th->opChc[4] = 1;
+					continue;
 				}
 				if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h")) {
 					std::printf("Usage:\nMagnifEye <options> <file>\n\n\n");
-					std::printf("[-h, --help][-c, --cli][-th, --thneedle][-red, --redcheck][-l, --legend][-w ,--WeBI ][-o ,--out-par ]\n\n\n");
+					std::printf("[-h, --help][-c, --cli][-th, --thneedle][-red, --redcheck][-l, --legend][-w ,--webi][-o ,--out-par ]\n\n\n");
 					std::printf("options:\n");
-					std::printf("\t-h,   --help\t\tDisplay this screen\n");
-					std::printf("\t-th,  --thneedle\tDisplay similar words\n");
-					std::printf("\t-c,   --cli\t\tDisplay the CLI(Command Line Interface)\n");
-					std::printf("\t-red, --redcheck\tDisplay redundancy of phrases used in document\n");
-					std::printf("\t-dc,  --doc-com\t\tDisplay similar phrases and words upon two documents\n");
-					std::printf("\t-l,   --legend\t\tDisplay legend to understand color coding for\n\toutput\n");
-					std::printf("\t-w,   --webi\t\tDisplay information on a web interface\n");
-					std::printf("\t-o,   --out-par\t\tOutput info into parsed version\n");
-					std::printf("\t-raw, --raw-read:<T|S>\tRead from file raw input\n");
-					std::printf("\t\tT (default)\t\"Thorough\" read of the file to compare words/phrases similar in characters, but display raw\n");
-					std::printf("\t\tS\t\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
+					std::printf("\tMain functions:\n");
+					std::printf("\t\t-th,  --thneedle\t\t\tDisplay similar words\n");
+					std::printf("\t\t-c,   --cli\t\t\t\tDisplay the CLI(Command Line Interface)\n");
+					std::printf("\t\t-red, --redcheck\t\t\tDisplay redundancy of phrases used in document\n");
+					std::printf("\t\t-dc,  --doc-com\t\t\t\tDisplay similar phrases and words upon two documents\n");
+					std::printf("\t\t-w,   --webi\t\t\t\tDisplay information on a web interface\n");
+					std::printf("\tMetric adjustments:\n");
+					std::printf("\t\t-o,   --out-par\t\t\t\tOutput info into parsed version\n");
+					std::printf("\t\t-raw, --raw-read <T|S>\t\t\tRead from file raw input\n");
+					std::printf("\t\t\tT (default)\t\t\t\"Thorough\" read of the file to compare words/phrases similar in characters, but display raw\n");
+					std::printf("\t\t\tS\t\t\t\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
+					std::printf("\t\t-d, 	--delimeter <a, b, 123, \\\", \\,>\tBy putting characters\n\t\t\t\t\t\t\tas portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters as\n\t\t\t\t\t\t\tpreset delimeters\n");
+					std::printf("\t\t-rem,--removal <a, b, 123, \\\", \\,>\tBy putting characters\n\t\t\t\t\t\t\tas portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters to\n\t\t\t\t\t\t\texclude from text\n");
+					std::printf("\t\t");
+					std::printf("\t\t-mn,	--measurement-number <2, 3, 4>\tThis will specify the number of occurrances that an entity will be measured");
+					std::printf("\tSorting:\n");
+					std::printf("\t\t-r,	--reverse\t\t\tspecifies if the output text will be reversed, with lowest to greatest.");
+					std::printf("\tOther:\n");
+					std::printf("\t\t-h,   --help\t\t\t\tDisplay this screen\n");
+					std::printf("\t\t-l,   --legend\t\t\t\tDisplay legend to display color coding legend for\n\t\t\t\t\t\t\toutput\n");
+					exit(0);
 				}
-				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli"))
+				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli")){
 					TF = true;
-				if (!strcmp(argv[i], "-red") || !strcmp(argv[i], "--redcheck"))
+					continue;
+				}
+				if (!strcmp(argv[i], "-red") || !strcmp(argv[i], "--redcheck")){
 					th->opChc[1] = 1;
+					continue;
+				}
 				if (!strcmp(argv[i], "-l") || !strcmp(argv[i], "--legend")){
 					std::printf("\n\t\t\tLegend\n\n");
 					std::printf("\t\e[92mGood\n\n");
@@ -49,14 +65,17 @@ int main(int argc, char* argv[]) {
 					std::printf("\tNeeds some adjustment because of multiple uses of\n\tsame words\n\n\n");
 					std::printf("\t\e[31mBad\n\n");
 					std::printf("\tNeeds adjustment, too many instances of this/these\n\tword(s)\e[0m\n");
+					continue;
 				}
 				if (!strcmp(argv[i], "-dc") || !strcmp(argv[i], "--doc-com")){
 					th->opChc[2] = 1;
+					continue;
 				}
 				if (!strcmp(argv[i], "-w") || !strcmp(argv[i], "--webi")){
 					th->opChc[4] = 1;
+					continue;
 				}
-				if (!strcmp(argv[i], "-raw")){
+				if (!strcmp(argv[i], "-raw") || !strcmp(argv[i], "--raw-read")){
 					i++;
 					switch(argv[i][0]){
 						case 'T':
@@ -69,18 +88,32 @@ int main(int argc, char* argv[]) {
 							th->rawRead = 1;
 							break;
 					}
+					continue;
 				}
-				if (!strcmp(argv[i], "--raw-read:T")){
-					th->opChc[5] = 1;
+				if (!strcmp(argv[i], "-rem") || !strcmp(argv[i], "--removal")){
+					i++;
+					th->removalSET(argv[i]);
+					continue;
 				}
-				if (!strcmp(argv[i], "--raw-read:S")){
-					th->opChc[5] = 1;
-					th->rawRead = 1;
+				if (!strcmp(argv[i], "-d") || !strcmp(argv[i], "--delimeter")){
+					i++;
+					th->delimeterSET(argv[i]);
+					continue;
+				}
+				if (!strcmp(argv[i], "-mn") || !strcmp(argv[i], "--measurement-number")){
+					i++;
+					th->metricSET(argv[i]);
+					continue;
+				}
+				if (!strcmp(argv[i], "-r") || !strcmp(argv[i], "--reverse-results")){
+					th->reverse = 1;
 				}
 			}
+			/*
 			for (int i = 4; i >= 0; i--)
 				inpt01[4-i] = argv[argc-1][strlen(argv[argc-1])-i];
 			inpt01[4] = '\0';
+			*/
 		}
 		//INTAKE:END
 		if (TF) {
@@ -271,8 +304,10 @@ int main(int argc, char* argv[]) {
 				inpt01[0] = '\0';
 			}
 		}
+		/*
 		if (strcmp(inpt01, ".txt") && !TF)
 			std::exit(0);
+		*/
 		std::printf("   \nMagnifEye %s\n", th->ver().c_str());
 		std::printf("//          \\\\\n");
 		std::printf("  //   _   \\\\\n");

@@ -39,8 +39,8 @@ void Complementary::MagnifEye(std::string file){
 
 std::vector<Complementary::set0> Complementary::ThNeedle(bool b){
   std::ifstream fil;
-  std::string inptMain, inptTemp;
-	fil.open((b ? this->file1 : this->file0)+".txt");
+  std::string inptTemp;
+	fil.open((b ? this->file1 : this->file0));
 
   this->inptMain = "";
 	while (!fil.eof()) {
@@ -307,7 +307,7 @@ void Complementary::WeBI(){
 //Set file name variables
 void Complementary::setF(std::string s, bool b){
   //std::printf("\n\n\tsetF\n\n");
-    for(int i = 0; i < s.length()-4; i++){
+    for(int i = 0; i < s.length(); i++){
       (!b ? this->file0 += s[i] : this->file1 += s[i]);
     }
   //std::printf("\n\n\t/setF\n\n");
@@ -334,27 +334,27 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 			for (long j = 0; j < a.size(); j++) {
 				if (a0.size() < a.size())
 					a0.push_back(0);
-        if(!this->rawRead){
-  				if (this->lower(s.at(i)) == this->lower(a.at(j))) {
-  					a0.at(j)++;
-  					SZ++;
-            if(this->rawRead) break;
-  				}
-          if (this->lower(s.at(i)) != this->lower(a.at(j)) && j == a.size() - 1) {
-            a.push_back(s.at(i));
-          }
-        }
-        if(!this->rawRead){
-          if (s.at(i) == a.at(j)) {
-            if(this->rawRead){
+        switch(this->rawRead){
+          //If the text being read must be verified by case and match
+          case 1:
+            if (s.at(i) == a.at(j)) {
               a0.at(j)++;
               SZ++;
             }
+            if (s.at(i) != a.at(j) && j == a.size() - 1) {
+              a.push_back(s.at(i));
+            }
             break;
-          }
-          if (s.at(i) != a.at(j) && j == a.size() - 1) {
-            a.push_back(s.at(i));
-          }
+          //If the text is just verified by match
+          case 0:
+            if (this->lower(s.at(i)) == this->lower(a.at(j))) {
+              a0.at(j)++;
+              SZ++;
+            }
+            if (this->lower(s.at(i)) != this->lower(a.at(j)) && j == a.size() - 1) {
+              a.push_back(s.at(i));
+            }
+            break;
         }
 			}
 		}
@@ -384,7 +384,7 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 //Breaks down full std::string into std::vector of all words
 std::vector<std::string> Complementary::wordReturn(std::string inpt){
   //std::printf("\n\n\twordReturn\n\n");
-    //Set progress bar percentage
+  //Set progress bar percentage
   if(!tw && !th)
 		prg = 5.0;
 	if(tw)
@@ -393,40 +393,82 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 		prg = 0.75;
 	std::string s = "";
 	std::vector<std::string> sS;
-    //Check if char is safe to use
-    for(long i = 0; i < inpt.length(); i++){
-        progressBar(float(1.0/inpt.length())*(prg*3));
-        if((int)inpt[i] >= 32){
-			if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1]) || (char)inpt[i] == '\'') {
-				s += inpt[i];
-			}
-			if((char)inpt[i] == '.' && !isalpha((char)inpt[i+1])){
-				sS.push_back("\\\\+==PERIOD==+//");
-				prd = true;
-			}
-			if(s != "" && s != " ")
-				if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !inpt.empty()|| (char)inpt[i] == '\t') {
-					if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
-						sS.pop_back();
-						sS.push_back(s);
-						sS.push_back("\\\\+==PERIOD==+//");
-					} else {
-						sS.push_back(s);
-					}
-				s = "";
-			}
-		}
+  //Check if char is safe to use
+  for(long i = 0; i < inpt.length(); i++){
+    progressBar(float(1.0/inpt.length())*(prg*3));
+    if(!this->removal_set && !this->delimeter_set){
+      this->removal[0] = '.';
+      if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1]) || (char)inpt[i] == '\'' || (int)inpt[i] >= 48 && (int)inpt[i] <= 57) {
+        s += inpt[i];
+      }
     }
-    //std::printf("\n\n\t/wordReturn\n\n");
-    return sS;
+    if(this->delimeter_set){
+      for(char j = 0; j < strlen(this->delimeterz); j++){
+        if((char)inpt[i] == this->delimeterz[j]){
+          break;
+        }
+        if(j == strlen(this->delimeterz)-1){
+
+          s += inpt[i];
+        }
+      }
+    }
+    if(this->removal_set){
+      for(char j = 0; j < strlen(this->removal); j++){
+        if((char)inpt[i] == this->removal[j]){
+          if(this->delimeter_set) s.erase(s.begin() + (s.length()-1));
+          break;
+        }
+        if(j == strlen(this->removal)-1 && !this->delimeter_set){
+            s += inpt[i];
+        }
+      }
+    }
+
+    for(char j = 0; j < strlen(this->removal); j++)
+      if((char)inpt[i] == this->removal[j] && !isalpha((char)inpt[i+1])){
+        sS.push_back("\\\\+==PERIOD==+//");
+        prd = true;
+      }
+  	if(s != "" && s != " "){
+      if(this->delimeter_set){
+        for(char j = 0; j < strlen(this->delimeterz); j++){
+          if(inpt[i] == this->delimeterz[j] || !isalpha((char)inpt[i+1])){
+            if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
+              sS.pop_back();
+            }
+            sS.push_back(s);
+            s = "";
+            break;
+          }
+        }
+      }else{
+        if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !inpt.empty()|| (char)inpt[i] == '\t') {
+          if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
+            sS.pop_back();
+            sS.push_back(s);
+            sS.push_back("\\\\+==PERIOD==+//");
+          } else {
+            sS.push_back(s);
+          }
+          s = "";
+          break;
+        }
+      }
+    }
+  }
+  //std::printf("\n\n\t/wordReturn\n\n");
+  return sS;
 }
 
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  (this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
-  if(this->CLI) this->opChc[4] = 1;
-  //W.open("temp.txt");
+  std::printf("CLI %d\n", this->CLI);
+  if(this->CLI){
+    this->opChc[4] = 1;
+    (this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
+  }
   std::string temp = "";
   this->tw = this->opChc[1];
   this->th = this->opChc[2];
@@ -445,22 +487,24 @@ void Complementary::outP(){
     }
     while (true) {
       SET = a0.at(i);
-      if(!this->opChc[4])
+      //if(a.at(i) != ""){
+        if(!this->opChc[4])
         std::printf("OUTPUT =| %ld | :\n", a0.at(i));
-      while (SET == a0.at(i)) {
-        if(a0.at(i) <= 5 && !this->opChc[4]){
-          std::printf("\e[92m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
-        }
-        if(a0.at(i) > 5 && a0.at(i) <= 10 && !this->opChc[4]){
-          std::printf("\e[93m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
-        }
-        if(a0.at(i) > 10 && !this->opChc[4]){
-          std::printf("\e[31m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
-        }
-        i++;
-        if (a0.size() <= i)
+        while (SET == a0.at(i)) {
+          if(a0.at(i) <= this->metricz[0] && !this->opChc[4]){
+            std::printf("\e[92m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
+          }
+          if(a0.at(i) > this->metricz[0] && a0.at(i) <= 10 && !this->opChc[4]){
+            std::printf("\e[93m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
+          }
+          if(a0.at(i) > this->metricz[1] && !this->opChc[4]){
+            std::printf("\e[31m%s%s\n \e[0m\n", SP.c_str(), a.at(i).c_str());
+          }
+          i++;
+          if (a0.size() <= i)
           break;
-      }
+        }
+      //}
       LENg++;
       if (LENg == a.size() || i >= a0.size())
         break;
@@ -1555,16 +1599,50 @@ void Complementary::TFswitch(bool t){
 	const char oArr[4] = "\xE2\x96\x91", iArr[4] = "\xE2\x96\x93", btn[4] = "\xE2\x96\x88";
 	std::string fll = "";
 	if(t){
-		fll += iArr;
-		fll += iArr;
+    fll += iArr;
+    fll += iArr;
 		fll += btn;
 		std::printf("%s\n", fll.c_str());
 	}else{
 		fll += btn;
-		fll += oArr;
-		fll += oArr;
+    fll += oArr;
+    fll += oArr;
 		std::printf("%s\n", fll.c_str());
 	}
+}
+
+void Complementary::removalSET(char *ary){
+  this->param_bool[0] = 0;
+  this->param_bool[1] = 0;
+  this->paramGetter(ary);
+  //exit(0);
+}
+
+//If there is a desired removal char set desired, then display TRUE and the character and it's ASCII value, in case it isn't human readable
+void Complementary::removalCLI(){
+
+}
+
+void Complementary::delimeterSET(char *ary){
+  this->param_bool[0] = 1;
+  this->param_bool[1] = 0;
+  this->delimeter_set = 1;
+  this->paramGetter(ary);
+  //exit(0);
+}
+
+//If there is a desired removal char set desired, then display TRUE and the character and it's ASCII value, in case it isn't human readable
+void Complementary::delimeterCLI(){
+
+}
+
+//Set the new metrics based on entered measurements
+void Complementary::metricSET(char *ary){
+  std::printf("MET\n\n");
+  this->param_bool[0] = 0;
+  this->param_bool[1] = 1;
+  this->paramGetter(ary);
+  std::printf("METZ %d %d\n", this->metricz[0], this->metricz[1]);
 }
 
 //Clear screen
@@ -1690,32 +1768,33 @@ std::string Complementary::ver(){
 }
 
 std::vector<Complementary::set0> Complementary::SeNDe(std::vector<Complementary::set0> T){
+
   //std::printf("\n\n\tSeNDe\n\n");
-    if(!tw && !th)
-		prg = 20.0;
-	if(tw)
-		prg = 10.0;
-	if(th)
-		prg = 6.67;
+  if(!tw && !th)
+    prg = 20.0;
+  if(tw)
+    prg = 10.0;
+  if(th)
+    prg = 6.67;
 
 	std::vector<std::string> a = T[0].str;
 	std::vector<long> a0 = T[0].lng;
-    //Bubble-Sort, largest long to rightmost position along with corresponding string
-	for (long i = 0; i < a.size()-1; i++) {
-		progressBar(float(1.0/a.size()*prg));
-		for (long j = i+1; j < a.size(); j++){
-			if (a0.at(i) > a0.at(j)) {
-				iter_swap(a.begin() + i, a.begin() + j);
-				iter_swap(a0.begin() + i, a0.begin() + j);
-			}
-		}
-	}
-    //Erasure of excess strings/period place-holders && corresponding longs
+
+  //Erasure of excess strings/period place-holders && corresponding longs
 	int w0 = 0, w1 = 0;
 	while (a.size() - 1 > w0) {
 		w1 = w0 + 1;
 		while (w1 < a.size()) {
-			if (a.at(w0) == a.at(w1) || a.at(w1) == "\\\\+==PERIOD==+//" || a0.at(w1) == 0 || a.at(w1) == " ") {
+      if (this->rawRead && a.at(w1) == "\\\\+==PERIOD==+//"){
+        a.erase(a.begin() + w1);
+        a0.erase(a0.begin() + w1);
+        //continue;
+      }
+			if ((this->rawRead ? a.at(w0) == a.at(w1) : this->lower(a.at(w0)) == this->lower(a.at(w1))) || a0.at(w1) == 0 || a.at(w1) == " ") {
+        if(a0.at(w1) > a0.at(w0)){
+          iter_swap(a.begin() + w0, a.begin() + w1);
+  				iter_swap(a0.begin() + w0, a0.begin() + w1);
+        }
 				a.erase(a.begin() + w1);
 				a0.erase(a0.begin() + w1);
 				w1--;
@@ -1724,6 +1803,18 @@ std::vector<Complementary::set0> Complementary::SeNDe(std::vector<Complementary:
 		}
 		w0++;
 	}
+
+  //Bubble-Sort, largest long to rightmost position along with corresponding string
+  if(!this->reverse)
+    for (long i = 0; i < a.size()-1; i++) {
+      progressBar(float(1.0/a.size()*prg));
+      for (long j = i+1; j < a.size(); j++){
+        if (a0.at(i) > a0.at(j)) {
+          iter_swap(a.begin() + i, a.begin() + j);
+          iter_swap(a0.begin() + i, a0.begin() + j);
+        }
+      }
+    }
   T[0].str = a;
   T[0].lng = a0;
   //std::printf("\n\n\t/SeNDe\n\n");
@@ -1756,4 +1847,89 @@ bool Complementary::GT1(std::string s){
 std::string Complementary::lower(std::string s){
   for(int i = 0; i < s.length(); i++) s[i] = tolower(s[i]);
   return s;
+}
+
+//Gets data as delimeters, characters to be removed, or metrics, parses it, then assigns the correct var
+//  with the correct data.
+void Complementary::paramGetter(char *ary){
+  bool MET_SET = 0;
+  char *word;
+  word = (char *)calloc(strlen(ary), '\0');
+  if(!this->param_bool[0] && !this->param_bool[1]){
+    this->removal_set = 1;
+    this->removal = (char *)calloc(strlen(ary), '\0');
+  }
+  for(char i = 0; i < strlen(ary); i++){
+
+    word[strlen(word)] = ary[i];
+
+    if(word[strlen(word)-1] == ',' || strlen(ary)-1 == i){
+      if(word[strlen(word)-1] == ',') word[strlen(word)-1] = '\0';
+      if(this->checkIfNum(word)){
+        switch(this->param_bool[0]){
+          case 0:
+            switch(this->param_bool[1]){
+              case 0:
+                this->removal[strlen(this->removal)] = atoi(word);
+                break;
+              case 1:
+                this->metricz[MET_SET] = atoi(word);
+                break;
+            }
+            break;
+          case 1:
+            switch(this->param_bool[1]){
+              case 0:
+                this->delimeterz[strlen(this->delimeterz)] = atoi(word);
+                break;
+              case 1:
+                break;
+            }
+            break;
+        }
+        MET_SET = !MET_SET;
+        word = (char *)calloc(strlen(ary), '\0');
+        continue;
+      } if(strlen(word) > 1 && !this->param_bool[0] && !this->param_bool[1]){
+        exit(1);
+      }
+      switch(this->param_bool[0]){
+        case 0:
+          switch(this->param_bool[1]){
+            case 0:
+              this->removal[strlen(this->removal)] = word[strlen(word)-1];
+              break;
+            case 1:
+              break;
+          }
+          break;
+        case 1:
+          switch(this->param_bool[1]){
+            case 0:
+              this->delimeterz[strlen(this->delimeterz)] = word[strlen(word)-1];
+              break;
+            case 1:
+              break;
+          }
+          break;
+      }
+      word = (char *)calloc(strlen(ary), '\0');
+    }
+  }
+  if(MET_SET && !this->param_bool[0] && this->param_bool[1]){
+    std::printf("Invalid option [Not Enough Numbers Set For metrics]\n");
+    exit(1);
+  }
+  if(this->metricz[0] >= this->metricz[1] && !this->param_bool[0] && this->param_bool[1]){
+    std::printf("Invalid option [First Number Greater Than or Equal To Second]: %d >= %d\n", this->metricz[0], this->metricz[1]);
+    exit(1);
+  }
+  if(!this->param_bool) this->removal[strlen(this->removal)] = '\0';
+}
+
+//If the collection is of digits, then return true, else return false
+bool Complementary::checkIfNum(char *num){
+  for(char i = 0; i < strlen(num); i++)
+    if(num[i] <= 47 || num[i] >= 58) return 0;
+  return 1;
 }
