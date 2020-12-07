@@ -464,7 +464,6 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  std::printf("CLI %d\n", this->CLI);
   if(this->CLI){
     this->opChc[4] = 1;
     (this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
@@ -487,6 +486,7 @@ void Complementary::outP(){
     }
     while (true) {
       SET = a0.at(i);
+
       //if(a.at(i) != ""){
         if(!this->opChc[4])
         std::printf("OUTPUT =| %ld | :\n", a0.at(i));
@@ -1638,11 +1638,11 @@ void Complementary::delimeterCLI(){
 
 //Set the new metrics based on entered measurements
 void Complementary::metricSET(char *ary){
-  std::printf("MET\n\n");
+  //std::printf("MET\n\n");
   this->param_bool[0] = 0;
   this->param_bool[1] = 1;
   this->paramGetter(ary);
-  std::printf("METZ %d %d\n", this->metricz[0], this->metricz[1]);
+  //std::printf("METZ %d %d\n", this->metricz[0], this->metricz[1]);
 }
 
 //Clear screen
@@ -1916,6 +1916,7 @@ void Complementary::paramGetter(char *ary){
       word = (char *)calloc(strlen(ary), '\0');
     }
   }
+
   if(MET_SET && !this->param_bool[0] && this->param_bool[1]){
     std::printf("Invalid option [Not Enough Numbers Set For metrics]\n");
     exit(1);
