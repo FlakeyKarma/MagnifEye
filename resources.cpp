@@ -334,7 +334,7 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 			for (long j = 0; j < a.size(); j++) {
 				if (a0.size() < a.size())
 					a0.push_back(0);
-        switch(this->rawRead){
+				switch(this->rawRead){
           //If the text being read must be verified by case and match
           case 1:
             if (s.at(i) == a.at(j)) {
@@ -385,7 +385,7 @@ std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::
 std::vector<std::string> Complementary::wordReturn(std::string inpt){
   //std::printf("\n\n\twordReturn\n\n");
   //Set progress bar percentage
-  if(!tw && !th)
+	if(!tw && !th)
 		prg = 5.0;
 	if(tw)
 		prg = 2.5;
@@ -452,7 +452,6 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
             sS.push_back(s);
           }
           s = "";
-          break;
         }
       }
     }
@@ -1781,14 +1780,14 @@ std::vector<Complementary::set0> Complementary::SeNDe(std::vector<Complementary:
 	std::vector<long> a0 = T[0].lng;
 
   //Erasure of excess strings/period place-holders && corresponding longs
-	int w0 = 0, w1 = 0;
+	int w0 = 0, w1;
 	while (a.size() - 1 > w0) {
 		w1 = w0 + 1;
 		while (w1 < a.size()) {
-      if (this->rawRead && a.at(w1) == "\\\\+==PERIOD==+//"){
+      if (a.at(w1) == "\\\\+==PERIOD==+//"){
         a.erase(a.begin() + w1);
         a0.erase(a0.begin() + w1);
-        //continue;
+        continue;
       }
 			if ((this->rawRead ? a.at(w0) == a.at(w1) : this->lower(a.at(w0)) == this->lower(a.at(w1))) || a0.at(w1) == 0 || a.at(w1) == " ") {
         if(a0.at(w1) > a0.at(w0)){

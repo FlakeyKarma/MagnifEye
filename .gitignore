@@ -6,3 +6,4 @@ GUI/local/
 GUI/include/
 GUI/bin/
 GUI/__pycache__/
+*.gch
