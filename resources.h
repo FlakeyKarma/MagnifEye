@@ -24,9 +24,11 @@ class Complementary {
 		float progress = 0;
 		int chk = 0, numCheck = 0, prg = 0, metricz[2] = {5,10};
 		std::string loadBar, file0="", file1="", inptMain;
-		const std::string verz = "v2.25.12";
-		bool tw = 0, th = 0, prd = 0, libUse, removal_set = 0, delimeter_set = 0, param_bool[2] = {0};
+		const std::string verz = "v2.26.12";
+		bool tw = 0, th = 0, prd = 0, libUse, exclude_set = 0, removal_set = 0, delimeter_set = 0, param_bool[2] = {0};
 		char *removal = (char *)malloc(1), *delimeterz = (char *)malloc(1);
+		std::vector<char *> *exclusionz;
+
 		~Complementary(){
 			if(!strThNeedle->empty())
 				delete strThNeedle;
@@ -87,16 +89,17 @@ class Complementary {
 		void setF(std::string s, bool b);
 		void TFswitch(bool t);
 		void setDownload();
+		void excludeSET(char *ary);
+			void excludeCLI();
 		void removalSET(char *ary);
 			void removalCLI();
-			void removalCHK(char *c);
 		void delimeterSET(char *ary);
 			void delimeterCLI();
-			void delimeterCHK(char *c);
 		void metricSET(char *ary);
 
 		//Helper functions
 		void paramGetter(char *ary);
+		void strGrab(char *ary);
 		bool checkIfNum(char *num);
 		void clr();
 		void pauz();

@@ -393,9 +393,11 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 		prg = 0.75;
 	std::string s = "";
 	std::vector<std::string> sS;
+  bool excluded = 0;
   //Check if char is safe to use
   for(long i = 0; i < inpt.length(); i++){
     progressBar(float(1.0/inpt.length())*(prg*3));
+    //Construction of the word itself
     if(!this->removal_set && !this->delimeter_set){
       this->removal[0] = '.';
       if ((char)inpt[i] != ' ' && isalpha(inpt[i]) || (char)inpt[i] == '-' || (char)inpt[i] == '.' && isalpha((char)inpt[i+1]) || (char)inpt[i] == '\'' || (int)inpt[i] >= 48 && (int)inpt[i] <= 57) {
@@ -443,7 +445,21 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
           }
         }
       }else{
+        //Where the fully constructed word is appended to vector
         if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !inpt.empty()|| (char)inpt[i] == '\t') {
+          if(this->exclude_set){
+            for(unsigned char j = 0; j < this->exclusionz->size(); j++){
+              if(!strcmp(s.c_str(), this->exclusionz->at(j))){
+                s = "";
+                excluded = 1;
+                break;
+              }
+            }
+            if(excluded){
+              excluded = 0;
+              continue;
+            }
+          }
           if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
             sS.pop_back();
             sS.push_back(s);
@@ -1608,6 +1624,17 @@ void Complementary::TFswitch(bool t){
 	}
 }
 
+void Complementary::excludeSET(char *ary){
+  this->param_bool[0] = 1;
+  this->param_bool[1] = 1;
+  this->exclude_set = 1;
+  this->strGrab(ary);
+}
+
+void Complementary::excludeCLI(){
+
+}
+
 void Complementary::removalSET(char *ary){
   this->param_bool[0] = 0;
   this->param_bool[1] = 0;
@@ -1844,6 +1871,33 @@ bool Complementary::GT1(std::string s){
 std::string Complementary::lower(std::string s){
   for(int i = 0; i < s.length(); i++) s[i] = tolower(s[i]);
   return s;
+}
+
+//Get strings from char array
+void Complementary::strGrab(char *ary){
+  //Comma is used to get the number of words to prep for
+  //word_length is used to select index for latest exclusionz word current char
+  //word_array_index is used to select index for latest exclusionz word
+  unsigned char comma = 1, word_length = 0, word_array_index = 0;
+  //Increment for number of commas
+  for(unsigned int i = 0; i < strlen(ary); i++) if(ary[i] == ',') comma++;
+  //Create vector with number of words delimited by commas
+  this->exclusionz = new std::vector<char *>(comma);
+
+  //Increment through each character in given array
+  for(unsigned int i = 0; i < strlen(ary); i++)
+    //Skip character if it is a space
+    if(ary[i] != ' '){
+      //If either this is the start of the loop or a comma is the current character
+      if(!i || ary[i] == ','){
+        //Initialize new char array of 64 in length
+        this->exclusionz->at(word_array_index++) = (char *)calloc('\0', 64);
+        //Set word length back to 0 for sake of char array indexing
+        word_length = 0;
+      }
+      //If char is not a comma then change newest char in scope selected by word_length as index to the current char
+      if(ary[i] != ',') this->exclusionz->at(word_array_index-1)[word_length++] = ary[i];
+    }
 }
 
 //Gets data as delimeters, characters to be removed, or metrics, parses it, then assigns the correct var
