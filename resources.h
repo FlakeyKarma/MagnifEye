@@ -24,7 +24,7 @@ class Complementary {
 		float progress = 0;
 		int chk = 0, numCheck = 0, prg = 0, metricz[2] = {5,10};
 		std::string loadBar, file0="", file1="", inptMain;
-		const std::string verz = "v2.25.11";
+		const std::string verz = "v2.25.12";
 		bool tw = 0, th = 0, prd = 0, libUse, removal_set = 0, delimeter_set = 0, param_bool[2] = {0};
 		char *removal = (char *)malloc(1), *delimeterz = (char *)malloc(1);
 		~Complementary(){
