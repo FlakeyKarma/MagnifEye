@@ -38,14 +38,14 @@ int main(int argc, char* argv[]) {
 					std::printf("\t\t-raw, --raw-read <T|S>\t\t\tRead from file raw input\n");
 					std::printf("\t\t\tT (default)\t\t\t\"Thorough\" read of the file to compare words/phrases similar in characters, but display raw\n");
 					std::printf("\t\t\tS\t\t\t\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
-					std::printf("\t\t-d, 	--delimeter <a, b, 123, \\\", \\,>\tBy putting characters\n\t\t\t\t\t\t\tas portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters as\n\t\t\t\t\t\t\tpreset delimeters\n");
-					std::printf("\t\t-rem,--removal <a, b, 123, \\\", \\,>\tBy putting characters\n\t\t\t\t\t\t\tas portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters to\n\t\t\t\t\t\t\texclude from text\n");
+					std::printf("\t\t-d, 	--delimeter <a, b, 123, \\\", \\,>\tBy putting characters as portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters as preset delimeters\n");
+					std::printf("\t\t-rem,--removal <a, b, 123, \\\", \\,>\tBy putting characters as portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters to exclude from text\n");
 					std::printf("\t\t-mn,	--measurement-number <2, 3, 4>\tThis will specify the number of occurrances that an entity will be measured");
 					std::printf("\tSorting:\n");
 					std::printf("\t\t-r,	--reverse\t\t\tspecifies if the output text will be reversed, with lowest to greatest.");
 					std::printf("\tOther:\n");
 					std::printf("\t\t-h,   --help\t\t\t\tDisplay this screen\n");
-					std::printf("\t\t-l,   --legend\t\t\t\tDisplay legend to display color coding legend for\n\t\t\t\t\t\t\toutput\n");
+					std::printf("\t\t-l,   --legend\t\t\t\tDisplay legend to display color coding legend for output\n");
 					exit(0);
 				}
 				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli")){
