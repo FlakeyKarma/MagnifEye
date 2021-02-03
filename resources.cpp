@@ -463,10 +463,8 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  if(this->CLI){
-    this->opChc[4] = 1;
-    (this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
-  }
+  if(this->opChc[4])(this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
+  //this->opChc[4] = this->CLI;
   std::string temp = "";
   this->tw = this->opChc[1];
   this->th = this->opChc[2];
