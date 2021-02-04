@@ -8,6 +8,9 @@ void Complementary::MagnifEye(std::string file){
   std::ifstream fil;
   bool pass = 0;
 
+  this->setPath((char *)"/");
+  this->mkPath();
+
 	if(GUD(file)){
     fil.close();
     this->setF(file, 0);
@@ -41,6 +44,7 @@ std::vector<Complementary::set0> Complementary::ThNeedle(bool b){
   std::ifstream fil;
   std::string inptTemp;
 	fil.open((b ? this->file1 : this->file0));
+
 
   this->inptMain = "";
 	while (!fil.eof()) {
@@ -313,6 +317,59 @@ void Complementary::setF(std::string s, bool b){
   //std::printf("\n\n\t/setF\n\n");
 }
 
+//Set new path
+void Complementary::setPath(char *ary){
+  char *NAME = (char *)malloc(16);
+  getlogin_r(NAME, 16);
+  std::sprintf(this->etc_path, _HDN_PATH_, NAME);
+  for(char i = 0; i < strlen(ary); i++) this->etc_path[strlen(this->etc_path)] = ary[i];
+}
+
+//Get new path
+char *Complementary::getPath(char *ary){
+  char *temp_file = (char *)malloc(strlen(this->etc_path) + strlen(ary));
+  strcpy(temp_file, this->etc_path);
+  strcat(temp_file, ary);
+  temp_file[strlen(temp_file)] = '\0';
+  return temp_file;
+}
+
+//Create new hidden dir
+void Complementary::mkPath(){
+  char *root_path_cmd = (char *)malloc(255),\
+        *magz_path_cmd = (char *)malloc(255),\
+        *temp_path = (char *)malloc(_HDN_LENG_ + _HDN_LENG_EXT_);
+  //First, check if the first-layer directory exists in user's home directory
+  this->setPath((char *)"/");
+  std::system("echo '#!/bin/bash' > mkPath.sh");
+  std::system("chmod a+x mkPath.sh");
+  std::sprintf(root_path_cmd, "echo 'mkdir \"%s.HIDDEN/\" 2>/dev/null' >> mkPath.sh", this->etc_path);
+  if(!this->checkPath(root_path_cmd)) std::system(root_path_cmd);
+  //Next, check if data-dir exists for user
+  std::sprintf(temp_path, "echo 'mkdir \"%s.HIDDEN/%s\" 2>/dev/null' >> mkPath.sh", this->etc_path, _DIR_NAME_);
+  std::sprintf(magz_path_cmd, "%s\0", temp_path);
+  if(!this->checkPath(magz_path_cmd)) std::system(magz_path_cmd);
+  //Execute script
+  //std::system("echo 'Running script...'");
+  std::system("./mkPath.sh");
+  std::system("rm mkPath.sh");
+  //std::system("echo 'Done running script...'");
+  //Finally, just set base dir to the combination of both the root dir for hidden data and for MagnifEye configz
+  std::sprintf(this->etc_path, "%s.HIDDEN/%s/", this->etc_path, _DIR_NAME_);
+}
+
+//Props to Ingo Leonhardt on Stack Overflow (https://stackoverflow.com/questions/18100097/portable-way-to-check-if-directory-exists-windows-linux-c)
+bool Complementary::checkPath(char *path){
+  struct stat dir_info;
+  //No access (or no present dir)
+  if(stat(path, &dir_info)) return 0;
+  //Present dir
+  //else if(dir_info.st_mode & S_IFDIR) return 1;
+  return 1;
+  //No present dir
+  //else return 0;
+}
+
 //Counts instances of each word
 std::vector<Complementary::set0> Complementary::nuMake(bool t, std::vector<std::string> s){
   //std::printf("\n\n\tnuMake\n\n");
@@ -479,7 +536,7 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  if(this->opChc[4])(this->CLI ? W.open("temp.txt", std::ios_base::app) : W.open("temp.txt"));
+  if(this->opChc[4])(this->CLI ? W.open(this->getPath((char *)"temp.txt"), std::ios_base::app) : W.open(this->getPath((char *)"temp.txt")));
   //this->opChc[4] = this->CLI;
   std::string temp = "";
   this->tw = this->opChc[1];
@@ -943,13 +1000,13 @@ void Complementary::data(bool a, bool b, bool c){
 	std::ofstream f0;
 	std::string fil, inpt = "", Wfl = "start ", Lfl = "firefox ", LFilr = "filr.sh", WFilr = "filr.bat", bse, jsFil;
 	if(libUse){
-		f0.open("wrdz.json");
+		f0.open(this->getPath((char *)"wrdz.json"));
 		Wfl += "10.0.0.185:8000";
 		Lfl += "10.0.0.185:8000";
 		jsFil += "{";
 	} else {
 		//Javascript for displaying information on WeBI, but as a bar-generator
-		f0.open("graphicOut.js");
+		f0.open(this->getPath((char *)"graphicOut.js"));
 		jsFil = "function mkBar(doc, xPos, yPos, w, h, id){\n\
     var c = doc.getElementById(id);\n\
     c.width = w;\n\
@@ -1232,7 +1289,7 @@ void Complementary::mkFil(){
   //std::printf("\n\n\tmkFil\n\n");
 	std::ofstream f;
 	//HTML for page's structure
-	f.open("index.html");
+	f.open(this->getPath((char *)"index.html"));
 	f << "<!DOCTYPE html>\n\
 <html lang=\"en\">\n\
     <head>\n\
@@ -1315,7 +1372,7 @@ void Complementary::mkFil(){
 </html>";
 	f.close();
 	//Styles for page
-	f.open("style.css");
+	f.open(this->getPath((char *)"style.css"));
 	f << "#dropdown {\n\
   display: none;\n\
   background: lightgrey;\n\
@@ -1376,7 +1433,7 @@ li {\n\
 	f.close();
 	if(libUse){
 		//Javascript for use with library dependencies
-		f.open("graphicOut.js");
+		f.open(this->getPath((char *)"graphicOut.js"));
 		f << "function mkBar(doc, xPos, yPos, w, h, id){\n\
 		var c = doc.getElementById(id);\n\
 		c.width = w;\n\
@@ -1736,7 +1793,7 @@ void Complementary::setDownload(){
   //std::printf("\n\n\tsetDownload\n\n");
 	char answer, FIN = 0;
 	std::ofstream fil;
-	fil.open("downloadTF.txt");
+	fil.open(this->getPath((char *)"downloadTF.txt"));
 	std::printf("Would you like to download Node.JS, NPM, and http-server? [y/n]\n");
 	#ifdef _WIN32
 		std::printf("I will automatically add this to your path as well.\n");
