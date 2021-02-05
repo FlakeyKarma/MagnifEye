@@ -450,7 +450,7 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 		prg = 0.75;
 	std::string s = "";
 	std::vector<std::string> sS;
-  bool excluded = 0;
+  bool excluded = 0, included = 0;
   //Check if char is safe to use
   for(long i = 0; i < inpt.length(); i++){
     progressBar(float(1.0/inpt.length())*(prg*3));
@@ -504,9 +504,14 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
       }else{
         //Where the fully constructed word is appended to vector
         if ((char)inpt[i] == '\\' || (char)inpt[i] == '/'||(char)inpt[i] == ':' && !isalpha((char)inpt[i])||(char)inpt[i] == ' ' && i != 0 && !isalpha((char)inpt[i]) && !inpt.empty()|| (char)inpt[i] == '\t') {
-          if(this->exclude_set){
+          if(!this->include_set && !this->exclude_set && sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
+            sS.pop_back();
+            sS.push_back(s);
+            sS.push_back("\\\\+==PERIOD==+//");
+          }
+          else if(this->exclude_set){
             for(unsigned char j = 0; j < this->exclusionz->size(); j++){
-              if(!strcmp(s.c_str(), this->exclusionz->at(j))){
+              if(!strcmp((this->rawRead?this->lower(s):s).c_str(), this->exclusionz->at(j))){
                 s = "";
                 excluded = 1;
                 break;
@@ -517,10 +522,19 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
               continue;
             }
           }
-          if(sS.size() > 0 && sS.at(sS.size()-1) == "\\\\+==PERIOD==+//"){
-            sS.pop_back();
-            sS.push_back(s);
-            sS.push_back("\\\\+==PERIOD==+//");
+          else if(this->include_set){
+            for(char inc = 0; inc < this->inclusionz->size(); inc++){
+              if(!strcmp((this->rawRead?this->lower(this->inclusionz->at(inc)).c_str():this->inclusionz->at(inc)), (this->rawRead?this->lower(s):s).c_str())){
+                sS.push_back((this->rawRead?this->lower(s):s));
+                s = "";
+                included = 1;
+                break;
+              }
+            }
+            if(included){
+              included = 0;
+              continue;
+            }
           } else {
             sS.push_back(s);
           }
@@ -1682,6 +1696,10 @@ void Complementary::TFswitch(bool t){
 }
 
 void Complementary::excludeSET(char *ary){
+  if(this->include_set){
+    std::printf("Error: Include all ready set.\n");
+    exit(-1);
+  }
   this->param_bool[0] = 1;
   this->param_bool[1] = 1;
   this->exclude_set = 1;
@@ -1690,6 +1708,17 @@ void Complementary::excludeSET(char *ary){
 
 void Complementary::excludeCLI(){
 
+}
+
+void Complementary::includeSET(char *ary){
+  if(this->exclude_set){
+    std::printf("Error: Exclude all ready set.\n");
+    exit(-1);
+  }
+  this->param_bool[0] = 1;
+  this->param_bool[1] = 1;
+  this->include_set = 1;
+  this->strGrab(ary);
 }
 
 void Complementary::removalSET(char *ary){
@@ -1939,8 +1968,8 @@ void Complementary::strGrab(char *ary){
   //Increment for number of commas
   for(unsigned int i = 0; i < strlen(ary); i++) if(ary[i] == ',') comma++;
   //Create vector with number of words delimited by commas
-  this->exclusionz = new std::vector<char *>(comma);
-
+  if(this->exclude_set) this->exclusionz = new std::vector<char *>(comma);
+  if(this->include_set) this->inclusionz = new std::vector<char *>(comma);
   //Increment through each character in given array
   for(unsigned int i = 0; i < strlen(ary); i++)
     //Skip character if it is a space
@@ -1948,12 +1977,16 @@ void Complementary::strGrab(char *ary){
       //If either this is the start of the loop or a comma is the current character
       if(!i || ary[i] == ','){
         //Initialize new char array of 64 in length
-        this->exclusionz->at(word_array_index++) = (char *)calloc('\0', 64);
+        if(this->exclude_set) this->exclusionz->at(word_array_index++) = (char *)calloc('\0', 64);
+        else this->inclusionz->at(word_array_index++) = (char *)calloc('\0', 64);
         //Set word length back to 0 for sake of char array indexing
         word_length = 0;
       }
       //If char is not a comma then change newest char in scope selected by word_length as index to the current char
-      if(ary[i] != ',') this->exclusionz->at(word_array_index-1)[word_length++] = ary[i];
+      if(ary[i] != ','){
+        if(this->exclude_set) this->exclusionz->at(word_array_index-1)[word_length++] = ary[i];
+        else this->inclusionz->at(word_array_index-1)[word_length++] = ary[i];
+      }
     }
 }
 

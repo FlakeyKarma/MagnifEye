@@ -100,6 +100,11 @@ int main(int argc, char* argv[]) {
 					th->excludeSET(argv[i]);
 					continue;
 				}
+				if (!strcmp(argv[i], "-inc")||!strcmp(argv[i], "--include")){
+					i++;
+					th->includeSET(argv[i]);
+					continue;
+				}
 				if (!strcmp(argv[i], "-d") || !strcmp(argv[i], "--delimeter")){
 					i++;
 					th->delimeterSET(argv[i]);
