@@ -9,7 +9,8 @@ void Complementary::MagnifEye(std::string file){
   bool pass = 0;
 
   this->setPath((char *)"/");
-  this->mkPath();
+
+  if(!this->custom_path) this->mkPath();
 
 	if(GUD(file)){
     fil.close();
@@ -321,8 +322,12 @@ void Complementary::setF(std::string s, bool b){
 void Complementary::setPath(char *ary){
   char *NAME = (char *)malloc(16);
   getlogin_r(NAME, 16);
-  std::sprintf(this->etc_path, _HDN_PATH_, NAME);
-  for(char i = 0; i < strlen(ary); i++) this->etc_path[strlen(this->etc_path)] = ary[i];
+  if(this->custom_path){
+      strcpy(this->etc_path, (char *)"./");
+  } else {
+    std::sprintf(this->etc_path, _HDN_PATH_, NAME);
+    for(char i = 0; i < strlen(ary); i++) this->etc_path[strlen(this->etc_path)] = ary[i];
+  }
 }
 
 //Get new path
@@ -550,7 +555,7 @@ std::vector<std::string> Complementary::wordReturn(std::string inpt){
 //Information output
 void Complementary::outP(){
   std::ofstream W;
-  if(this->opChc[4])(this->CLI ? W.open(this->getPath((char *)"temp.txt"), std::ios_base::app) : W.open(this->getPath((char *)"temp.txt")));
+  if(this->opChc[4])(this->CLI ? W.open(this->getPath((char *)"temp.txt"), std::ios_base::app) : W.open(this->getPath((char *)"temp.txt"), std::ios_base::app));
   //this->opChc[4] = this->CLI;
   std::string temp = "";
   this->tw = this->opChc[1];
@@ -977,6 +982,7 @@ void Complementary::outP(){
     this->data(&this->opChc[0], &this->opChc[1], &this->opChc[2]);
   }
   W.close();
+  std::printf("Output written to %s", this->getPath((char *)"temp.txt"));
   //std::printf("\n\nTh %ld -- %ld", this->strThNeedle->size(), this->intThNeedle->size());
   //std::printf("\n\nRC %ld -- %ld\n", this->strRedCheck->size(), this->intRedCheck->size());
   //std::printf("\n\nC0 %ld -- %ld\n", this->strComparison0->size(), this->intComparison0->size());

@@ -23,6 +23,11 @@ int main(int argc, char* argv[]) {
 					th->opChc[4] = 1;
 					continue;
 				}
+				if (!strcmp(argv[i], "-lo")||!strcmp(argv[i], "--local-save")){
+					th->opChc[4] = 1;
+					th->custom_path = 1;
+					continue;
+				}
 				if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h")) {
 					std::printf("Usage:\nMagnifEye <options> <file>\n\n\n");
 					std::printf("[-h, --help][-c, --cli][-th, --thneedle][-red, --redcheck][-l, --legend][-w ,--webi][-o ,--out-par ]\n\n\n");
@@ -40,14 +45,15 @@ int main(int argc, char* argv[]) {
 					std::printf("\t\t\tS\t\t\t\t\"Skim\" the file to compare words/phrases similar in case and characters\n");
 					std::printf("\t\t-d, 	--delimeter <a, b, 123, \\\", \\,>\tBy putting characters as portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters as preset delimeters\n");
 					std::printf("\t\t-rem,--removal <a, b, 123, \\\", \\,>\tBy putting characters as portrayed (yes, even non-readable characters as numbers), you can set a list of 1+ characters to exclude from text\n");
-					std::printf("\t\t-exc,--exclude \"lorem,ipsum,etc\"\tExclude comma-delimited words put in quotes from analysis");
-					std::printf("\t\t-inc,--include \"lorem,ipsum,etc\"\tInclude comma-delimited words put in quotes from analysis");
-					std::printf("\t\t-mn,	--measurement-number <2, 3, 4>\tThis will specify the number of occurrances that an entity will be measured");
+					std::printf("\t\t-exc,--exclude \"lorem,ipsum,etc\"\tExclude comma-delimited words put in quotes from analysis\n");
+					std::printf("\t\t-inc,--include \"lorem,ipsum,etc\"\tInclude comma-delimited words put in quotes from analysis\n");
+					std::printf("\t\t-mn,	--measurement-number <2, 3, 4>\tThis will specify the number of occurrances that an entity will be measured\n");
 					std::printf("\tSorting:\n");
 					std::printf("\t\t-r,	--reverse\t\t\tspecifies if the output text will be reversed, with lowest to greatest.");
 					std::printf("\tOther:\n");
 					std::printf("\t\t-h,   --help\t\t\t\tDisplay this screen\n");
 					std::printf("\t\t-l,   --legend\t\t\t\tDisplay legend to display color coding legend for output\n");
+					std::printf("\t\t-lo,  --local-save\t\t\tAutomatically run --out-par option and save it locally\n");
 					exit(0);
 				}
 				if (!strcmp(argv[i], "-c") || !strcmp(argv[i], "--cli")){

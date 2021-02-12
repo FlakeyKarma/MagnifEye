@@ -35,7 +35,7 @@ class Complementary {
 		float progress = 0;
 		int chk = 0, numCheck = 0, prg = 0, metricz[2] = {5,10};
 		std::string loadBar, file0="", file1="", inptMain;
-		const std::string verz = "v2.28.12";
+		const std::string verz = "v2.29.13";
 		bool tw = 0, th = 0, prd = 0, libUse, exclude_set = 0, include_set = 0, removal_set = 0, delimeter_set = 0, param_bool[2] = {0};
 		char *removal = (char *)malloc(1), *delimeterz = (char *)malloc(1), *etc_path = (char *)malloc(_HDN_LENG_ + _HDN_LENG_EXT_);
 		std::vector<char *> *exclusionz, *inclusionz;
@@ -136,5 +136,5 @@ class Complementary {
 
 		//Var setF
 		//ThNeedle, RedCheck, DoCo0, Doco1, WeBI, ParseData
-		bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead = 0, reverse = 0;
+		bool opChc[CHC_SIZE] = {0}, CLI = 0, rawRead = 0, reverse = 0,  custom_path = 0;
 };
